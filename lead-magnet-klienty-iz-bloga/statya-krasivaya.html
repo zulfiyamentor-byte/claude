@@ -1,0 +1,550 @@
+<title>Клиенты из маленького блога</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prata&family=Golos+Text:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: одна колонка для чтения ~65 знаков; широкие вставки (цепочка, модель, тарифы) выходят шире колонки */
+:root{
+  --bg:#F7F4F8;        /* бумага с лёгким сиреневым оттенком */
+  --surface:#EEE7F1;   /* подложка вставок */
+  --ink:#271B2E;       /* текст */
+  --muted:#6B5A72;     /* вторичный текст */
+  --line:#DCCFE2;      /* линии */
+  --berry:#9A2758;     /* акцент: дверь, кнопки */
+  --berry-soft:#F5DDE7;
+  --sage:#2F6B57;      /* «да», прогресс */
+  --sage-soft:#DCEDE5;
+  --display:"Prata", Georgia, "Times New Roman", serif;
+  --body:"Golos Text", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#17111B;--surface:#221A28;--ink:#F1E9F4;--muted:#B5A5BC;--line:#3A2E42;
+  --berry:#E0779F;--berry-soft:#3A1E2C;--sage:#7CC3A6;--sage-soft:#1D3229;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#17111B;--surface:#221A28;--ink:#F1E9F4;--muted:#B5A5BC;--line:#3A2E42;
+  --berry:#E0779F;--berry-soft:#3A1E2C;--sage:#7CC3A6;--sage-soft:#1D3229;color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.65;padding-inline:16px;padding-block:0 64px}
+.wrap{max-width:680px;margin:0 auto}
+.wide{max-width:920px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;line-height:1.15;margin:0}
+h2{font-size:clamp(28px,4.4vw,38px)}
+h3{font-size:clamp(22px,3vw,26px)}
+p{margin:0}
+.flow{display:flex;flex-direction:column;gap:18px}
+section{padding-block:56px 0}
+em{font-style:italic}
+strong{font-weight:600}
+a{color:var(--berry)}
+:focus-visible{outline:3px solid var(--berry);outline-offset:3px;border-radius:6px}
+
+.draft{max-width:920px;margin:16px auto 0;font-size:14px;color:var(--muted);border:1px dashed var(--line);border-radius:10px;padding:10px 14px;line-height:1.5}
+.ph{display:inline-block;font-size:13px;letter-spacing:.04em;color:var(--muted);border:1px dashed var(--line);border-radius:6px;padding:1px 8px;vertical-align:middle;white-space:nowrap}
+
+/* HERO */
+.hero{padding-block:48px 8px}
+.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.hero h1{font-size:clamp(36px,6.4vw,62px);margin-top:14px}
+.hero .sub{font-size:clamp(19px,2.4vw,22px);color:var(--muted);margin-top:18px;max-width:34em}
+.for{font-size:15px;color:var(--muted);margin-top:14px}
+
+.proof{display:grid;grid-template-columns:auto 1fr;gap:22px 28px;align-items:center;margin-top:40px;padding:28px;border-radius:20px;background:var(--surface)}
+.proof .num{font-family:var(--display);font-size:clamp(64px,10vw,96px);line-height:.9;color:var(--berry);font-variant-numeric:tabular-nums}
+.proof .num small{display:block;font-family:var(--body);font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.proof .txt{min-width:0}
+.belief{margin-top:32px;border-left:3px solid var(--berry);padding-left:20px}
+.belief .myth{font-family:var(--display);font-size:clamp(22px,3vw,28px);text-decoration:line-through;text-decoration-color:var(--berry);text-decoration-thickness:2px}
+.belief .truth{margin-top:10px;font-size:20px}
+.me{font-size:16px;color:var(--muted);border-top:1px solid var(--line);padding-top:18px}
+
+/* DOOR */
+.door-scene{display:grid;grid-template-columns:200px 1fr;gap:32px;align-items:center}
+.door-scene svg{width:100%;height:auto}
+.pains{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+.pains li{padding:14px 18px;background:var(--surface);border-radius:12px}
+.quote{font-family:var(--display);font-size:clamp(22px,3vw,27px);line-height:1.35}
+.quote cite{display:block;font-family:var(--body);font-style:normal;font-size:14px;color:var(--muted);margin-top:8px}
+.key{font-family:var(--display);font-size:clamp(23px,3.2vw,29px);line-height:1.35;padding:26px 0;border-block:1px solid var(--line)}
+.key b{color:var(--berry);font-weight:400}
+
+.check{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+.check li{display:grid;grid-template-columns:22px 1fr;gap:12px}
+.check li::before{content:"";width:16px;height:16px;margin-top:6px;border:2px solid var(--berry);border-radius:50%}
+.wrong{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:10px}
+.wrong li{padding:14px 16px;border:1px solid var(--line);border-radius:12px;font-size:16px}
+.wrong li b{display:block;font-weight:600;margin-bottom:2px}
+
+/* CHAIN */
+.chain{margin-top:8px;padding:28px;border-radius:20px;background:var(--ink);color:var(--bg)}
+.chain h3{color:var(--bg)}
+.steps{list-style:none;padding:0;margin:22px 0 0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;counter-reset:s}
+.steps li{position:relative;padding:14px 12px;border-radius:12px;background:color-mix(in srgb,var(--bg) 10%,transparent);font-size:15px;line-height:1.3}
+.steps li .t{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.7;margin-bottom:6px}
+.steps li.buy{background:var(--berry);color:#fff}
+.engine{margin-top:12px;padding:12px 14px;border:1px dashed color-mix(in srgb,var(--bg) 40%,transparent);border-radius:12px;font-size:15px}
+.chain p.note{margin-top:16px;font-size:16px;opacity:.85}
+
+/* PRIEMY */
+.priem{display:grid;grid-template-columns:72px 1fr;gap:20px;padding-block:28px;border-top:1px solid var(--line)}
+.priem .n{font-family:var(--display);font-size:56px;line-height:1;color:var(--berry)}
+.priem .body{min-width:0;display:flex;flex-direction:column;gap:12px}
+.priem .stage{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.lbl{font-weight:600}
+.ba{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:stretch;font-size:16px}
+.ba div{padding:12px 14px;border-radius:12px}
+.ba .was{background:var(--surface);color:var(--muted);text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--muted) 60%,transparent)}
+.ba .now{background:var(--berry-soft)}
+.ba .arr{align-self:center;color:var(--berry);font-size:20px}
+.step{background:var(--sage-soft);border-radius:12px;padding:14px 16px}
+.step .lbl{color:var(--sage)}
+.case{font-size:16px;color:var(--muted);border-left:2px solid var(--line);padding-left:14px}
+.more{font-size:15px;color:var(--muted)}
+.more b{color:var(--ink);font-weight:600}
+
+/* MODEL */
+.model{padding:28px;border-radius:20px;background:var(--surface)}
+.funnel{list-style:none;padding:0;margin:22px 0 0;display:flex;flex-direction:column;gap:8px}
+.funnel li{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:center}
+.funnel .v{font-family:var(--display);font-size:30px;text-align:right;font-variant-numeric:tabular-nums;color:var(--berry)}
+.funnel .bar{height:40px;border-radius:10px;background:var(--berry-soft);display:flex;align-items:center;padding-inline:14px;font-size:15px;min-width:0}
+.result{margin-top:22px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:baseline}
+.result .big{font-family:var(--display);font-size:clamp(36px,6vw,52px);color:var(--berry)}
+.disclaimer{margin-top:14px;font-size:16px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 26px;border-radius:999px;background:var(--berry);color:#fff;text-decoration:none;font-weight:600;font-size:17px;border:0;cursor:pointer;font-family:var(--body)}
+.btn.ghost{background:transparent;color:var(--berry);border:2px solid var(--berry)}
+.cta{display:flex;justify-content:center;padding-top:28px}
+
+.why{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.why li{padding-left:28px;position:relative}
+.why li::before{content:"";position:absolute;left:4px;top:11px;width:10px;height:10px;border-radius:50%;background:var(--sage)}
+
+.faq{display:flex;flex-direction:column;gap:8px}
+.faq details{border:1px solid var(--line);border-radius:14px;padding:4px 18px;background:var(--bg)}
+.faq summary{cursor:pointer;list-style:none;padding:14px 0;font-family:var(--display);font-size:20px;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--berry);font-family:var(--body);font-size:24px;line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq details p{padding-bottom:16px}
+
+.cases{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}
+.cs{padding:22px;border-radius:16px;background:var(--surface);display:flex;flex-direction:column;gap:10px}
+.cs .who{font-weight:600}
+.cs .fig{font-family:var(--display);font-size:30px;color:var(--berry);line-height:1.1}
+.cs p{font-size:16px}
+
+.about{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr));gap:12px}
+.about div{border-top:2px solid var(--berry);padding-top:10px;font-size:15px;color:var(--muted)}
+.about b{display:block;font-family:var(--display);font-weight:400;font-size:30px;color:var(--ink);font-variant-numeric:tabular-nums}
+
+/* SELF-CHECK */
+.sc{padding:28px;border-radius:20px;border:2px solid var(--berry);scroll-margin-top:16px}
+.qs{list-style:none;padding:0;margin:20px 0 0;display:flex;flex-direction:column;gap:12px;counter-reset:q}
+.qs li{display:grid;grid-template-columns:1fr auto;gap:12px 18px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);counter-increment:q}
+.qs li > span{min-width:0}
+.qs li > span::before{content:counter(q)". ";font-weight:600;color:var(--berry)}
+.qs li small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+.yn{display:flex;gap:6px}
+.yn button{font-family:var(--body);font-size:15px;font-weight:600;padding:8px 16px;border-radius:999px;border:1.5px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+.yn button[aria-pressed="true"].y{background:var(--sage);border-color:var(--sage);color:var(--bg)}
+.yn button[aria-pressed="true"].n{background:var(--berry);border-color:var(--berry);color:#fff}
+.verdict{margin-top:22px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.verdict div{padding:16px;border-radius:14px;background:var(--surface);font-size:15px;opacity:.55;transition:opacity .2s,transform .2s}
+.verdict div b{display:block;font-family:var(--display);font-weight:400;font-size:24px;margin-bottom:4px}
+.verdict div .rec{display:block;margin-top:8px;font-weight:600;color:var(--berry)}
+.verdict div.on{opacity:1;background:var(--berry-soft);transform:translateY(-2px)}
+.counter{margin-top:16px;font-size:16px;color:var(--muted)}
+.counter b{color:var(--ink)}
+
+/* PRICING */
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;align-items:start}
+.plan{padding:26px;border-radius:20px;border:1px solid var(--line);display:flex;flex-direction:column;gap:14px;background:var(--bg)}
+.plan.main{border:2px solid var(--berry);background:var(--berry-soft)}
+.plan .tag{font-size:13px;color:var(--berry);font-weight:600}
+.plan h3{font-size:26px}
+.plan .price{font-family:var(--display);font-size:44px;line-height:1;font-variant-numeric:tabular-nums}
+.plan ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:16px}
+.plan ul ul{margin-top:6px}
+.plan .who{font-size:15px;color:var(--muted)}
+.sep{border:0;border-top:1px solid var(--line);margin:0}
+.calc{font-size:15px;display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-variant-numeric:tabular-nums}
+.calc .tot{font-weight:600;border-top:1px solid var(--line);padding-top:4px}
+.plan .btn{width:100%}
+.timer{text-align:center;font-size:16px;color:var(--muted)}
+.timer b{color:var(--berry)}
+
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:12px}
+.two div{padding:22px;border-radius:16px;border:1px solid var(--line)}
+.two div:last-child{border-color:var(--sage);background:var(--sage-soft)}
+.two b{display:block;font-family:var(--display);font-weight:400;font-size:22px;margin-bottom:8px}
+.sign{font-family:var(--display);font-size:24px}
+.ps{font-size:16px;padding:20px;border-radius:16px;background:var(--surface)}
+.legal{font-size:12px;color:var(--muted)}
+
+@media (max-width:720px){
+  body{font-size:17px}
+  .steps{grid-template-columns:1fr}
+  .door-scene{grid-template-columns:1fr}
+  .door-scene svg{max-width:180px}
+  .proof{grid-template-columns:1fr;padding:22px}
+  .priem{grid-template-columns:1fr;gap:6px}
+  .priem .n{font-size:40px}
+  .ba{grid-template-columns:1fr}
+  .ba .arr{justify-self:center;transform:rotate(90deg)}
+  .funnel li{grid-template-columns:72px 1fr;gap:10px}
+  .funnel .v{font-size:24px}
+  .qs li{grid-template-columns:1fr}
+  .verdict{grid-template-columns:1fr}
+  .chain,.model,.sc{padding:20px}
+}
+</style>
+
+<div class="draft">Черновик для просмотра. Пунктирные пометки — места, куда вставить ссылки и скриншоты.</div>
+
+<header class="wrap hero">
+  <div class="eyebrow">Подарок по слову КЛИЕНТЫ · 12–14 минут</div>
+  <h1>5 приёмов, которые превращают маленький блог в источник клиентов</h1>
+  <p class="sub">Как получать заявки, даже если в блоге 100–300 подписчиков — без рекламы, ежедневных сторис и навязчивых продаж</p>
+  <p class="for">Для экспертов и специалистов частной практики: психологов, коучей, энергопрактиков, наставников, нутрициологов, маркетологов.</p>
+
+  <div class="proof">
+    <div class="num">120<small>подписчиков</small></div>
+    <div class="txt flow">
+      <p><strong>Столько было у моей ученицы Светланы.</strong> Дизайнер состояний, работала в найме. Мы скорректировали нишу и сделали контент тёплым — подписчики сами начали писать: <em>«Где ты так круто упаковалась?»</em></p>
+      <p>Через <strong>7 дней</strong> после изменений — первая продажа. Потом Светлана ушла с работы. <span class="ph">скрин</span></p>
+    </div>
+    <div class="num">230<small>подписчиков</small></div>
+    <div class="txt"><p>Столько было у меня в Telegram, когда я заработала <strong>свой первый миллион</strong>.</p></div>
+  </div>
+
+  <div class="belief">
+    <p class="eyebrow">Убеждение, которое хочу развеять</p>
+    <p class="myth">«Сначала наберу аудиторию — потом начну продавать»</p>
+    <p class="truth">Не обязательно. Сначала блогу нужна <strong>дорога от читателя к покупке</strong>.</p>
+  </div>
+</header>
+
+<div class="wrap flow" style="margin-top:28px">
+  <p>А у вас сколько подписчиков? 500? 1 000? 3 000? И сколько из них написали вам за последний месяц?</p>
+  <p class="me">Я Зульфия Ментор, архитектор системных продаж. Через мою работу прошли 500+ экспертов, мои ученики заработали 40+ млн ₽, 13 стали миллионерами. Но здесь покажу не теорию, а пять конкретных мест, где блог теряет клиентов.</p>
+</div>
+
+<section class="wrap flow">
+  <div class="door-scene">
+    <svg viewBox="0 0 200 220" role="img" aria-label="Витрина кафе без двери">
+      <rect x="10" y="40" width="180" height="170" rx="6" fill="var(--surface)" stroke="var(--line)" stroke-width="2"/>
+      <path d="M4 40 L100 8 L196 40 Z" fill="var(--berry)"/>
+      <rect x="28" y="70" width="144" height="90" rx="4" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/>
+      <circle cx="62" cy="128" r="14" fill="var(--berry-soft)" stroke="var(--berry)" stroke-width="2"/>
+      <circle cx="100" cy="128" r="14" fill="var(--berry-soft)" stroke="var(--berry)" stroke-width="2"/>
+      <circle cx="138" cy="128" r="14" fill="var(--berry-soft)" stroke="var(--berry)" stroke-width="2"/>
+      <line x1="28" y1="145" x2="172" y2="145" stroke="var(--line)" stroke-width="2"/>
+      <rect x="10" y="176" width="180" height="34" fill="var(--surface)"/>
+      <text x="100" y="198" text-anchor="middle" font-family="Golos Text, sans-serif" font-size="13" fill="var(--muted)">двери нет</text>
+    </svg>
+    <div class="flow">
+      <h2>Красивая витрина без двери</h2>
+      <p>Представьте кафе. Внутри уютно, пахнет корицей, за стеклом — лучшие пирожные в городе. Люди останавливаются, смотрят, кто-то даже фотографирует витрину.</p>
+      <p>И уходят. Потому что <strong>у кафе нет двери.</strong></p>
+    </div>
+  </div>
+  <p>Так выглядит блог большинства экспертов, с которыми я работаю. Знаний — на троих. Посты — глубокие и честные. А дороги от «прочитал» до «записался» нет. Узнаёте?</p>
+  <ul class="pains">
+    <li>Вы час пишете пост — пять лайков: два от коллег, один от мамы.</li>
+    <li>Открываете запись — тишина. Пишете «осталось 2 места», хотя мест 10, и вам самой от этого неловко.</li>
+    <li>Человек пишет в личку, вы отвечаете на три экрана — он отвечает «спасибо, подумаю» и пропадает навсегда.</li>
+    <li>Клиенты приходят только по сарафану. Месяц густо, месяц пусто.</li>
+    <li>Вы прошли не одно обучение. Тетрадь с конспектами есть, а внедрить так и не получилось.</li>
+  </ul>
+  <p class="quote">«Серой мышкой с огромным масштабом внутри, о котором никто не знает»<cite>— так это описала одна моя ученица</cite></p>
+  <p>И самое обидное: прямо сейчас есть люди, которым нужна именно ваша помощь. Они готовы заплатить. Они даже видят ваши посты. Но не находят двери — и покупают у того, у кого она есть. Часто у специалиста слабее вас.</p>
+  <p>Дело не только в количестве подписчиков. А часто — вообще не в нём. Бывает, что эксперт с 30 000 подписчиков зарабатывает меньше того, у кого 300. Потому что у второго есть дверь.</p>
+</section>
+
+<section class="wrap flow">
+  <h2>Про вас ли эта статья</h2>
+  <p>Она точно для вас, если:</p>
+  <ul class="check">
+    <li>вы регулярно что-то публикуете, но не можете сказать, сколько клиентов принёс вам блог за месяц;</li>
+    <li>вам неловко продавать — и вы скорее промолчите, чем «впаривать»;</li>
+    <li>после каждого поста ждёте, что кто-нибудь напишет, — а пишут единицы;</li>
+    <li>в личке объясняете, советуете, помогаете бесплатно — а до оплаты доходят редко;</li>
+    <li>вы устали от обучений, после которых остаётся чувство «со мной что-то не так»;</li>
+    <li>вы хотите продавать <strong>с любовью и заботой</strong>, а не через страх и дожим.</li>
+  </ul>
+  <p style="color:var(--muted)">А вот если у вас нет экспертизы, вы не готовы ничего публиковать и ждёте кнопку «клиенты сами» — эта статья не поможет. Волшебной кнопки нет. Есть дверь, которую нужно построить.</p>
+</section>
+
+<section class="wrap flow">
+  <h2>Что обычно делают эксперты — и почему это не работает</h2>
+  <ul class="wrong">
+    <li><b>Ещё одно обучение</b>«наверное, я чего-то не знаю»</li>
+    <li><b>Больше постов</b>«наверное, мало контента»</li>
+    <li><b>Гонка за охватами</b>50 000 просмотров и ни одной заявки</li>
+    <li><b>Снижают цену</b>«наверное, дорого»</li>
+    <li><b>Бесплатные консультации</b>на три экрана — человек не возвращается</li>
+    <li><b>Автоворонка на 30 шагов</b>тонут в технике и бросают</li>
+    <li><b>Ждут</b>«вот наберу 5 000 подписчиков…»</li>
+  </ul>
+  <p>Итог почти всегда один: работы больше, усталости больше, а клиентов не прибавилось. Ольга, моя ученица, говорила: <em>«Тело протестовало: накопилась усталость из-за постоянных обучений»</em>.</p>
+  <p class="key">Проблема не в том, что вы мало знаете или мало работаете. <b>Проблема в разорванной цепочке: пост есть — дороги к покупке нет.</b></p>
+</section>
+
+<section class="wide flow">
+  <div class="chain">
+    <p class="eyebrow" style="color:inherit;opacity:.7">Механизм</p>
+    <h3 style="font-size:clamp(26px,4vw,36px);margin-top:6px">Цепочка «Пост → Покупка»</h3>
+    <p class="note">Клиент не прыгает от «впервые увидел ваш пост» к «купил консультацию за 15 000 ₽». Четыре приёма ведут его по пути:</p>
+    <ol class="steps">
+      <li><span class="t">Приём 1</span>остановился</li>
+      <li><span class="t">Приём 2</span>узнал себя</li>
+      <li><span class="t">Приём 3</span>сделал первый шаг</li>
+      <li><span class="t">Приём 4</span>поговорил с вами</li>
+      <li class="buy"><span class="t">Дверь</span>купил</li>
+    </ol>
+    <p class="engine">⚙️ <strong>Приём 5 — двигатель:</strong> чтобы этот путь работал не случайно, а каждую неделю.</p>
+    <p class="note">Если хотя бы одно звено порвано — человек выпадает. Неважно, сколько у вас подписчиков. Цепочку сначала собирают, а потом улучшают по цифрам — и контент начинает вести человека по одному понятному маршруту.</p>
+  </div>
+</section>
+
+<section class="wrap">
+  <article class="priem">
+    <div class="n">1</div>
+    <div class="body">
+      <p class="stage">Звено «остановился»</p>
+      <h3>«Сцена вместо темы»</h3>
+      <p><span class="lbl">Что сломано.</span> У вас 1–3 секунды. «Сегодня поговорим о границах» не останавливает. Останавливает сцена, в которой человек видит свою жизнь.</p>
+      <div class="ba"><div class="was">Важность личных границ</div><span class="arr" aria-hidden="true">→</span><div class="now">Сказала «нет» маме — и впервые за год выспалась</div></div>
+      <p class="step"><span class="lbl">Первый шаг сегодня · 10 минут.</span> Перепишите первую строку последнего поста: вместо темы — сцена.</p>
+      <p class="case">Людмила, нутрициолог, опубликовала пост по формуле — и получила заявку через 2 часа. От холодной аудитории.</p>
+      <p class="more">В гайде — <b>10 формул заголовков</b> и <b>6 правил сильного хука</b>.</p>
+    </div>
+  </article>
+  <article class="priem">
+    <div class="n">2</div>
+    <div class="body">
+      <p class="stage">Звено «узнал себя»</p>
+      <h3>«Слова клиента»</h3>
+      <p><span class="lbl">Что сломано.</span> Человек остановился — и наткнулся на слова эксперта. Клиент не ищет «проработку денежных блоков» — он ночью думает: <em>«Почему я опять согласилась работать за копейки?»</em> Не узнал себя — пролистал.</p>
+      <div class="ba"><div class="was">Сепарация от родителей</div><span class="arr" aria-hidden="true">→</span><div class="now">Почему после звонка маме у меня испорчен весь вечер</div></div>
+      <p class="step"><span class="lbl">Первый шаг сегодня · 15 минут.</span> Вспомните 3 последних клиентов. Как они описали проблему на первой встрече — дословно? Запишите. Это ваши новые заголовки и первые строки.</p>
+      <p class="case">Анна Зарицкая, энергопрактик, называла это <em>«перевести с энергетического на русский»</em>. Её канал вырос с 43 до 1 500 подписчиков.</p>
+    </div>
+  </article>
+  <article class="priem">
+    <div class="n">3</div>
+    <div class="body">
+      <p class="stage">Звено «сделал первый шаг»</p>
+      <h3>«Подарок за слово»</h3>
+      <p><span class="lbl">Что сломано.</span> У читателя выбор: ничего не делать или сразу купить консультацию у человека, которого он видит второй раз. Он выбирает «ничего». Нет маленького бесплатного шага.</p>
+      <div class="ba"><div class="was">Если интересно — пишите</div><span class="arr" aria-hidden="true">→</span><div class="now">Напишите ТИШИНА — пришлю практику на 7 минут для тех, кто не может уснуть от мыслей</div></div>
+      <p class="step"><span class="lbl">Первый шаг сегодня · 20 минут.</span> Придумайте подарок на 10–15 минут, который решает одну узкую задачу. Добавьте в конец следующего поста: «Напишите СЛОВО — пришлю».</p>
+      <p class="case">Участница моего Клуба за 2 недели поменяла закреп и сделала цепочку постов с подарком: <em>«Теперь почти с каждого поста идут заявки!»</em> Записи на диагностику — на неделю вперёд. <span class="ph">скрин</span></p>
+      <p class="more">А вы сейчас читаете ровно такой подарок: написали слово КЛИЕНТЫ — и вот мы разговариваем.</p>
+    </div>
+  </article>
+  <article class="priem">
+    <div class="n">4</div>
+    <div class="body">
+      <p class="stage">Звено «поговорил с вами»</p>
+      <h3>«Вопрос раньше цены»</h3>
+      <p><span class="lbl">Что сломано.</span> Человек написал — и получил прайс, бесплатную консультацию на три экрана или «если что — пишите». Последнее — не приглашение, а прощание.</p>
+      <div class="ba"><div class="was">Консультация стоит 5 000 ₽, записывайтесь</div><span class="arr" aria-hidden="true">→</span><div class="now">А что для вас сейчас самое сложное в этом?</div></div>
+      <p class="step"><span class="lbl">Первый шаг сегодня · 5 минут.</span> В следующей переписке задайте вопрос раньше совета и цены. И просто выслушайте.</p>
+      <p class="case">На этом построен мой скрипт продаж в переписке — с конверсией 70%. Без давления: человек сам рассказывает, что ему нужно, а вы просто предлагаете это.</p>
+      <p class="more">В гайде — <b>скелет переписки из 5 шагов</b>: от первого «здравствуйте» до оплаты.</p>
+    </div>
+  </article>
+  <article class="priem">
+    <div class="n">5</div>
+    <div class="body">
+      <p class="stage">Двигатель цепочки</p>
+      <h3>«3 публикации и 1 цифра»</h3>
+      <p><span class="lbl">Что сломано.</span> Неделя вдохновения — потом тишина. Подписчики не успевают привыкнуть, а вы не видите, что работает.</p>
+      <p class="step"><span class="lbl">Первый шаг сегодня · 10 минут.</span> Запишите 3 темы на следующую неделю. И заведите одну цифру: сколько человек написали вам за неделю. Каждую пятницу записывайте её.</p>
+      <p class="case"><em>«В потоке прикольно всё делать, но когда есть план — это вообще круто»</em>, — написала ученица Наталья.</p>
+    </div>
+  </article>
+</section>
+
+<section class="wide">
+  <div class="model">
+    <p class="eyebrow">Модель, а не прогноз</p>
+    <h2 style="margin-top:6px">Давайте посчитаем</h2>
+    <p style="margin-top:12px">Представим блог на 300 подписчиков и три публикации в неделю.</p>
+    <ol class="funnel">
+      <li><span class="v">90</span><span class="bar" style="width:100%">человек увидели один пост</span></li>
+      <li><span class="v">9</span><span class="bar" style="width:72%">диалогов в неделю — с каждого поста всего 3 попросили подарок</span></li>
+      <li><span class="v">36</span><span class="bar" style="width:52%">диалогов в месяц</span></li>
+      <li><span class="v">3–4</span><span class="bar" style="width:34%">клиента — если купит только каждый десятый</span></li>
+    </ol>
+    <div class="result"><span class="big">45–60 тыс. ₽</span><span>в месяц при среднем чеке 15 000 ₽</span></div>
+    <p class="disclaimer">Это не обещание, что именно такие цифры получите вы. Это показывает другое: <strong>для продаж маленькому блогу вовсе не обязательно сначала становиться большим.</strong></p>
+    <p class="disclaimer" style="color:var(--muted)">А теперь вспомните, сколько клиентов дал ваш блог за прошлый месяц. Разница между этими двумя цифрами — и есть цена разорванной цепочки.</p>
+    <div class="cta"><a class="btn" href="#samoproverka">Проверить, где рвётся моя цепочка ↓</a></div>
+  </div>
+</section>
+
+<section class="wrap flow">
+  <h2>Почему это работает — даже если вы не умеете продавать</h2>
+  <p>Человек покупает не потому, что его «дожали». Он покупает, когда по дороге получил всё, что ему нужно:</p>
+  <ul class="why">
+    <li>узнал себя в проблеме;</li>
+    <li>понял, почему то, что он пробовал раньше, не сработало;</li>
+    <li>получил от вас маленький результат бесплатно — и поверил, что вы можете помочь;</li>
+    <li>поговорил с вами, и вы спросили о нём, а не о своём прайсе;</li>
+    <li>увидел понятный следующий шаг.</li>
+  </ul>
+  <p>Это не прогрев на три месяца. Это путь, который человек может пройти за пару дней. <strong>Продажа становится продолжением заботы</strong>, а не отдельным неловким действием.</p>
+  <p class="quote">«Я радуюсь, когда эксперт очень экспертный и при этом продаёт нативно, не заставляя людей… У вас же совсем наоборот»<cite>— ученица</cite></p>
+</section>
+
+<section class="wrap flow">
+  <h2>«А если у меня не получится?»</h2>
+  <div class="faq">
+    <details open><summary>«У меня слишком маленький блог»</summary><p>У Светланы было 120 подписчиков, у меня — 230, у Анны — 43. Цепочке не нужны тысячи. Ей нужны звенья.</p></details>
+    <details><summary>«Я не умею и не хочу продавать»</summary><p>И не нужно «продавать» в привычном смысле. Нужно задать вопрос раньше цены. Это умеет каждый, кто хоть раз проводил консультацию.</p></details>
+    <details><summary>«Я с техникой как маугли»</summary><p>Так о себе говорила одна из моих учениц. Поэтому в гайде — 15 промптов для нейросети, которые пишут тексты за вас, а в Клубе можно принести свою ситуацию на живой разбор.</p></details>
+    <details><summary>«Моя тема не для соцсетей»</summary><p>Энергопрактика, целительство, работа с состояниями — «тонкие» ниши продают так же, если перевести их на язык клиента. Анна Зарицкая — энергопрактик, Светлана — дизайнер состояний.</p></details>
+    <details><summary>«У меня нет времени»</summary><p>3 публикации в неделю и одна цифра по пятницам. Это меньше, чем вы сейчас тратите на ежедневные сторис.</p></details>
+    <details><summary>«Я уже столько обучений прошла — и не внедрила»</summary><p>Это не с вами что-то не так. Сопротивление, страх техники, «третью неделю тяну» — нормальная реакция на слишком большой объём. Поэтому работают маленькие шаги и человек рядом, который не даст бросить на середине.</p></details>
+  </div>
+</section>
+
+<section class="wide flow">
+  <div class="wrap flow" style="margin:0 auto">
+    <h2>Что получают мои ученики, когда мы выстраиваем систему продаж целиком</h2>
+    <p>Пять приёмов — это начало. Когда к ним добавляются позиционирование, продуктовая линейка и регулярная работа, результаты становятся такими:</p>
+  </div>
+  <div class="cases">
+    <div class="cs"><span class="who">Наталья Ярыгина</span><span class="fig">570 000 ₽<br>за 5 месяцев</span><p>Врач и психолог из Германии. Было: 100–300 € в месяц, канала нет. Завели канал с нуля. <span class="ph">скрин</span></p></div>
+    <div class="cs"><span class="who">Ольга Сапунова</span><span class="fig">545 650 ₽<br>за 1,5 месяца</span><p>Первые 2 месяца без продаж, <em>«убегала от себя»</em>. Распаковка, канал, эфиры, линейка — больше, чем за весь прошлый год. <span class="ph">скрин</span></p></div>
+    <div class="cs"><span class="who">Ольга Катриора</span><span class="fig">×16<br>окупила Клуб</span><p>Зашла по гостевому тарифу и стала одной из моих миллионеров: <em>«Заявки летят каждый час. Хоть посты не пиши»</em>. <span class="ph">скрин</span></p></div>
+  </div>
+</section>
+
+<section class="wrap flow">
+  <h2>Кто я</h2>
+  <p>Зульфия Ментор, архитектор системных продаж. Ученицы пишут, что я объясняю <em>«чётко, по полочкам, без воды»</em>. Продаю с любовью и заботой — и учу этому. Без давления и без «осталось 2 места» каждый день.</p>
+  <div class="about">
+    <div><b>10 лет</b>в онлайн-бизнесе, 5 — в маркетинге</div>
+    <div><b>24 года</b>в образовании, кандидат наук, доцент</div>
+    <div><b>1000+</b>консультаций</div>
+  </div>
+</section>
+
+<section class="wide">
+  <div class="sc" id="samoproverka">
+    <p class="eyebrow">2 минуты</p>
+    <h2 style="margin-top:6px">Самопроверка: где рвётся ваша цепочка</h2>
+    <p style="margin-top:10px">Ответьте честно «да» или «нет» — внизу появится рекомендация.</p>
+    <ol class="qs" id="qs">
+      <li><span>Вы бы сами остановились на первой строке пяти своих последних публикаций?<small>приём 1</small></span><div class="yn"><button type="button" class="y" id="q1y" aria-pressed="false">Да</button><button type="button" class="n" id="q1n" aria-pressed="false">Нет</button></div></li>
+      <li><span>Человек, который никогда не был у психолога или коуча, с первой строки поймёт, что ваш пост про него?<small>приём 2</small></span><div class="yn"><button type="button" class="y" id="q2y" aria-pressed="false">Да</button><button type="button" class="n" id="q2n" aria-pressed="false">Нет</button></div></li>
+      <li><span>Подруга за 10 секунд в вашем профиле поймёт, кому вы помогаете и как получить от вас подарок?<small>приём 3</small></span><div class="yn"><button type="button" class="y" id="q3y" aria-pressed="false">Да</button><button type="button" class="n" id="q3n" aria-pressed="false">Нет</button></div></li>
+      <li><span>В последних 10 переписках вы задали вопрос о ситуации человека раньше, чем назвали цену?<small>приём 4</small></span><div class="yn"><button type="button" class="y" id="q4y" aria-pressed="false">Да</button><button type="button" class="n" id="q4n" aria-pressed="false">Нет</button></div></li>
+      <li><span>Вы знаете, сколько человек написали вам за прошлую неделю, и публикуете по плану?<small>приём 5</small></span><div class="yn"><button type="button" class="y" id="q5y" aria-pressed="false">Да</button><button type="button" class="n" id="q5n" aria-pressed="false">Нет</button></div></li>
+    </ol>
+    <p class="counter" id="counter">Отвечено <b>0 из 5</b>. «Нет»: <b>0</b></p>
+    <div class="verdict" id="verdict">
+      <div data-r="0"><b>0–1 «нет»</b>Цепочка почти собрана. Нужна точечная настройка одного звена.<span class="rec">«Сама» — 890 ₽</span></div>
+      <div data-r="1"><b>2–3 «нет»</b>Элементы есть, но не соединены. Клиенты теряются по дороге.<span class="rec">«С поддержкой» — 3 590 ₽</span></div>
+      <div data-r="2"><b>4–5 «нет»</b>Нужна базовая система — и человек рядом, который не даст бросить.<span class="rec">«С поддержкой» — 3 590 ₽</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="wide flow">
+  <div class="wrap flow" style="margin:0 auto">
+    <h2>Соберите цепочку за месяц</h2>
+    <p>Первые шаги из статьи вы можете сделать уже сегодня. Но пять первых шагов — это ещё не цепочка. Чтобы она заработала, нужны готовые формулировки, порядок внедрения и взгляд со стороны на ваш блог. Для этого — два пути.</p>
+  </div>
+  <div class="plans">
+    <div class="plan" id="plan-self">
+      <span class="tag">Для тех, кто любит разбираться сам</span>
+      <h3>«Сама»</h3>
+      <div class="price">890 ₽</div>
+      <p>Гайд <strong>«Клиенты из блога: система от контента до заявки»</strong>:</p>
+      <ul>
+        <li>каждый из 5 приёмов — полностью: шаблоны, примеры, готовые формулировки;</li>
+        <li>10 формул заголовков, скелет переписки из 5 шагов, форматы подарков для мягких ниш;</li>
+        <li>15 промптов для нейросети, которые пишут тексты за вас;</li>
+        <li>маршрут на 4 недели: что внедрять и в каком порядке.</li>
+      </ul>
+      <a class="btn ghost" href="#">Сама — 890 ₽</a>
+      <span class="ph" style="align-self:center">вставить ссылку на оплату</span>
+    </div>
+    <div class="plan main" id="plan-support">
+      <span class="tag">Лучше, если знаете за собой: «прочитаю и отложу»</span>
+      <h3>«С поддержкой»</h3>
+      <div class="price">3 590 ₽</div>
+      <ul>
+        <li>гайд целиком;</li>
+        <li><strong>месяц внедрения в Клубе «Магия продаж»</strong>:
+          <ul>
+            <li>маршрут «Старт здесь: 4 шага за первые 7 дней»;</li>
+            <li>живые разборы каждый вторник в 10:00 мск — можно принести свой блог и понять, какое звено чинить первым;</li>
+            <li>база знаний и встречи с практиками.</li>
+          </ul>
+        </li>
+      </ul>
+      <hr class="sep">
+      <div class="calc">
+        <span>Если покупать отдельно: гайд</span><span>890 ₽</span>
+        <span>месяц Клуба</span><span>7 100 ₽</span>
+        <span class="tot">вместе</span><span class="tot">7 990 ₽</span>
+        <span class="tot">для новых участников по этой статье</span><span class="tot">3 590 ₽</span>
+      </div>
+      <a class="btn" href="#">С поддержкой — 3 590 ₽</a>
+      <span class="ph" style="align-self:center">вставить ссылку на оплату</span>
+    </div>
+  </div>
+  <div class="wrap flow" style="margin:0 auto">
+    <p><strong>Почему так недорого.</strong> Мне важно, чтобы вы попробовали Клуб на своём блоге, а не судили о нём по словам. За месяц можно собрать цепочку, протестировать её на своём блоге и увидеть первые сигналы: ответы, диалоги, заявки. Остаться ли дальше — решите сами, по своему результату.</p>
+    <p><strong>Окупаемость.</strong> Один клиент на консультацию за 5 000 ₽ — и тариф «С поддержкой» уже окупился.</p>
+    <p class="timer">Цена 3 590 ₽ действует <b>24 часа</b> с момента, как вы получили статью. Потом месяц в Клубе — по обычной цене, 7 100 ₽.</p>
+  </div>
+</section>
+
+<section class="wrap flow">
+  <h2>Через месяц могут быть два сценария</h2>
+  <div class="two">
+    <div><b>Первый</b>Всё оставить как есть. Публиковать, ждать реакций, надеяться на сарафан и снова думать: «Наверное, надо больше контента».</div>
+    <div><b>Второй</b>Начать собирать дорогу от поста к покупке. Чтобы у читателя после контента был следующий шаг, после подарка — разговор, а у вас — цифра, по которой видно, работает система или нет.</div>
+  </div>
+  <p class="key"><b>Клиенты из блога — это не талант и не удача. Это система:</b> остановился → узнал себя → сделал первый шаг → поговорил → купил. Соберите её — и блог начнёт работать.</p>
+  <div>
+    <p style="color:var(--muted)">С любовью и заботой,</p>
+    <p class="sign">Зульфия Ментор</p>
+    <p style="color:var(--muted)">архитектор системных продаж</p>
+  </div>
+  <p class="ps"><strong>P.S.</strong> Если вы пролистали сразу сюда: у маленького блога клиенты теряются не из-за количества подписчиков, а из-за разорванной цепочки от поста к покупке. <a href="#samoproverka">Пройдите самопроверку</a> — она за 2 минуты покажет, где рвётся у вас. Тариф «С поддержкой» — гайд и месяц внедрения в Клубе — 3 590 ₽ для новых участников по этой статье, 24 часа с момента, как вы её получили.</p>
+  <p class="legal">Instagram — продукт компании Meta Platforms Inc., которая признана экстремистской организацией, её деятельность на территории РФ запрещена.</p>
+</section>
+
+<script>
+(function(){
+  var ans=[null,null,null,null,null];
+  var cards=document.querySelectorAll('#verdict div');
+  var counter=document.getElementById('counter');
+  function render(){
+    var done=0,no=0;
+    ans.forEach(function(a){if(a!==null){done++;if(a==='n')no++;}});
+    counter.innerHTML='Отвечено <b>'+done+' из 5</b>. «Нет»: <b>'+no+'</b>';
+    var r=-1;
+    if(done===5){r=no<=1?0:(no<=3?1:2);}
+    cards.forEach(function(c,i){c.classList.toggle('on',i===r);});
+    if(done===5){counter.innerHTML+=' — ваша рекомендация подсвечена ниже.';}
+  }
+  for(var i=1;i<=5;i++){(function(k){
+    var y=document.getElementById('q'+k+'y'),n=document.getElementById('q'+k+'n');
+    function set(v){ans[k-1]=v;y.setAttribute('aria-pressed',v==='y');n.setAttribute('aria-pressed',v==='n');render();}
+    y.addEventListener('click',function(){set('y')});
+    n.addEventListener('click',function(){set('n')});
+  })(i);}
+  document.querySelectorAll('a[href="#"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();});});
+})();
+</script>

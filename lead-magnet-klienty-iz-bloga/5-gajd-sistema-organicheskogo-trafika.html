@@ -1,0 +1,1807 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>[hidden]{display:none!important}body{margin:0}img{max-width:100%}</style>
+<title>Система органического трафика</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Mulish:wght@400;600;700&display=swap">
+<style>
+/* Layout: author-branded study guide — fixed header with authorship, sticky tab rail, one reading column per tab */
+:root{
+  /* white + gold + canary — brand palette, single light look by choice */
+  --paper:#FFFFFF; --card:#FFFFFF; --ink:#2A2418; --muted:#6F6550;
+  --gold:#A87B1E; --gold-line:#E3CF9A; --gold-soft:#FBF4E2; --line:#EFE6D0;
+  --canary:#FFE936; --canary-soft:#FFF8C2; --fill:#FFEF5C; --fill-ink:#3D2F00;
+  --wm:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MjAiIGhlaWdodD0iMjYwIj48ZyB0cmFuc2Zvcm09InJvdGF0ZSgtMjQgMjEwIDEzMCkiIGZpbGw9IiNDOUEyNEEiIGZpbGwtb3BhY2l0eT0iMC4yMiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMTciIGxldHRlci1zcGFjaW5nPSIxIj48dGV4dCB4PSIyMCIgeT0iMTEwIj7CqSDQl9GD0LvRjNGE0LjRjyDQnNC10L3RgtC+0YA8L3RleHQ+PHRleHQgeD0iMTUwIiB5PSIxNjAiIGZvbnQtc2l6ZT0iMTQiPkB6dWxmaXlhbWVudG9yPC90ZXh0PjwvZz48L3N2Zz4=");
+  --display:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --body:"Mulish",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+
+*{box-sizing:border-box}
+body{background:var(--paper) var(--wm) repeat fixed;color:var(--ink);font:16px/1.65 var(--body)}
+.wrap{max-width:760px;margin:0 auto;padding-inline:20px}
+header.top{padding-block:32px 20px;border-bottom:3px solid var(--canary);background:var(--paper)}
+.brand{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.mono{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--gold);background:var(--canary-soft);
+  color:var(--gold);font:600 24px/1 var(--display);flex:none}
+.brand .who{display:flex;flex-direction:column;line-height:1.25}
+.brand .who b{font:700 13px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.brand .who span{font-size:13px;color:var(--muted)}
+h1{font:600 clamp(34px,6vw,52px)/1.05 var(--display);margin:22px 0 10px;text-wrap:balance;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--gold);font-weight:500;background:linear-gradient(transparent 62%,var(--canary) 62%,var(--canary) 90%,transparent 90%);padding:0 .08em}
+.lead{color:var(--muted);margin:0;max-width:60ch}
+.legal{font-size:12px;color:var(--muted);margin-top:14px}
+
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-block:8px}
+nav.tabs .wrap::-webkit-scrollbar{display:none}
+nav.tabs a{flex:none;padding:8px 14px;border-radius:999px;color:var(--muted);text-decoration:none;font-weight:600;font-size:14px;white-space:nowrap}
+nav.tabs a:hover{color:var(--ink);background:var(--canary-soft)}
+nav.tabs a[aria-selected="true"]{background:var(--canary);color:var(--ink);box-shadow:inset 0 0 0 1px var(--gold-line)}
+nav.tabs a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+main{padding-block:28px 40px}
+.panel{background:rgba(255,255,255,.9)}
+.eyebrow{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:6px}
+.panel h2{font:600 clamp(30px,5vw,42px)/1.1 var(--display);margin:0 0 14px;text-wrap:balance}
+.panel h2:not(:first-of-type){margin-top:48px;padding-top:28px;border-top:1px solid var(--line);font-size:clamp(26px,4vw,34px)}
+.panel h3{font:600 24px/1.2 var(--display);margin:34px 0 10px;color:var(--ink);text-wrap:balance}
+.panel p,.panel li{max-width:65ch}
+.panel ul,.panel ol{padding-left:1.3em}
+.panel li{margin:6px 0}
+.panel li::marker{color:var(--gold);font-weight:700}
+strong{font-weight:700}
+
+.tw{overflow-x:auto;margin:18px 0;border:1px solid var(--gold-line);border-radius:10px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:520px}
+th{text-align:left;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);background:var(--canary-soft);padding:10px 12px}
+td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+td:first-child{font-weight:600}
+
+blockquote.note{display:flex;gap:14px;margin:24px 0;padding:18px 20px;background:var(--gold-soft);border:1px solid var(--gold-line);border-left:4px solid var(--canary);border-radius:12px}
+blockquote.note .mono{width:36px;height:36px;font-size:20px}
+blockquote.note p{margin:0;font:italic 500 20px/1.45 var(--display)}
+blockquote.note cite{display:block;margin-top:8px;font:700 12px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--gold);font-style:normal}
+blockquote.note cite::before{content:"— "}
+
+.funnel{display:flex;align-items:stretch;gap:6px;margin:22px 0;flex-wrap:wrap}
+.fstep{flex:1 1 110px;min-width:0;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--card);display:flex;flex-direction:column;gap:2px}
+.fstep b{font:600 20px var(--display)}
+.fstep span{font-size:12.5px;color:var(--muted);line-height:1.35}
+.fmain{border:2px solid var(--gold);background:var(--canary)}
+.farrow{align-self:center;color:var(--gold);font-weight:700}
+@media (max-width:620px){.funnel{flex-direction:column}.farrow{transform:rotate(90deg);align-self:flex-start;margin-left:18px}}
+
+.prompt{margin:14px 0 26px;border:1px solid var(--line);border-radius:12px;background:var(--card);overflow:hidden}
+.prompt pre{margin:0;padding:16px 18px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;font:13.5px/1.6 var(--mono);color:var(--ink)}
+.prompt pre code{font:inherit}
+.prompt.selectable pre{-webkit-user-select:text;user-select:text}
+mark.fill{background:var(--fill);color:var(--fill-ink);font-weight:700;border-radius:4px;padding:1px 4px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+mark.done{background:transparent;color:var(--ink);border-bottom:2px solid var(--gold);font-weight:600}
+button.copy{display:block;width:100%;border:0;border-top:1px solid var(--gold-line);background:var(--canary);color:var(--ink);font:700 14px var(--body);padding:12px;cursor:pointer}
+button.copy:hover{background:var(--gold);color:#fff}
+button.copy.ok{background:var(--gold);color:#fff}
+.legend{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:14px 16px;border:1px dashed var(--gold);border-radius:10px;font-size:14px;margin:16px 0}
+.legend>span:first-child{font-weight:700}
+
+ul.check{list-style:none;padding:0;margin:16px 0;display:grid;gap:8px}
+ul.check li{max-width:none;margin:0}
+ul.check label{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);cursor:pointer}
+ul.check input{width:20px;height:20px;accent-color:var(--canary);flex:none;margin-top:2px}
+ul.check input:checked+span{color:var(--muted);text-decoration:line-through}
+button.ghost{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:8px 14px;font:600 13px var(--body);cursor:pointer}
+
+.sign{display:flex;gap:14px;align-items:center;margin-top:48px;padding-top:20px;border-top:1px solid var(--line)}
+.sign div{display:flex;flex-direction:column;line-height:1.3}
+.sign b{font:600 20px var(--display)}
+.sign span{font-size:13px;color:var(--muted)}
+
+
+.panel h2.ai{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.panel h2.ai::before{content:"ИИ";font:700 12px var(--body);letter-spacing:.12em;color:var(--ink);background:var(--canary);border-radius:999px;padding:5px 10px;box-shadow:inset 0 0 0 1px var(--gold-line)}
+.prep{margin:16px 0 8px;padding:16px 18px;border-radius:12px;background:var(--canary-soft);border:1px solid var(--gold-line)}
+.prep>b{display:block;font:700 12px var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.prep p{margin:0 0 4px}
+.prep .legend{background:var(--card);margin:12px 0 0}
+a.go{color:var(--gold);font-weight:700}
+.panel h3.step{display:flex;gap:12px;align-items:baseline;margin-top:40px}
+.stepn{flex:none;font:700 12px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--gold);border:1.5px solid var(--gold);border-radius:999px;padding:4px 10px;position:relative;top:-3px}
+
+/* bridge from the article: 5 techniques → tabs */
+.bridge{margin:0 0 32px;padding:18px 20px;border-radius:14px;background:var(--canary-soft);border:2px solid var(--gold)}
+.bridge>b{display:block;font:700 12px var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.bridge h3{margin:0 0 6px !important}
+.bridge p{margin:0 0 8px}
+.bridge ol{margin:8px 0 0}
+.bridge li{margin:7px 0}
+.platform{margin:22px 0;padding:16px 18px;border-radius:12px;border:1px dashed var(--gold);background:var(--card)}
+.platform>b{display:block;font:700 12px var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.platform p{margin:0 0 6px}
+.platform .tw{margin:10px 0 0}
+
+.hero{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:28px;align-items:center}
+.hero-photo{margin:0;width:220px;aspect-ratio:4/5;max-width:100%;border-radius:999px 999px 18px 18px;overflow:hidden;background:var(--canary-soft);border:2px solid var(--gold-line);box-shadow:10px 10px 0 var(--canary);display:grid;place-items:center}
+.hero-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-photo .ph{font:600 96px/1 var(--display);color:var(--gold)}
+@media (max-width:640px){.hero{grid-template-columns:1fr}.hero-photo{width:180px;order:-1;margin-top:8px}}
+.stats{list-style:none;padding:0;margin:26px 0 8px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.stats li{padding:14px;border:1px solid var(--gold-line);border-radius:12px;background:var(--card);display:flex;flex-direction:column;gap:2px}
+.stats b{font:700 28px/1.1 var(--display);color:var(--gold);font-variant-numeric:tabular-nums}
+.stats span{font-size:13px;color:var(--muted);line-height:1.35}
+@media (max-width:560px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.proof{margin:14px 0 0;padding:12px 16px;border-left:4px solid var(--canary);background:var(--gold-soft);border-radius:0 12px 12px 0;font:italic 500 20px/1.4 var(--display);max-width:62ch}
+.proof b{font-style:normal;font-weight:700;color:var(--gold)}
+.bio{color:var(--muted);font-size:14.5px;margin:10px 0 0}
+.offer{padding-block:44px 48px;background:var(--canary-soft);border-top:3px solid var(--canary)}
+.offer h2{font:600 clamp(30px,5vw,42px)/1.1 var(--display);margin:0 0 10px;text-wrap:balance}
+.offer-lead{max-width:62ch;margin:0 0 22px}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--gold-line);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.card.main{border:2px solid var(--gold);box-shadow:8px 8px 0 var(--canary)}
+.card .tag{font:700 12px var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.card h3{font:600 28px/1.1 var(--display);margin:0}
+.card .price{font:700 30px var(--display);font-variant-numeric:tabular-nums}
+.card .price small{font:600 15px var(--body);color:var(--muted)}
+.card ul{margin:4px 0;padding-left:1.2em}
+.card li{margin:5px 0}
+.card li::marker{color:var(--gold)}
+.card p{margin:0}
+.cta{margin-top:8px;padding:12px 14px;border-radius:10px;background:var(--canary);font-weight:600;font-size:14.5px}
+.code{font-weight:800;letter-spacing:.06em;background:var(--card);padding:1px 7px;border-radius:6px;border:1px solid var(--gold-line)}
+ul.todo{list-style:none;padding:0;display:grid;gap:6px}
+ul.todo li{max-width:none;margin:0}
+ul.todo label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+ul.todo input{width:18px;height:18px;accent-color:var(--canary);flex:none;margin-top:4px}
+ul.todo input:checked+span{color:var(--muted);text-decoration:line-through}
+footer{border-top:1px solid var(--line);padding-block:22px 40px;font-size:12.5px;color:var(--muted);background:var(--paper)}
+footer p{margin:6px 0;max-width:70ch}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:999px;font-size:13.5px;font-weight:600;z-index:20;max-width:calc(100% - 32px);text-align:center}
+@media (prefers-reduced-motion:no-preference){.panel:not([hidden]){animation:fade .25s ease-out}@keyframes fade{from{opacity:.4}to{opacity:1}}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap hero">
+    <div class="hero-text">
+      <div class="brand"><span class="mono" aria-hidden="true">З</span><div class="who"><b>Зульфия Ментор</b><span>архитектор системных продаж · @zulfiyamentor</span></div></div>
+      <h1>Система <em>органического</em> трафика</h1>
+      <p class="lead">Для психологов, коучей, энергопрактиков и наставников. Как приводить клиентов из блога без рекламы и без давления: от профиля до первой продажи, с готовыми промптами для нейросети на каждом шаге. Для Telegram, MAX, VK и Instagram*.</p>
+    </div>
+    <figure class="hero-photo"><span class="ph" aria-hidden="true">З</span></figure>
+  </div>
+  <div class="wrap">
+    <ul class="stats" aria-label="Об авторе">
+      <li><b>40+ млн ₽</b><span>заработали мои ученики</span></li>
+      <li><b>13</b><span>учеников-миллионеров</span></li>
+      <li><b>500+</b><span>экспертов в работе</span></li>
+      <li><b>1000+</b><span>консультаций</span></li>
+      <li><b>10 лет</b><span>в онлайн-бизнесе, 5 из них — в маркетинге</span></li>
+      <li><b>24 года</b><span>в образовании, кандидат наук, доцент</span></li>
+    </ul>
+    <p class="proof">Свой первый миллион я заработала, когда в моём Telegram-канале было <b>230 подписчиков</b>. Дело не в количестве подписчиков — дело в системе.</p>
+    <p class="bio">Продаю с любовью и заботой — и учу этому экспертов. От хаоса в действиях — к системе дохода.</p>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Разделы инструкции"><div class="wrap" role="tablist"><a role="tab" href="#system" id="t-system" aria-controls="system" data-tab="system">Старт</a><a role="tab" href="#route" id="t-route" aria-controls="route" data-tab="route">Маршрут</a><a role="tab" href="#profile" id="t-profile" aria-controls="profile" data-tab="profile">Профиль и воронка</a><a role="tab" href="#hooks" id="t-hooks" aria-controls="hooks" data-tab="hooks">Хуки</a><a role="tab" href="#video" id="t-video" aria-controls="video" data-tab="video">Видео</a><a role="tab" href="#carousels" id="t-carousels" aria-controls="carousels" data-tab="carousels">Карусели</a><a role="tab" href="#texts" id="t-texts" aria-controls="texts" data-tab="texts">Тексты</a><a role="tab" href="#content" id="t-content" aria-controls="content" data-tab="content">Контент</a><a role="tab" href="#check" id="t-check" aria-controls="check" data-tab="check">Чек-лист и цифры</a></div></nav>
+
+<main class="wrap"><section class="panel" id="system" role="tabpanel" aria-labelledby="t-system" hidden>
+<div class="eyebrow">Раздел 1 из 9 · авторская методика Зульфии Ментор</div>
+<div class="bridge">
+<b>Вы из статьи? Начните отсюда</b>
+<h3>5 приёмов из статьи — где они в гайде</h3>
+<p>В статье каждый приём был коротко, одним заданием на сегодня. Здесь — полностью: пошагово, с примерами и промптами, которые пишут тексты за вас. Нажмите на раздел, чтобы перейти.</p>
+<ol>
+<li>«Слова клиента» → <strong>Старт</strong>: паспорт эксперта, ниже на этой странице.</li>
+<li>«Сцена вместо темы» → <strong>Хуки</strong>, а затем <strong>Видео</strong>, <strong>Карусели</strong> и <strong>Тексты</strong>.</li>
+<li>«Подарок за слово» → <strong>Профиль и воронка</strong>: закрепы, подарок, форматы для мягких ниш.</li>
+<li>«Вопрос раньше цены» → <strong>Профиль и воронка</strong>: скелет переписки из 5 шагов.</li>
+<li>«3 публикации и 1 цифра» → <strong>Маршрут</strong>, <strong>Контент</strong> и <strong>Чек-лист и цифры</strong>.</li>
+</ol>
+<p>Не знаете, с чего начать? Начните с того приёма, на который в самопроверке ответили «нет». А если «нет» было много — идите по разделу <strong>Маршрут</strong> неделя за неделей.</p>
+</div>
+<h2>Логика системы</h2>
+<p>Продажи — это система. И контент тоже. Не вдохновение, не удача и не «алгоритмы сегодня не в настроении», а понятный конвейер: контент останавливает человека, профиль объясняет, кто вы, подарок даёт первый результат, личные сообщения превращают интерес в диалог, а диалог — в продажу.</p>
+<div class="funnel" role="list" aria-label="Путь клиента">
+<div class="fstep" role="listitem"><b>Контент</b><span>видео, карусели, посты</span></div>
+<div class="farrow" aria-hidden="true">→</div>
+<div class="fstep" role="listitem"><b>Профиль</b><span>описание, закрепы, навигация</span></div>
+<div class="farrow" aria-hidden="true">→</div>
+<div class="fstep" role="listitem"><b>Подарок</b><span>лид-магнит по кодовому слову</span></div>
+<div class="farrow" aria-hidden="true">→</div>
+<div class="fstep" role="listitem"><b>Диалог</b><span>вопрос в личных сообщениях</span></div>
+<div class="farrow" aria-hidden="true">→</div>
+<div class="fstep fmain" role="listitem"><b>Продажа</b><span>консультация или продукт</span></div>
+</div>
+<blockquote class="note"><span class="mono" aria-hidden="true">З</span><div>
+<p>Я собрала здесь то, что сама использую и даю своим ученикам. Волшебной кнопки здесь нет. Есть структура, которую можно повторять каждый день. Через месяц такой работы вы перестанете мучительно думать, о чём писать.</p>
+<cite>Зульфия Ментор</cite></div></blockquote>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Формат</th>
+<th>Главная задача</th>
+<th>Куда ведёт</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Вертикальные видео</td>
+<td>Охват новых людей</td>
+<td>Кодовое слово в комментарии, личные сообщения или бот</td>
+</tr>
+<tr>
+<td>Карусели</td>
+<td>Сохранения, доверие, экспертность</td>
+<td>Кодовое слово, профиль</td>
+</tr>
+<tr>
+<td>Посты в Telegram, MAX, VK (и Threads*)</td>
+<td>Доверие, прогрев и подписки</td>
+<td>Закреп с подарком, бот</td>
+</tr>
+<tr>
+<td>Сторис</td>
+<td>Прогрев тех, кто уже подписан</td>
+<td>Личные сообщения</td>
+</tr>
+<tr>
+<td>Закрепы и навигация</td>
+<td>Превращают гостя профиля в подписчика</td>
+<td>Лид-магнит</td>
+</tr>
+</tbody>
+</table></div>
+<h2>Как пользоваться</h2>
+<ol>
+<li>Сделайте подготовку ниже — «Паспорт эксперта». Один раз, 20 минут.</li>
+<li>Откройте <strong>Маршрут</strong>: там по неделям расписано, что делать и в каком порядке.</li>
+<li>Идите по маршруту. В каждой вкладке сначала теория и примеры, а в конце блок «Делаем с ИИ — пошагово»: шаг → промпт → что получите.</li>
+<li>Раз в неделю сверяйтесь с вкладкой <strong>Чек-лист и цифры</strong>.</li>
+</ol>
+<h2 id="passport">Подготовка: паспорт эксперта</h2>
+<p>Без этой подготовки нейросеть пишет «про эксперта вообще»: гладко, правильно и ни о ком. С паспортом — про вас, вашу аудиторию и вашими словами. Это главный шаг, на котором держатся все промпты в инструкции.</p>
+<blockquote class="note"><span class="mono" aria-hidden="true">З</span><div>
+<p>Нейросеть — не волшебник, а очень быстрый помощник. Чем точнее вы расскажете ей о себе, тем меньше потом переписывать. Двадцать минут на паспорт экономят часы на каждом посте.</p>
+<cite>Зульфия Ментор</cite></div></blockquote>
+<h3 class="step"><span class="stepn">Шаг 1.</span> Заполните паспорт</h3>
+<p>Скопируйте промпт и замените всё, что выделено жёлтым между <mark class="fill">&gt;&gt;&gt; и &lt;&lt;&lt;</mark>, на свои данные. Пишите так, как говорите сами: боли клиентов — их словами, а не терминами.</p>
+<p>Заполните один раз и сохраните в заметки. Отправляйте первым сообщением в новом чате — и нейросеть будет писать про вас, а не «про эксперта вообще».</p>
+<div class="prompt"><pre><code>Запомни контекст обо мне. Используй его во всех следующих ответах этого чата.
+
+Кто я: <mark class="fill">&gt;&gt;&gt; ИМЯ, КТО ВЫ ПО ПРОФЕССИИ, ОПЫТ &lt;&lt;&lt;</mark>
+Моя ниша: <mark class="fill">&gt;&gt;&gt; ВАША НИША &lt;&lt;&lt;</mark>
+Моя аудитория: <mark class="fill">&gt;&gt;&gt; КТО ОНИ, ВОЗРАСТ, СИТУАЦИЯ &lt;&lt;&lt;</mark>
+Их главные боли: <mark class="fill">&gt;&gt;&gt; 3–5 БОЛЕЙ ИХ СЛОВАМИ &lt;&lt;&lt;</mark>
+Чего они хотят: <mark class="fill">&gt;&gt;&gt; ЖЕЛАЕМЫЙ РЕЗУЛЬТАТ &lt;&lt;&lt;</mark>
+Мой продукт: <mark class="fill">&gt;&gt;&gt; НАЗВАНИЕ, ФОРМАТ, ЦЕНА &lt;&lt;&lt;</mark>
+Мой подарок (лид-магнит): <mark class="fill">&gt;&gt;&gt; ЧТО ДАЁТЕ БЕСПЛАТНО &lt;&lt;&lt;</mark>
+Кодовое слово: <mark class="fill">&gt;&gt;&gt; СЛОВО &lt;&lt;&lt;</mark>
+Мои результаты и цифры: <mark class="fill">&gt;&gt;&gt; ТОЛЬКО РЕАЛЬНЫЕ &lt;&lt;&lt;</mark>
+Мой стиль речи: <mark class="fill">&gt;&gt;&gt; НАПРИМЕР: ТЁПЛЫЙ, СПОКОЙНЫЙ, ПРЯМОЙ, БЕЗ ДАВЛЕНИЯ &lt;&lt;&lt;</mark>
+Фразы, которые я часто говорю: <mark class="fill">&gt;&gt;&gt; 3–5 ВАШИХ ФРАЗ &lt;&lt;&lt;</mark>
+Чего избегать: клише «важно понимать», «в современном мире», «давайте разберёмся», инфоцыганского тона и давления.
+
+Когда пишешь заголовки, хуки и первые строки, используй эти 10 формул:
+1. Эксперимент: «Я [действие] X дней — вот что изменилось»
+2. Ошибки: «X ошибок, из-за которых [плохой результат], даже если вы [что уже делаете]»
+3. Диагностика: «Если у вас [проблема] — проверьте [фактор]. Возможно, причина здесь»
+4. Запрет: «Я запретила себе [привычное действие] на X дней. Вот что произошло»
+5. Исследование: «Я разобрала X [постов / профилей / случаев] и нашла Y [закономерностей]»
+6. Один вопрос: «Ответьте на один вопрос — и многое станет понятно»
+7. Две новости: «Есть две новости. Начну с плохой»
+8. Сомнение: «Долго думала, рассказывать ли вам это…»
+9. Быстрый результат: «X действий, которые дадут [результат] уже за 7 дней»
+10. Вызов: «Сделайте это сегодня вечером и посмотрите, что изменится в [сфера]»
+Цифры бери только из моего контекста или текста — не придумывай.
+
+Ответь одним словом «Готово» и жди задачу.
+</code></pre><button class="copy" type="button">Копировать промпт</button></div>
+<h3 class="step"><span class="stepn">Шаг 2.</span> Сохраните его</h3>
+<p>Сохраните заполненный паспорт в заметки телефона или закрепите в «Избранном» Telegram. Он понадобится каждый раз.</p>
+<h3 class="step"><span class="stepn">Шаг 3.</span> Отправляйте первым сообщением</h3>
+<p>Каждый раз, когда открываете новый чат с нейросетью, сначала отправьте паспорт. Дождитесь ответа «Готово» — и только потом промпт из нужного раздела.</p>
+<p>Если вы работаете в Claude, можно один раз создать проект и вставить паспорт в его инструкции. Тогда отправлять его в каждый чат не нужно.</p>
+<div class="sign"><span class="mono" aria-hidden="true">З</span><div><b>Зульфия Ментор</b><span>архитектор системных продаж · @zulfiyamentor</span></div></div>
+</section><section class="panel" id="route" role="tabpanel" aria-labelledby="t-route" hidden>
+<div class="eyebrow">Раздел 2 из 9 · авторская методика Зульфии Ментор</div>
+<h2>Маршрут: что делать по неделям</h2>
+<p>Инструкция большая, и читать её подряд не нужно. Вот порядок, в котором я веду учеников: сначала фундамент, потом контент, потом ритм. Каждая неделя опирается на предыдущую.</p>
+<blockquote class="note"><span class="mono" aria-hidden="true">З</span><div>
+<p>Не перескакивайте сразу к видео. Если профиль не готов и подарка нет, контент приведёт людей в пустоту. Сначала дом, потом гости.</p>
+<cite>Зульфия Ментор</cite></div></blockquote>
+<h3>Неделя 1. Фундамент</h3>
+<ul class="todo"><li><label><input type="checkbox" id="td1" data-ck="td1"><span>Заполнить «Паспорт эксперта» — вкладка <strong>Старт</strong>.</span></label></li><li><label><input type="checkbox" id="td2" data-ck="td2"><span>Переписать описание профиля или канала — вкладка <strong>Профиль и воронка</strong>.</span></label></li><li><label><input type="checkbox" id="td3" data-ck="td3"><span>Выбрать подарок и кодовое слово.</span></label></li><li><label><input type="checkbox" id="td4" data-ck="td4"><span>Сделать 3 поста-закрепа и навигацию (хайлайтс или закреп-навигатор).</span></label></li><li><label><input type="checkbox" id="td5" data-ck="td5"><span>Подготовить сообщения для личных сообщений или бота: что отвечаете на кодовое слово.</span></label></li></ul>
+<p>Результат недели: человек, который попал в ваш профиль или канал, понимает, кто вы, и знает, как получить подарок.</p>
+<h3>Неделя 2. Первый контент</h3>
+<ul class="todo"><li><label><input type="checkbox" id="td6" data-ck="td6"><span>Выписать 20 хуков на свои темы — вкладка <strong>Хуки</strong>.</span></label></li><li><label><input type="checkbox" id="td7" data-ck="td7"><span>Составить план видео на месяц — вкладка <strong>Видео</strong>.</span></label></li><li><label><input type="checkbox" id="td8" data-ck="td8"><span>Снять первые 3 видео за одну сессию.</span></label></li><li><label><input type="checkbox" id="td9" data-ck="td9"><span>Сделать первую карусель — вкладка <strong>Карусели</strong>.</span></label></li><li><label><input type="checkbox" id="td10" data-ck="td10"><span>Каждый день — сторис.</span></label></li></ul>
+<p>Результат недели: в профиле появился свежий контент, а у вас — запас хуков и тем.</p>
+<h3>Неделя 3. Ритм</h3>
+<ul class="todo"><li><label><input type="checkbox" id="td11" data-ck="td11"><span>Выйти на ритм: 3 видео и 2 карусели в неделю.</span></label></li><li><label><input type="checkbox" id="td12" data-ck="td12"><span>Писать посты в канал по 1 в день — в Telegram, MAX или VK — вкладка <strong>Тексты</strong>.</span></label></li><li><label><input type="checkbox" id="td13" data-ck="td13"><span>Провести сторис-механику «Реши задачку».</span></label></li><li><label><input type="checkbox" id="td14" data-ck="td14"><span>Распределить контент по рубрикатору — вкладка <strong>Контент</strong>.</span></label></li></ul>
+<p>Результат недели: контент выходит регулярно, без мучительного «о чём сегодня писать».</p>
+<h3>Неделя 4. Цифры и первая продажа</h3>
+<ul class="todo"><li><label><input type="checkbox" id="td15" data-ck="td15"><span>Посчитать цифры воронки — вкладка <strong>Чек-лист и цифры</strong>.</span></label></li><li><label><input type="checkbox" id="td16" data-ck="td16"><span>Найти этап, где теряются люди, и исправить его.</span></label></li><li><label><input type="checkbox" id="td17" data-ck="td17"><span>Провести мягкий прогрев и анонс продукта — вкладка <strong>Контент</strong>.</span></label></li><li><label><input type="checkbox" id="td18" data-ck="td18"><span>Пригласить на консультацию тех, кто уже написал вам.</span></label></li></ul>
+<p>Результат недели: вы видите свою воронку в цифрах и знаете, что улучшать дальше.</p>
+<div class="sign"><span class="mono" aria-hidden="true">З</span><div><b>Зульфия Ментор</b><span>архитектор системных продаж · @zulfiyamentor</span></div></div>
+</section><section class="panel" id="profile" role="tabpanel" aria-labelledby="t-profile" hidden>
+<div class="eyebrow">Раздел 3 из 9 · авторская методика Зульфии Ментор</div>
+<h2>Профиль и воронка</h2>
+<p>Профиль — это витрина: каждый его элемент ведёт человека к подарку или в личные сообщения. Настраивается один раз и обновляется раз в 1–2 месяца.</p>
+<blockquote class="note"><span class="mono" aria-hidden="true">З</span><div>
+<p>Самая частая ошибка, которую я вижу на разборах: красивый контент, а дальше тупик. Человек заинтересовался, зашёл в профиль — и не понял, что делать. Профиль должен ответить на вопрос «а дальше что?» раньше, чем человек его задаст.</p>
+<cite>Зульфия Ментор</cite></div></blockquote>
+<div class="platform">
+<b>Если вы в Telegram, MAX или VK</b>
+<p>Ниже всё описано на примере Instagram*. Логика та же на любой площадке — меняются только названия. Вот что чем заменить:</p>
+<div class="tw"><table>
+<thead><tr><th>В разделе написано</th><th>Telegram и MAX</th><th>VK</th></tr></thead>
+<tbody>
+<tr><td>Шапка профиля</td><td>Описание канала: кто вы, для кого, результат + ссылка на бота с подарком</td><td>Статус и описание сообщества + кнопка действия</td></tr>
+<tr><td>3 поста-закрепа</td><td>Один закреп-навигатор: «Кто я → кейсы → путь к результату → забрать подарок» со ссылками на посты</td><td>Закреплённый пост + меню сообщества</td></tr>
+<tr><td>Хайлайтс</td><td>Рубрики-хештеги в закрепе: #кейсы #подарок #задачка</td><td>Разделы меню и подборки</td></tr>
+<tr><td>Кодовое слово в комментарии и директ</td><td>Кнопка «Забрать подарок» под постом → бот присылает подарок и задаёт вопрос</td><td>Слово в комментарии или личных сообщениях сообщества → рассылка с подарком</td></tr>
+<tr><td>Директ</td><td>Личные сообщения или бот</td><td>Сообщения сообщества</td></tr>
+</tbody>
+</table></div>
+<p>В MAX публичный канал доступен не всем авторам — перед стартом проверьте требования площадки.</p>
+</div>
+<h3>Шапка профиля</h3>
+<ul>
+<li>Кто вы и для кого: «Наставник для психологов и коучей».</li>
+<li>Какой результат даёте: «От хаоса в действиях — к системе дохода».</li>
+<li>Призыв и ссылка на подарок или канал.</li>
+</ul>
+<h3>3 поста-закрепа</h3>
+<p>Это закрепы в профиле соцсети. Все три ведут на скачивание лид-магнита («ссылка в описании» или кодовое слово). В Telegram и MAX их заменяет один закреп-навигатор — см. таблицу выше.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Закреп</th>
+<th>Задача</th>
+<th>Содержание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>«5 симптомов, с которыми вам пора ко мне»</td>
+<td>Человек узнаёт себя</td>
+<td>Состояния и проблемы клиента, а затем — как вы помогаете</td>
+</tr>
+<tr>
+<td>«Кейсы»</td>
+<td>Доверие</td>
+<td>Реальные истории: было → что сделали → стало</td>
+</tr>
+<tr>
+<td>«Пошаговый план получения результата»</td>
+<td>Показать путь</td>
+<td>3–4 шага от проблемы к результату, в конце — подарок</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Хайлайтс</h3>
+<p>Каждая папка заканчивается призывом написать в личные сообщения.</p>
+<ul>
+<li>«Забери подарок» — лид-магнит.</li>
+<li>«Тест на [ваша тема]» — интерактив.</li>
+<li>«План как [результат]» — пошаговая схема.</li>
+<li>«Реши задачку» — сторис-механика ниже.</li>
+<li>«Кейсы» — истории клиентов.</li>
+</ul>
+<h3>Сторис-механика «Реши задачку»</h3>
+<p>Вовлекает подписчиков через игру и приводит их в личные сообщения. Работает в сторис любой площадки.</p>
+<ol>
+<li>«Сегодня будет задача, которую решит только 1 из 10. Готовы проверить себя?» + стикер-реакция.</li>
+<li>Моделируете ситуацию: «Представьте, вы на игре “Кто хочет стать миллионером”, и вам задают вопрос…»</li>
+<li>Описываете ситуацию, в которой бывает большинство вашей аудитории.</li>
+<li>«Как правильно поступить?» Варианты: А — частая ошибка, Б — тоже ошибка, В — частично верно, Г — тоже ошибка.</li>
+<li>«Большинство выбрали…» (покажите результат). «Сейчас разберу».</li>
+<li>Сторис 6–9: разбираете каждый вариант и объясняете, почему это ошибка.</li>
+<li>«Вы поняли, да?» + стикер удивления.</li>
+<li>«Да, верного ответа не было специально. Именно в таких простых ситуациях ошибаются многие, а потом [последствия для вашей аудитории]».</li>
+<li>«Напишите слово ОТВЕТ мне в личные сообщения — пришлю решение этой задачи, вы удивитесь».</li>
+<li>Скриншот реакции из личных сообщений: «Обалдеть, я бы не догадалась».</li>
+</ol>
+<h3>Подарок: какие форматы работают в мягких нишах</h3>
+<p>Подарок нужен, чтобы человек получил от вас первый маленький результат — и захотел большего. Хороший подарок решает одну узкую задачу за 10–15 минут.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Формат</th>
+<th>Пример</th>
+<th>Подходит</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Тест или диагностика</td>
+<td>«Тест: какой у вас тип выгорания»</td>
+<td>Психологам, коучам</td>
+</tr>
+<tr>
+<td>Чек-лист</td>
+<td>«10 признаков, что пора менять цену»</td>
+<td>Всем</td>
+</tr>
+<tr>
+<td>Короткая практика</td>
+<td>Аудио-медитация на 7 минут</td>
+<td>Энергопрактикам, психологам</td>
+</tr>
+<tr>
+<td>Гайд на 5–7 страниц</td>
+<td>«Как выйти из конфликта без обид»</td>
+<td>Экспертам с методикой</td>
+</tr>
+<tr>
+<td>Мини-урок</td>
+<td>Видео на 10 минут с одним инструментом</td>
+<td>Наставникам, коучам</td>
+</tr>
+<tr>
+<td>Шаблон или таблица</td>
+<td>«Таблица привычек на 21 день»</td>
+<td>Нутрициологам, коучам</td>
+</tr>
+</tbody>
+</table></div>
+<p>Главная ошибка — подарок «обо всём». Чем уже задача, тем больше скачиваний и тем теплее человек приходит в личные сообщения.</p>
+<blockquote class="note"><span class="mono" aria-hidden="true">З</span><div>
+<p>Как собрать подарок, который потом продаёт, — шаг за шагом разбираем в Клубе на тренинге «Создание лид-магнита».</p>
+<cite>Зульфия Ментор</cite></div></blockquote>
+<h3>Личные сообщения: скелет переписки</h3>
+<p>Переписка — это не продажа в лоб, а разговор, в котором человек сам понимает, что ему нужно. Вот пять шагов, на которых она держится. Они одинаковы в директе, в Telegram, MAX и VK.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Шаг</th>
+<th>Что делаете</th>
+<th>Пример</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Подарок</td>
+<td>Отправляете обещанное сразу и тепло</td>
+<td>«Анна, держите чек-лист! Рада, что вы здесь»</td>
+</tr>
+<tr>
+<td>2. Вопрос</td>
+<td>Один вопрос о ситуации человека</td>
+<td>«Подскажите, что сейчас для вас самое сложное в продажах?»</td>
+</tr>
+<tr>
+<td>3. Уточнение</td>
+<td>Слушаете и уточняете, без советов</td>
+<td>«А как давно так? Что уже пробовали?»</td>
+</tr>
+<tr>
+<td>4. Отражение</td>
+<td>Пересказываете суть его словами</td>
+<td>«Получается, клиенты есть, но доходят до оплаты единицы, верно?»</td>
+</tr>
+<tr>
+<td>5. Приглашение</td>
+<td>Предлагаете следующий шаг, а не продукт</td>
+<td>«Могу разобрать вашу ситуацию на бесплатной встрече на 30 минут. Удобно на этой неделе?»</td>
+</tr>
+</tbody>
+</table></div>
+<p>Правила:</p>
+<ul>
+<li>Одно сообщение — один вопрос.</li>
+<li>Не отправляйте прайс, пока человек не рассказал о себе.</li>
+<li>Пишите так, как говорите вживую: с именем, тепло, без канцелярита.</li>
+<li>Не ответил за сутки — одно мягкое напоминание, не больше.</li>
+</ul>
+<blockquote class="note"><span class="mono" aria-hidden="true">З</span><div>
+<p>Что отвечать на «дорого», «я подумаю» и «посоветуюсь с мужем» — разбираем в Клубе: тренинг «Продажи по переписке» и разбор моего скрипта с конверсией 70%.</p>
+<cite>Зульфия Ментор</cite></div></blockquote>
+<div class="sign"><span class="mono" aria-hidden="true">З</span><div><b>Зульфия Ментор</b><span>архитектор системных продаж · @zulfiyamentor</span></div></div>
+</section><section class="panel" id="hooks" role="tabpanel" aria-labelledby="t-hooks" hidden>
+<div class="eyebrow">Раздел 4 из 9 · авторская методика Зульфии Ментор</div>
+<h2>Хуки и заголовки</h2>
+<p>Человек решает, остаться или пролистать, за 1–3 секунды. Не потому, что он невнимательный, — просто лента бесконечная, а вы в ней одна из сотен.</p>
+<blockquote class="note"><span class="mono" aria-hidden="true">З</span><div>
+<p>Хук — это не кликбейт. Это уважение к времени человека: сразу показать, зачем ему здесь остаться. Всё остальное в контенте работает, только если сработал хук. Поэтому хуков я пишу всегда 5–10 и выбираю один.</p>
+<cite>Зульфия Ментор</cite></div></blockquote>
+<h3>Где живёт хук</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Формат</th>
+<th>Где хук</th>
+<th>Сколько времени у вас</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Вертикальное видео</td>
+<td>Первая фраза голосом, текст на экране и обложка</td>
+<td>1–3 секунды</td>
+</tr>
+<tr>
+<td>Карусель</td>
+<td>Обложка: заголовок и подзаголовок</td>
+<td>1 секунда в ленте</td>
+</tr>
+<tr>
+<td>Пост в VK и ветка Threads*</td>
+<td>Первые две строки до кнопки «ещё»</td>
+<td>2 строки</td>
+</tr>
+<tr>
+<td>Сторис</td>
+<td>Первая сторис серии</td>
+<td>1 экран</td>
+</tr>
+<tr>
+<td>Пост в Telegram и MAX</td>
+<td>Первая строка: её видно в уведомлении</td>
+<td>1 строка</td>
+</tr>
+</tbody>
+</table></div>
+<h3>6 правил сильного хука</h3>
+<ol>
+<li><strong>Тема ясна с первой секунды.</strong> Человек должен сразу понять: это про меня или нет.</li>
+<li><strong>Конкретика вместо общих слов.</strong> Цифра, срок, результат, узнаваемая ситуация.</li>
+<li><strong>Обещание без ответа.</strong> Тему показываем, разгадку прячем дальше.</li>
+<li><strong>Язык клиента, а не эксперта.</strong> Клиент не ищет «проработку блоков», он ищет ответ, почему снова соглашается на копейки.</li>
+<li><strong>Только реальные цифры.</strong> Выдуманная статистика рушит доверие быстрее, чем любой охват его строит.</li>
+<li><strong>Без клише.</strong> «5 советов», «важно понимать», «в современном мире», «давайте разберёмся» — сразу мимо.</li>
+</ol>
+<h3>Было → стало</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Было</th>
+<th>Стало</th>
+<th>Что поменяли</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Как увеличить доход эксперту</td>
+<td>Подняла чек с 5 000 до 25 000 ₽, не меняя программу</td>
+<td>Цифры и результат</td>
+</tr>
+<tr>
+<td>5 советов, как перестать уставать</td>
+<td>Если устаёте к обеду, проверьте, что вы делаете первые 15 минут утра</td>
+<td>Узнаваемая ситуация и скрытая причина</td>
+</tr>
+<tr>
+<td>Важность личных границ</td>
+<td>Сказала «нет» маме — и впервые за год выспалась</td>
+<td>Сцена вместо термина</td>
+</tr>
+<tr>
+<td>Почему важно вести блог</td>
+<td>Веду блог каждый день, а в личку никто не пишет. Знакомо?</td>
+<td>Боль клиента его словами</td>
+</tr>
+<tr>
+<td>Правильное питание для женщин</td>
+<td>Ем один раз в день — и всё равно не худею. Вот почему</td>
+<td>Миф, который ломаем</td>
+</tr>
+</tbody>
+</table></div>
+<h2>10 формул заголовков</h2>
+<p>Каждая формула — это рамка. Подставьте свою тему, и получится заготовка. Потом сделайте её живой.</p>
+<h3>1. Эксперимент: «Я проверила X за X дней»</h3>
+<p>Шаблон: «Я [действие] X дней — вот что изменилось». Главное — показать до и после в цифрах или конкретных изменениях.</p>
+<ul>
+<li>«21 день начинала утро без телефона — вот что стало с тревогой»</li>
+<li>«14 дней отвечала клиентам только письменно — продажи выросли»</li>
+<li>«Месяц вела дневник денег — нашла, куда утекает каждая пятая тысяча»</li>
+</ul>
+<h3>2. Ошибки: «5 ошибок, из-за которых…»</h3>
+<p>Шаблон: «X ошибок, из-за которых [плохой результат], даже если вы [что уже делаете]». Внутри каждой ошибки — пример, цифра или конкретное действие.</p>
+<ul>
+<li>«5 ошибок, из-за которых не покупают консультацию, даже если вы ведёте блог каждый день»</li>
+<li>«3 ошибки, из-за которых вес возвращается, даже если вы считаете калории»</li>
+<li>«4 ошибки в первой встрече, из-за которых клиент не приходит на вторую»</li>
+</ul>
+<h3>3. Диагностика: «Если у вас X — проверьте Y»</h3>
+<p>Шаблон: «Если у вас [проблема] — проверьте [фактор]. Возможно, причина здесь». Заголовок сразу работает как мини-диагностика.</p>
+<ul>
+<li>«Если клиенты пропадают после первой встречи — проверьте, чем вы её заканчиваете»</li>
+<li>«Если охваты есть, а заявок нет — посмотрите на последний слайд»</li>
+<li>«Если ссоритесь из-за мелочей — проверьте, высыпаетесь ли вы»</li>
+</ul>
+<h3>4. Запрет: «Я запретила себе X»</h3>
+<p>Шаблон: «Я запретила себе [привычное действие] на X дней. Вот что произошло». Работает лучше всего, когда в конце есть сравнение «было → стало».</p>
+<ul>
+<li>«30 дней не давала скидок. Вот что стало с продажами»</li>
+<li>«Неделю не извинялась без причины. Реакция людей меня удивила»</li>
+<li>«Запретила себе работать после 19:00. Доход не упал»</li>
+</ul>
+<h3>5. Исследование: «Я разобрала X и нашла Y»</h3>
+<p>Шаблон: «Я разобрала X [постов / профилей / случаев] и нашла Y [закономерностей]». Цифры создают ощущение конкретности, внутри — сами закономерности и примеры.</p>
+<ul>
+<li>«Разобрала 50 профилей психологов и нашла 7 одинаковых ошибок»</li>
+<li>«Провела 1000 консультаций — вот 3 вопроса, с которых начинается каждая вторая»</li>
+<li>«Посмотрела 30 продающих эфиров — успешные отличаются одним»</li>
+</ul>
+<h3>6. Один вопрос</h3>
+<p>Шаблон: «Ответьте на один вопрос — и многое станет понятно».</p>
+<ul>
+<li>«Ответьте на один вопрос — и станет понятно, почему вы устаёте»</li>
+<li>«Один вопрос, который покажет, готовы ли вы поднять цену»</li>
+</ul>
+<h3>7. Две новости</h3>
+<p>Шаблон: «Есть две новости. Начну с плохой».</p>
+<ul>
+<li>«Есть две новости про ваш доход. Начну с плохой»</li>
+<li>«Две новости для тех, кто худеет к лету. Сначала плохая»</li>
+</ul>
+<h3>8. Сомнение</h3>
+<p>Шаблон: «Долго думала, рассказывать ли вам это…»</p>
+<ul>
+<li>«Долго думала, рассказывать ли, сколько я заработала на первом потоке»</li>
+<li>«Не хотела об этом говорить, но вы спрашиваете каждую неделю»</li>
+</ul>
+<h3>9. Быстрый результат</h3>
+<p>Шаблон: «X действий, которые дадут [результат] уже за 7 дней».</p>
+<ul>
+<li>«3 действия, которые вернут вам энергию уже за неделю»</li>
+<li>«2 фразы, после которых клиент сам спросит цену»</li>
+</ul>
+<h3>10. Вызов</h3>
+<p>Шаблон: «Сделайте это сегодня вечером и посмотрите, что изменится в [сфера]».</p>
+<ul>
+<li>«Сделайте это сегодня перед сном — и завтра проснётесь другим человеком»</li>
+<li>«Напишите это одно сообщение старым клиентам сегодня — и посмотрите, сколько ответят»</li>
+</ul>
+<h2>8 усилителей виральности</h2>
+<p>Усилитель добавляет хуку напряжения. Берите один-два, не все сразу.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Усилитель</th>
+<th>Суть</th>
+<th>Пример</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Контроверсивность</td>
+<td>Против общепринятого мнения</td>
+<td>«Не надо любить себя. Надо себя знать»</td>
+</tr>
+<tr>
+<td>Провокация</td>
+<td>Смело и резко</td>
+<td>«Ваша доброта — причина, почему вам мало платят»</td>
+</tr>
+<tr>
+<td>Любопытство</td>
+<td>Контекст есть, разгадки нет</td>
+<td>«Одна вещь, которую делают все, кто продаёт дорого»</td>
+</tr>
+<tr>
+<td>Полярность</td>
+<td>Делит на два лагеря</td>
+<td>«Бесплатные консультации — это нормально или нет? Спорим»</td>
+</tr>
+<tr>
+<td>Ёмкость</td>
+<td>Максимум смысла в минимуме слов</td>
+<td>«Чек ×3 за 2 месяца без нового продукта»</td>
+</tr>
+<tr>
+<td>Боль</td>
+<td>От риска, а не от выгоды</td>
+<td>«Так вы теряете каждого третьего клиента»</td>
+</tr>
+<tr>
+<td>Общий враг</td>
+<td>Виноват не человек, а миф или система</td>
+<td>«Вас научили продавать неправильно — и вы не виноваты»</td>
+</tr>
+<tr>
+<td>Волшебная таблетка</td>
+<td>Сделал мало, получил много</td>
+<td>«Одна фраза в конце сторис — и личные сообщения ожили»</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote class="note"><span class="mono" aria-hidden="true">З</span><div>
+<p>Провокацию и полярность я дозирую. Спорить можно с мифом, но не с человеком. Мы продаём с любовью и заботой — и хук должен быть честным продолжением этого.</p>
+<cite>Зульфия Ментор</cite></div></blockquote>
+<h2>Хуки удержания: вторая фраза</h2>
+<p>Первая фраза останавливает. Вторая не даёт уйти. Добавьте её сразу после хука.</p>
+<ul>
+<li>«И дело вовсе не в том, о чём вы думаете».</li>
+<li>«В конце покажу пример — сохраните, пригодится».</li>
+<li>«Третий пункт делают почти все».</li>
+<li>«Я сама так делала три года».</li>
+<li>«Только не делайте выводы до конца видео».</li>
+<li>«Сейчас объясню на одной ситуации».</li>
+</ul>
+<h2>Банк призывов</h2>
+<p>Призыв — одно действие, не три. Выберите то, что нужно именно этому контенту.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Цель</th>
+<th>Призыв</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Заявки и подписки</td>
+<td>«Напишите в комментариях СИСТЕМА — пришлю чек-лист» или «Нажмите кнопку под постом — бот пришлёт чек-лист»</td>
+</tr>
+<tr>
+<td>Сохранения</td>
+<td>«Сохраните, чтобы вернуться, когда будете писать следующий пост»</td>
+</tr>
+<tr>
+<td>Репосты</td>
+<td>«Отправьте подруге, которая снова работает за спасибо»</td>
+</tr>
+<tr>
+<td>Комментарии</td>
+<td>«А вы как думаете: А или Б? Пишите в комментариях»</td>
+</tr>
+<tr>
+<td>Подписка</td>
+<td>«Подпишитесь: завтра покажу, как это внедрить за вечер»</td>
+</tr>
+<tr>
+<td>Переход в канал</td>
+<td>«Полная схема — в моём канале в Telegram или MAX, ссылка в описании»</td>
+</tr>
+</tbody>
+</table></div>
+<h2 class="ai">Делаем с ИИ — пошагово</h2>
+<div class="prep"><b>Перед началом</b><p>Откройте новый чат с нейросетью и первым сообщением отправьте свой «Паспорт эксперта» — <a href="#passport" class="go" data-go="passport">как его сделать</a>. Без него промпты дают общие, безликие тексты.</p><div class="legend"><span>Как читать промпт:</span> <mark class="fill">&gt;&gt;&gt; ВАША НИША &lt;&lt;&lt;</mark> <span>→ замените целиком на свой текст, например</span> <mark class="done">психолог по отношениям</mark></div></div>
+<h3 class="step"><span class="stepn">Шаг 1.</span> Найдите в идее конфликт</h3>
+<p>Начните с мысли, которой хотите поделиться. Нейросеть найдёт в ней противоречие и предложит 10 первых строк — по одной на каждую формулу.</p>
+<p><strong>Что вставить:</strong> свою идею одним-двумя предложениями.</p>
+<div class="prompt"><pre><code>Вот моя идея:
+<mark class="fill">&gt;&gt;&gt; ВАША ИДЕЯ &lt;&lt;&lt;</mark>
+
+Разбери её как редактор. Найди противоречие, после которого человек остановится и подумает: «Стоп, а ведь это правда».
+Покажи, с каким распространённым убеждением можно столкнуть мою мысль.
+
+Затем предложи 10 вариантов первых строк — по одному на каждую формулу:
+1. Эксперимент: «Я [действие] X дней — вот что изменилось»
+2. Ошибки: «X ошибок, из-за которых [плохой результат], даже если вы [что уже делаете]»
+3. Диагностика: «Если у вас [проблема] — проверьте [фактор]. Возможно, причина здесь»
+4. Запрет: «Я запретила себе [привычное действие] на X дней. Вот что произошло»
+5. Исследование: «Я разобрала X [постов / профилей / случаев] и нашла Y [закономерностей]»
+6. Один вопрос: «Ответьте на один вопрос — и многое станет понятно»
+7. Две новости: «Есть две новости. Начну с плохой»
+8. Сомнение: «Долго думала, рассказывать ли вам это…»
+9. Быстрый результат: «X действий, которые дадут [результат] уже за 7 дней»
+10. Вызов: «Сделайте это сегодня вечером и посмотрите, что изменится в [сфера]»
+
+Отметь уровень провокации каждой строки: мягкий, средний, смелый.
+Без кликбейта и банальных формулировок. Цифры не придумывай — где нужна цифра, оставь [X].
+</code></pre><button class="copy" type="button">Копировать промпт</button></div>
+<p>Что получите: 10 вариантов первой строки с пометкой «мягкий / средний / смелый». Выберите 2–3, которые звучат как вы.</p>
+<h3 class="step"><span class="stepn">Шаг 2.</span> Нужно больше вариантов — 20 заголовков</h3>
+<p>Если первые строки не зацепили, попросите 20 заголовков на тему сразу с усилителями.</p>
+<p><strong>Что вставить:</strong> тему.</p>
+<div class="prompt"><pre><code>Ты — создатель вирусных заголовков для соцсетей. Сделай 20 коротких заголовков для вертикальных видео на тему:
+<mark class="fill">&gt;&gt;&gt; ВАША ТЕМА &lt;&lt;&lt;</mark>
+
+Заголовки должны быть плотными по эмоции, создавать интригу и желание сразу открыть видео.
+
+Строй заголовки по 10 формулам (по 2 на каждую):
+1. Эксперимент: «Я [действие] X дней — вот что изменилось»
+2. Ошибки: «X ошибок, из-за которых [плохой результат], даже если вы [что уже делаете]»
+3. Диагностика: «Если у вас [проблема] — проверьте [фактор]. Возможно, причина здесь»
+4. Запрет: «Я запретила себе [привычное действие] на X дней. Вот что произошло»
+5. Исследование: «Я разобрала X [постов / профилей / случаев] и нашла Y [закономерностей]»
+6. Один вопрос: «Ответьте на один вопрос — и многое станет понятно»
+7. Две новости: «Есть две новости. Начну с плохой»
+8. Сомнение: «Долго думала, рассказывать ли вам это…»
+9. Быстрый результат: «X действий, которые дадут [результат] уже за 7 дней»
+10. Вызов: «Сделайте это сегодня вечером и посмотрите, что изменится в [сфера]»
+
+Усиль каждый заголовок одним из 8 усилителей: контроверсивность, провокация, любопытство, полярность, ёмкость, боль, общий враг, волшебная таблетка.
+Рядом с каждым заголовком укажи формулу и усилитель.
+Спорь с мифами, а не с людьми. Без скучных и банальных формулировок. Цифры не придумывай — где нужна цифра, оставь [X].
+</code></pre><button class="copy" type="button">Копировать промпт</button></div>
+<p>Что получите: 20 заголовков с подписью формулы и усилителя. Отметьте 3 лучших и проверьте их по 6 правилам выше.</p>
+<h3 class="step"><span class="stepn">Шаг 3.</span> Текст уже готов — подберите к нему хук</h3>
+<p>Когда сценарий, пост или расшифровка видео уже есть, хук подбирают под то, что реально в тексте.</p>
+<p><strong>Что вставить:</strong> готовый сценарий, пост или расшифровку видео.</p>
+<div class="prompt"><pre><code>Вот мой готовый текст:
+<mark class="fill">&gt;&gt;&gt; ВСТАВЬТЕ ТЕКСТ &lt;&lt;&lt;</mark>
+
+Предложи 10 вариантов первой фразы, которые остановят скролл — по одному на каждую формулу:
+1. Эксперимент: «Я [действие] X дней — вот что изменилось»
+2. Ошибки: «X ошибок, из-за которых [плохой результат], даже если вы [что уже делаете]»
+3. Диагностика: «Если у вас [проблема] — проверьте [фактор]. Возможно, причина здесь»
+4. Запрет: «Я запретила себе [привычное действие] на X дней. Вот что произошло»
+5. Исследование: «Я разобрала X [постов / профилей / случаев] и нашла Y [закономерностей]»
+6. Один вопрос: «Ответьте на один вопрос — и многое станет понятно»
+7. Две новости: «Есть две новости. Начну с плохой»
+8. Сомнение: «Долго думала, рассказывать ли вам это…»
+9. Быстрый результат: «X действий, которые дадут [результат] уже за 7 дней»
+10. Вызов: «Сделайте это сегодня вечером и посмотрите, что изменится в [сфера]»
+
+Хук должен обещать только то, что есть в тексте. Не придумывай цифр, которых в тексте нет.
+Отметь 3 самых сильных варианта и объясни почему.
+</code></pre><button class="copy" type="button">Копировать промпт</button></div>
+<p>Что получите: 10 вариантов первой фразы и 3 самых сильных с объяснением. Хук не обещает больше, чем есть в тексте.</p>
+<blockquote class="note"><span class="mono" aria-hidden="true">З</span><div>
+<p>Хук выбираю я, а не нейросеть. Она даёт варианты, а я читаю вслух и оставляю тот, который сказала бы клиенту на встрече.</p>
+<cite>Зульфия Ментор</cite></div></blockquote>
+<div class="sign"><span class="mono" aria-hidden="true">З</span><div><b>Зульфия Ментор</b><span>архитектор системных продаж · @zulfiyamentor</span></div></div>
+</section><section class="panel" id="video" role="tabpanel" aria-labelledby="t-video" hidden>
+<div class="eyebrow">Раздел 5 из 9 · авторская методика Зульфии Ментор</div>
+<h2>Вертикальные видео</h2>
+<p>VK Клипы, YouTube Shorts, Дзен, Reels* — для нас это один формат. Снимаете одно видео 9:16 и публикуете его везде. Так один час съёмки работает на четыре площадки сразу.</p>
+<blockquote class="note"><span class="mono" aria-hidden="true">З</span><div>
+<p>Я часто слышу: «Не люблю сниматься, мне проще писать». Понимаю. Но вертикальное видео сегодня — самый быстрый способ, чтобы вас увидели люди, которые о вас ещё не знают. Хорошая новость: снимать идеально не нужно. Нужно снимать по структуре.</p>
+<cite>Зульфия Ментор</cite></div></blockquote>
+<h3>Формула сценария: 4 части</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Часть</th>
+<th>Время</th>
+<th>Задача</th>
+<th>Как сделать</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Хук</td>
+<td>0–3 сек</td>
+<td>Остановить скролл</td>
+<td>Фраза из вкладки «Хуки». Говорите голосом и дублируйте текстом на экране</td>
+</tr>
+<tr>
+<td>2. Удержание</td>
+<td>3–6 сек</td>
+<td>Не дать уйти</td>
+<td>Одна фраза: «и дело не в том, о чём вы думаете», «в конце покажу пример»</td>
+</tr>
+<tr>
+<td>3. Контент</td>
+<td>15–40 сек</td>
+<td>Выполнить обещание</td>
+<td>3–5 пунктов, одна мысль на пункт, в каждом пример или цифра</td>
+</tr>
+<tr>
+<td>4. Призыв</td>
+<td>3–5 сек</td>
+<td>Одно действие</td>
+<td>Кодовое слово, сохранить или подписаться — что-то одно</td>
+</tr>
+</tbody>
+</table></div>
+<p>Правило, которое я повторяю всем ученикам: что пообещали в хуке, то и дайте в контенте. Если хук обещает «3 фразы», а дальше пять минут рассуждений — человек уйдёт и больше не вернётся.</p>
+<h2>6 типов роликов: готовые сценарии</h2>
+<p>Чередуйте типы, чтобы аудитория видела вас с разных сторон: эксперт, человек, практик.</p>
+<h3>1. «Ошибки»</h3>
+<p>Когда: нужно показать экспертность и привести заявки. Длина: 30–40 секунд.</p>
+<ol>
+<li>Хук: «3 ошибки, из-за которых после консультации не покупают, даже если всё прошло хорошо».</li>
+<li>Удержание: «Третью делают почти все — и я тоже делала».</li>
+<li>Ошибка 1: «Вы заканчиваете встречу словами “если что — пишите”. Это не приглашение, это прощание».</li>
+<li>Ошибка 2: «Вы не спрашиваете, что человек хочет получить дальше».</li>
+<li>Ошибка 3: «Вы называете цену и сразу оправдываетесь».</li>
+<li>Призыв: «Напишите в комментариях СКРИПТ — пришлю, как я завершаю консультацию, чтобы клиент сам спросил про продолжение».</li>
+</ol>
+<h3>2. «История клиента»</h3>
+<p>Когда: нужно доверие и прогрев к продукту. Длина: 30–45 секунд.</p>
+<ol>
+<li>Хук с результатом: «Анна полгода продавала консультации по 2 000 ₽. Через 2 месяца — по 15 000 ₽».</li>
+<li>Было: «Она была уверена, что дело в нише и “не той аудитории”».</li>
+<li>Поворот: «На разборе выяснилось: проблема в одном абзаце в описании профиля».</li>
+<li>Что сделали: 2–3 конкретных шага.</li>
+<li>Стало: цифры, ощущения, цитата клиента.</li>
+<li>Призыв: «Хотите так же — напишите РАЗБОР в личные сообщения».</li>
+</ol>
+<p>Имена и цифры — только реальные и с согласия клиента. Пример выше — образец структуры.</p>
+<h3>3. «Я проверила на себе»</h3>
+<p>Когда: нужно показать себя живым человеком. Длина: 20–35 секунд.</p>
+<ol>
+<li>Хук: «30 дней не давала скидок. Вот что стало с продажами».</li>
+<li>Зачем: «Устала работать много и зарабатывать мало».</li>
+<li>Что было трудно: честно, с эмоцией.</li>
+<li>Результат в цифрах: было → стало.</li>
+<li>Вывод одной фразой: «Скидка — это не забота о клиенте. Это неуверенность в себе».</li>
+<li>Призыв: «Сохраните, чтобы вспомнить, когда рука потянется к скидке».</li>
+</ol>
+<h3>4. «Миф и правда»</h3>
+<p>Когда: нужен охват и обсуждение в комментариях. Длина: 15–25 секунд.</p>
+<ol>
+<li>Хук-миф: «Чтобы продавать, нужно много подписчиков».</li>
+<li>Правда: «Свой первый миллион я заработала при 230 подписчиках в Telegram-канале» — или реальный пример вашей ученицы.</li>
+<li>Почему так: 2–3 предложения.</li>
+<li>Призыв к спору: «Согласны? Пишите в комментариях».</li>
+</ol>
+<h3>5. «Ответ на вопрос»</h3>
+<p>Когда: нет идей. Берите вопросы из личных сообщений и комментариев — это ваши лучшие темы. Длина: 20–40 секунд.</p>
+<ol>
+<li>Хук: покажите скриншот вопроса и прочитайте его вслух.</li>
+<li>Короткий ответ сразу: «Да, можно. Но есть условие».</li>
+<li>Объяснение с примером.</li>
+<li>Призыв: «Задавайте свои вопросы в комментариях — отвечу следующим видео».</li>
+</ol>
+<h3>6. «Пошаговая инструкция»</h3>
+<p>Когда: нужны сохранения. Длина: 30–50 секунд.</p>
+<ol>
+<li>Хук: «3 шага, чтобы вернуть клиентов, которые пропали после первой встречи».</li>
+<li>Шаг 1, шаг 2, шаг 3 — каждый с примером фразы или действия.</li>
+<li>На экране нумерация шагов крупно.</li>
+<li>Призыв: «Сохраните и сделайте сегодня вечером».</li>
+</ol>
+<h2>Съёмка</h2>
+<ul>
+<li>Свет: лицом к окну, днём. Вечером — кольцевая лампа перед лицом, не сбоку.</li>
+<li>Камера на уровне глаз, вы в центре кадра, над головой немного воздуха.</li>
+<li>Смотрите в объектив, а не на себя на экране.</li>
+<li>Звук: петличный микрофон. Голос без эха важнее красивой картинки.</li>
+<li>Снимайте сразу 3–5 роликов за одну сессию: один образ, один свет, разные темы.</li>
+</ul>
+<h2>Звук</h2>
+<ul>
+<li>Говорящая голова: ваш голос основной, музыка фоном и тихо, чтобы не перебивала речь.</li>
+<li>Видео без речи (текст на экране, атмосфера, процесс работы): трендовый звук из рекомендаций площадки.</li>
+<li>На каждой площадке подбирайте музыку внутри приложения: так ролик не потеряет звук из-за авторских прав.</li>
+</ul>
+<h2>Монтаж и субтитры</h2>
+<ul>
+<li>Вырезайте паузы, «эээ» и повторы: ролик становится примерно на треть короче и живее.</li>
+<li>Каждые 2–3 секунды меняйте план или добавляйте вставку: схему, скриншот, слайд поверх кадра.</li>
+<li>Пословные субтитры: многие смотрят без звука.</li>
+<li>Субтитры крупно, по центру. Не у нижнего края — там подпись и кнопки площадки.</li>
+<li>Ключевое слово выделяйте цветом бренда.</li>
+</ul>
+<h2>Обложка и описание</h2>
+<ul>
+<li>Обложка: заголовок из 3–6 слов, крупно, читается даже маленьким квадратом в сетке.</li>
+<li>Обложки в одном стиле делают профиль аккуратным и узнаваемым.</li>
+<li>Первая строка описания повторяет хук или сразу даёт кодовое слово: «Напишите 10 — пришлю бесплатный гайд».</li>
+<li>Дальше 3–5 строк пользы и повтор призыва.</li>
+</ul>
+<h2>Одно видео — четыре площадки</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Площадка</th>
+<th>Что важно</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VK Клипы</td>
+<td>Ссылка на сообщество, канал в MAX или Telegram в описании</td>
+</tr>
+<tr>
+<td>YouTube Shorts</td>
+<td>Название как поисковый запрос: «Как поднять чек на консультацию»</td>
+</tr>
+<tr>
+<td>Дзен</td>
+<td>Описание подробнее: здесь читают</td>
+</tr>
+<tr>
+<td>Instagram* Reels</td>
+<td>Кодовое слово в комментарии, автоответ в директ</td>
+</tr>
+</tbody>
+</table></div>
+<p>Загружайте исходник без водяных знаков другой площадки: ролик с чужим логотипом показывают меньше. Призыв подстраивайте под площадку: где нет личных сообщений — ведите в свой канал в Telegram или MAX.</p>
+<h2 class="ai">Делаем с ИИ — пошагово</h2>
+<div class="prep"><b>Перед началом</b><p>Откройте новый чат с нейросетью и первым сообщением отправьте свой «Паспорт эксперта» — <a href="#passport" class="go" data-go="passport">как его сделать</a>. Без него промпты дают общие, безликие тексты.</p><div class="legend"><span>Как читать промпт:</span> <mark class="fill">&gt;&gt;&gt; ВАША НИША &lt;&lt;&lt;</mark> <span>→ замените целиком на свой текст, например</span> <mark class="done">психолог по отношениям</mark></div></div>
+<h3 class="step"><span class="stepn">Шаг 1.</span> Темы на месяц</h3>
+<p>Один раз в месяц составьте контент-план — и больше не думайте каждое утро, о чём снимать.</p>
+<p><strong>Что вставить:</strong> нишу, аудиторию и продукт (или сначала отправьте паспорт эксперта).</p>
+<div class="prompt"><pre><code>Моя ниша: <mark class="fill">&gt;&gt;&gt; ВАША НИША &lt;&lt;&lt;</mark>
+Моя аудитория: <mark class="fill">&gt;&gt;&gt; КТО ОНИ &lt;&lt;&lt;</mark>
+Мой продукт: <mark class="fill">&gt;&gt;&gt; ЧТО ПРОДАЁТЕ &lt;&lt;&lt;</mark>
+
+Составь контент-план из 30 тем для вертикальных видео на месяц.
+Распредели по 6 типам: ошибки, история клиента, я проверила на себе, миф и правда, ответ на вопрос, пошаговая инструкция.
+Не менее трети тем должны подводить к моему продукту.
+
+Для каждой темы напиши хук по одной из 10 формул (используй все формулы, не повторяй одну подряд):
+1. Эксперимент: «Я [действие] X дней — вот что изменилось»
+2. Ошибки: «X ошибок, из-за которых [плохой результат], даже если вы [что уже делаете]»
+3. Диагностика: «Если у вас [проблема] — проверьте [фактор]. Возможно, причина здесь»
+4. Запрет: «Я запретила себе [привычное действие] на X дней. Вот что произошло»
+5. Исследование: «Я разобрала X [постов / профилей / случаев] и нашла Y [закономерностей]»
+6. Один вопрос: «Ответьте на один вопрос — и многое станет понятно»
+7. Две новости: «Есть две новости. Начну с плохой»
+8. Сомнение: «Долго думала, рассказывать ли вам это…»
+9. Быстрый результат: «X действий, которые дадут [результат] уже за 7 дней»
+10. Вызов: «Сделайте это сегодня вечером и посмотрите, что изменится в [сфера]»
+
+Оформи таблицей: № · тема · хук · формула · тип ролика · призыв. Цифры не придумывай — где нужна цифра, оставь [X].
+</code></pre><button class="copy" type="button">Копировать промпт</button></div>
+<p>Что получите: таблицу из 30 тем с хуком, типом ролика и призывом. Перенесите её в заметки или календарь.</p>
+<h3 class="step"><span class="stepn">Шаг 2.</span> Сценарий под съёмку</h3>
+<p>Возьмите тему из плана и сделайте из неё сценарий, который можно читать вслух.</p>
+<p><strong>Что вставить:</strong> тему, тип ролика из вкладки «Видео» и призыв.</p>
+<div class="prompt"><pre><code>Напиши сценарий вертикального видео длиной 30–40 секунд для VK Клипов, YouTube Shorts и Reels.
+Тема: <mark class="fill">&gt;&gt;&gt; ВАША ТЕМА &lt;&lt;&lt;</mark>
+Тип ролика: <mark class="fill">&gt;&gt;&gt; ОШИБКИ / ИСТОРИЯ КЛИЕНТА / Я ПРОВЕРИЛА НА СЕБЕ / МИФ И ПРАВДА / ОТВЕТ НА ВОПРОС / ПОШАГОВАЯ ИНСТРУКЦИЯ &lt;&lt;&lt;</mark>
+Призыв в конце: <mark class="fill">&gt;&gt;&gt; НАПРИМЕР: НАПИШИТЕ СЛОВО СИСТЕМА — ПРИШЛЮ ЧЕК-ЛИСТ &lt;&lt;&lt;</mark>
+
+Структура:
+1. Хук (0–3 сек) — дай 5 вариантов на выбор, каждый по своей формуле из списка ниже.
+2. Удержание (3–6 сек) — одна фраза, из-за которой не пролистывают.
+3. Контент — 3–5 пунктов, одна мысль на пункт, в каждом пример.
+4. Призыв — одно действие.
+
+10 формул для хука:
+1. Эксперимент: «Я [действие] X дней — вот что изменилось»
+2. Ошибки: «X ошибок, из-за которых [плохой результат], даже если вы [что уже делаете]»
+3. Диагностика: «Если у вас [проблема] — проверьте [фактор]. Возможно, причина здесь»
+4. Запрет: «Я запретила себе [привычное действие] на X дней. Вот что произошло»
+5. Исследование: «Я разобрала X [постов / профилей / случаев] и нашла Y [закономерностей]»
+6. Один вопрос: «Ответьте на один вопрос — и многое станет понятно»
+7. Две новости: «Есть две новости. Начну с плохой»
+8. Сомнение: «Долго думала, рассказывать ли вам это…»
+9. Быстрый результат: «X действий, которые дадут [результат] уже за 7 дней»
+10. Вызов: «Сделайте это сегодня вечером и посмотрите, что изменится в [сфера]»
+
+Формат ответа: таблица из трёх колонок — «что говорю», «текст на экране», «что в кадре или вставка».
+После таблицы — текст на обложку (3–6 слов) и описание под видео.
+Язык разговорный, фразы короткие — его будут произносить вслух. Цифры не придумывай.
+</code></pre><button class="copy" type="button">Копировать промпт</button></div>
+<p>Что получите: таблицу «что говорю — текст на экране — что в кадре», 5 вариантов хука, текст на обложку и описание.</p>
+<h3 class="step"><span class="stepn">Шаг 3.</span> Снимите и смонтируйте</h3>
+<p>Снимите по сценарию, не заучивая слово в слово: держите перед глазами только структуру. Смонтируйте по правилам выше в CapCut: это 15–20 минут.</p>
+<h3 class="step"><span class="stepn">Шаг 4.</span> Проверьте описание</h3>
+<p>Перед публикацией прогоните описание под видео через проверку на «звучание ИИ».</p>
+<p><strong>Что вставить:</strong> любой готовый текст. Прогоняйте через этот промпт всё, что написала нейросеть.</p>
+<div class="prompt"><pre><code>Проанализируй этот текст:
+<mark class="fill">&gt;&gt;&gt; ВСТАВЬТЕ ТЕКСТ &lt;&lt;&lt;</mark>
+
+Найди места, где он звучит шаблонно, слишком правильно, предсказуемо или искусственно.
+Перепиши их так, будто это говорит живой эксперт с сильной позицией.
+Добавь конкретные наблюдения, короткие фразы, неожиданные формулировки и человеческую интонацию.
+Убери клише: «важно понимать», «в современном мире», «давайте разберёмся», «не секрет, что», «итак».
+Смысл и факты не меняй, новых цифр не добавляй.
+</code></pre><button class="copy" type="button">Копировать промпт</button></div>
+<p>Что получите: тот же текст, но живым языком, без шаблонных фраз.</p>
+<h3 class="step"><span class="stepn">Шаг 5.</span> Опубликуйте везде</h3>
+<p>Одно видео — в VK Клипы, Shorts, Дзен и Reels*. Призыв подстройте под площадку по таблице выше.</p>
+<div class="sign"><span class="mono" aria-hidden="true">З</span><div><b>Зульфия Ментор</b><span>архитектор системных продаж · @zulfiyamentor</span></div></div>
+</section><section class="panel" id="carousels" role="tabpanel" aria-labelledby="t-carousels" hidden>
+<div class="eyebrow">Раздел 6 из 9 · авторская методика Зульфии Ментор</div>
+<h2>Карусели</h2>
+<p>Видео приводит новых людей, а карусель заставляет их сохранить вас. Это формат доверия: человек листает 8–10 слайдов, сам выбирает темп и к концу уже думает вашими словами. В Telegram, MAX и VK та же карусель публикуется как альбом из картинок.</p>
+<blockquote class="note"><span class="mono" aria-hidden="true">З</span><div>
+<p>Хорошая карусель — это не красивые слайды. Это лесенка: каждая ступенька ведёт к следующей, а наверху — ваш призыв. Дизайн помогает, но сохраняют за смысл.</p>
+<cite>Зульфия Ментор</cite></div></blockquote>
+<h3>Структура: 8–10 слайдов</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Слайд</th>
+<th>Роль</th>
+<th>Что на нём</th>
+<th>Ошибка, которую часто делают</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Обложка</td>
+<td>Хук-заголовок, подзаголовок с интригой, ваше фото</td>
+<td>Тема вместо хука: «Личные границы»</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Разгон</td>
+<td>Проблема или ситуация: зачем листать дальше</td>
+<td>Длинное вступление про себя</td>
+</tr>
+<tr>
+<td>3–7</td>
+<td>Содержание</td>
+<td>Один тезис на слайд + пример. В конце крючок на следующий</td>
+<td>Две-три мысли на одном слайде</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Вывод</td>
+<td>Самая сильная мысль одной фразой</td>
+<td>Пересказ всех пунктов заново</td>
+</tr>
+<tr>
+<td>Последний</td>
+<td>Призыв</td>
+<td>Одно действие: кодовое слово, сохранить, переслать</td>
+<td>Три призыва сразу или ни одного</td>
+</tr>
+</tbody>
+</table></div>
+<h2>Крючки между слайдами</h2>
+<p>Последняя строка слайда тянет листать дальше:</p>
+<ul>
+<li>«Но это ещё не главное →»</li>
+<li>«А теперь то, что никто не говорит →»</li>
+<li>«И вот тут почти все ошибаются →»</li>
+<li>«Теперь самое интересное →»</li>
+<li>«Думаете, на этом всё? →»</li>
+</ul>
+<h2>7 типов каруселей</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Тип</th>
+<th>Зачем</th>
+<th>Пример обложки</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Чек-лист</td>
+<td>Сохранения</td>
+<td>«10 признаков, что вы готовы поднять цену»</td>
+</tr>
+<tr>
+<td>Ошибки</td>
+<td>Экспертность</td>
+<td>«5 фраз в сторис, которые отпугивают клиентов»</td>
+</tr>
+<tr>
+<td>До и после</td>
+<td>Доверие к результату</td>
+<td>«Описание профиля до и после: +12 заявок за неделю»</td>
+</tr>
+<tr>
+<td>Сравнение</td>
+<td>Расставить акценты</td>
+<td>«Терапевт vs коуч: к кому идти с вашим запросом»</td>
+</tr>
+<tr>
+<td>Пошаговый план</td>
+<td>Сохранения и заявки</td>
+<td>«Первый поток за 30 дней: план по неделям»</td>
+</tr>
+<tr>
+<td>История</td>
+<td>Близость и прогрев</td>
+<td>«Как я перестала бояться называть цену»</td>
+</tr>
+<tr>
+<td>Тест или задачка</td>
+<td>Комментарии и личные сообщения</td>
+<td>«Клиент говорит “дорого”. Что ответите? А, Б или В»</td>
+</tr>
+</tbody>
+</table></div>
+<h2>Пример карусели целиком</h2>
+<p>Тема: почему после консультации не покупают. Аудитория: психологи и коучи.</p>
+<ol>
+<li><strong>Обложка.</strong> «Клиент сказал “спасибо, очень полезно” — и пропал». Подзаголовок: «И дело не в цене».</li>
+<li><strong>Разгон.</strong> «Встреча прошла тепло. Человек плакал, благодарил. А на продолжение не пришёл. Знакомо? →»</li>
+<li><strong>Причина 1.</strong> «Вы дали слишком много. Человек ушёл с ощущением, что проблема решена. Но это не главное →»</li>
+<li><strong>Причина 2.</strong> «Вы не показали путь. Он не понимает, что будет дальше и зачем ему ещё встречи →»</li>
+<li><strong>Причина 3.</strong> «Вы не предложили. Фраза “если что — пишите” звучит как прощание →»</li>
+<li><strong>Как иначе.</strong> «За 10 минут до конца спросите: “Что из сегодняшнего для вас самое важное?” →»</li>
+<li><strong>Продолжение.</strong> «Потом: “Хотите, покажу, как мы можем закрепить это за 3 встречи?” Это не давление. Это забота →»</li>
+<li><strong>Вывод.</strong> «Клиент не покупает не потому, что дорого. А потому, что ему не предложили».</li>
+<li><strong>Призыв.</strong> «Напишите в комментариях СКРИПТ — пришлю полный текст завершения консультации».</li>
+</ol>
+<h2>Правила текста</h2>
+<ul>
+<li>До 30 слов или 2–3 коротких предложений на слайд.</li>
+<li>Живой разговорный язык, без канцелярита и терминов.</li>
+<li>Ключевое слово на слайде выделяйте цветом или жирным.</li>
+<li>Иконки и стрелки подсказывают, что листать дальше.</li>
+</ul>
+<h2>Дизайн</h2>
+<ul>
+<li>Размер слайда 1080×1350 px (формат 4:5) — занимает больше места в ленте, чем квадрат.</li>
+<li>Один шрифтовой дуэт и одна палитра на все карусели.</li>
+<li>Нумерация слайдов всегда в одном углу.</li>
+<li>На обложке ваше фото: с лицом карусели листают чаще.</li>
+<li>Серия в едином стиле делает профиль узнаваемым: вас начинают узнавать в ленте ещё до имени.</li>
+</ul>
+<h2 class="ai">Делаем с ИИ — пошагово: карусель за 20 минут</h2>
+<div class="prep"><b>Перед началом</b><p>Откройте новый чат с нейросетью и первым сообщением отправьте свой «Паспорт эксперта» — <a href="#passport" class="go" data-go="passport">как его сделать</a>. Без него промпты дают общие, безликие тексты.</p><div class="legend"><span>Как читать промпт:</span> <mark class="fill">&gt;&gt;&gt; ВАША НИША &lt;&lt;&lt;</mark> <span>→ замените целиком на свой текст, например</span> <mark class="done">психолог по отношениям</mark></div></div>
+<h3 class="step"><span class="stepn">Шаг 1.</span> Выберите тему</h3>
+<p>Если тем нет, попросите 10 тем, которые будут сохранять.</p>
+<p><strong>Что вставить:</strong> нишу и аудиторию.</p>
+<div class="prompt"><pre><code>Ты — контент-стратег для соцсетей.
+Моя ниша: <mark class="fill">&gt;&gt;&gt; ВАША НИША &lt;&lt;&lt;</mark>
+Моя аудитория: <mark class="fill">&gt;&gt;&gt; КТО ОНИ &lt;&lt;&lt;</mark>
+
+Придумай 10 практичных тем для каруселей, которые будут сохранять: чек-листы, инструкции, подборки, сравнения, тесты.
+
+Заголовок обложки для каждой темы пиши по одной из 10 формул (каждую формулу — один раз):
+1. Эксперимент: «Я [действие] X дней — вот что изменилось»
+2. Ошибки: «X ошибок, из-за которых [плохой результат], даже если вы [что уже делаете]»
+3. Диагностика: «Если у вас [проблема] — проверьте [фактор]. Возможно, причина здесь»
+4. Запрет: «Я запретила себе [привычное действие] на X дней. Вот что произошло»
+5. Исследование: «Я разобрала X [постов / профилей / случаев] и нашла Y [закономерностей]»
+6. Один вопрос: «Ответьте на один вопрос — и многое станет понятно»
+7. Две новости: «Есть две новости. Начну с плохой»
+8. Сомнение: «Долго думала, рассказывать ли вам это…»
+9. Быстрый результат: «X действий, которые дадут [результат] уже за 7 дней»
+10. Вызов: «Сделайте это сегодня вечером и посмотрите, что изменится в [сфера]»
+
+Для каждой темы укажи: заголовок, формулу, почему её будут сохранять и сколько нужно слайдов.
+</code></pre><button class="copy" type="button">Копировать промпт</button></div>
+<p>Что получите: 10 тем с заголовком обложки, формулой, причиной сохранять и количеством слайдов.</p>
+<h3 class="step"><span class="stepn">Шаг 2.</span> Наговорите мысль</h3>
+<p>Запишите голосовое на 2–3 минуты по выбранной теме — как будто объясняете подруге. Расшифруйте его в Telegram или любой программе. Подойдёт и готовый длинный пост.</p>
+<h3 class="step"><span class="stepn">Шаг 3.</span> Превратите текст в слайды</h3>
+<p><strong>Что вставить:</strong> расшифровку голосового или длинный пост, призыв.</p>
+<div class="prompt"><pre><code>Ты — эксперт по контенту для каруселей. Сделай из моего текста готовую карусель.
+
+Мой текст:
+<mark class="fill">&gt;&gt;&gt; ВСТАВЬТЕ РАСШИФРОВКУ ГОЛОСОВОГО ИЛИ ПОСТ &lt;&lt;&lt;</mark>
+
+Призыв в конце:
+<mark class="fill">&gt;&gt;&gt; СОХРАНИТЬ / ПЕРЕСЛАТЬ / НАПИСАТЬ КОДОВОЕ СЛОВО ___ &lt;&lt;&lt;</mark>
+
+Структура, 8–10 слайдов:
+1. Обложка — цепляющий заголовок и подзаголовок с интригой. Предложи 3 варианта заголовка по разным формулам из списка ниже. Никаких «5 советов»: нужна конкретика или неожиданный ракурс.
+2. Разгон — проблема или контекст: зачем листать дальше.
+3–7. По одному тезису на слайд. Мысль законченная, но с крючком на следующий слайд.
+8. Вывод — самая сильная мысль одной фразой.
+Последний — призыв.
+
+10 формул для заголовка обложки:
+1. Эксперимент: «Я [действие] X дней — вот что изменилось»
+2. Ошибки: «X ошибок, из-за которых [плохой результат], даже если вы [что уже делаете]»
+3. Диагностика: «Если у вас [проблема] — проверьте [фактор]. Возможно, причина здесь»
+4. Запрет: «Я запретила себе [привычное действие] на X дней. Вот что произошло»
+5. Исследование: «Я разобрала X [постов / профилей / случаев] и нашла Y [закономерностей]»
+6. Один вопрос: «Ответьте на один вопрос — и многое станет понятно»
+7. Две новости: «Есть две новости. Начну с плохой»
+8. Сомнение: «Долго думала, рассказывать ли вам это…»
+9. Быстрый результат: «X действий, которые дадут [результат] уже за 7 дней»
+10. Вызов: «Сделайте это сегодня вечером и посмотрите, что изменится в [сфера]»
+
+Стиль: до 30 слов на слайд, живой разговорный язык, без «в современном мире» и «давайте разберёмся». Цифры только из моего текста.
+Подскажи, где поставить иконку, стрелку или выделить слово цветом.
+Пронумеруй слайды, чтобы их было легко перенести в Canva.
+</code></pre><button class="copy" type="button">Копировать промпт</button></div>
+<p>Что получите: текст 8–10 слайдов по номерам, 3 варианта заголовка обложки и подсказки, где поставить иконку или выделение.</p>
+<h3 class="step"><span class="stepn">Шаг 4.</span> Сверстайте дизайн</h3>
+<p><strong>Что вставить:</strong> текст слайдов из шага 3, стиль, цвета, шрифты.</p>
+<div class="prompt"><pre><code>Создай карусель как один HTML-файл. Размер слайда 1080×1350 px (4:5).
+
+Текст слайдов:
+<mark class="fill">&gt;&gt;&gt; ВСТАВЬТЕ ТЕКСТ ПО СЛАЙДАМ &lt;&lt;&lt;</mark>
+
+Стиль: <mark class="fill">&gt;&gt;&gt; МИНИМАЛИЗМ / ПАСТЕЛЬНЫЙ / ЯРКИЙ &lt;&lt;&lt;</mark>
+Цвета: <mark class="fill">&gt;&gt;&gt; НАПРИМЕР: СЛИВОЧНЫЙ ФОН, ЗОЛОТЫЕ АКЦЕНТЫ &lt;&lt;&lt;</mark>
+Шрифты: <mark class="fill">&gt;&gt;&gt; НАПРИМЕР: CORMORANT GARAMOND ДЛЯ ЗАГОЛОВКОВ, MULISH ДЛЯ ТЕКСТА &lt;&lt;&lt;</mark>
+
+На каждом слайде: крупный заголовок, 2–3 строки текста, иконка или геометрический акцент.
+Нумерация слайдов в одном и том же углу.
+Первый слайд сделай с прозрачным фоном, чтобы я подставила своё фото.
+Добавь кнопку «Сохранить как PNG» для каждого слайда.
+</code></pre><button class="copy" type="button">Копировать промпт</button></div>
+<p>Что получите: HTML-файл со слайдами. Откройте его в браузере и сохраните каждый слайд как PNG.</p>
+<p>Нужна сразу серия на две недели — используйте вместо этого шага промпт на 5 каруселей в одном стиле:</p>
+<p><strong>Что вставить:</strong> 5 тем и описание стиля.</p>
+<div class="prompt"><pre><code>Создай 5 каруселей в одном HTML-файле, слайды 1080×1350 px.
+
+Темы:
+1. <mark class="fill">&gt;&gt;&gt; ТЕМА 1 &lt;&lt;&lt;</mark>
+2. <mark class="fill">&gt;&gt;&gt; ТЕМА 2 &lt;&lt;&lt;</mark>
+3. <mark class="fill">&gt;&gt;&gt; ТЕМА 3 &lt;&lt;&lt;</mark>
+4. <mark class="fill">&gt;&gt;&gt; ТЕМА 4 &lt;&lt;&lt;</mark>
+5. <mark class="fill">&gt;&gt;&gt; ТЕМА 5 &lt;&lt;&lt;</mark>
+
+Стиль для всех: <mark class="fill">&gt;&gt;&gt; ЦВЕТА, ШРИФТЫ, НАСТРОЕНИЕ &lt;&lt;&lt;</mark>
+
+Один шрифт, одна палитра, одинаковое расположение нумерации и стиль заголовков во всех каруселях.
+Первый слайд каждой карусели оставь прозрачным, чтобы я подставила фото.
+</code></pre><button class="copy" type="button">Копировать промпт</button></div>
+<h3 class="step"><span class="stepn">Шаг 5.</span> Добавьте фото и опубликуйте</h3>
+<p>В Canva вставьте своё фото на обложку. Загрузите картинки как карусель. Та же карусель идёт в Telegram, MAX и VK как альбом.</p>
+<div class="sign"><span class="mono" aria-hidden="true">З</span><div><b>Зульфия Ментор</b><span>архитектор системных продаж · @zulfiyamentor</span></div></div>
+</section><section class="panel" id="texts" role="tabpanel" aria-labelledby="t-texts" hidden>
+<div class="eyebrow">Раздел 7 из 9 · авторская методика Зульфии Ментор</div>
+<h2>Тексты: посты для Telegram, MAX и VK</h2>
+<p>Текст — основа всего. Сценарий видео, слайды карусели, пост в канале — везде сначала мысль и слова. Структура ниже работает для поста в Telegram, MAX и VK. А если вы ведёте Threads*, по ней же пишется ветка: каждая часть — отдельный пост.</p>
+<blockquote class="note"><span class="mono" aria-hidden="true">З</span><div>
+<p>На автора подписываются не за информацию — её в интернете слишком много. Подписываются за позицию, взгляд и интонацию. За ощущение «она меня понимает». Поэтому в каждом тексте должна быть видна ваша система взглядов.</p>
+<cite>Зульфия Ментор</cite></div></blockquote>
+<h3>Структура поста (или ветки)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Часть</th>
+<th>Задача</th>
+<th>Как звучит</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Хук</td>
+<td>Остановить двумя строками</td>
+<td>Формула из вкладки «Хуки»</td>
+</tr>
+<tr>
+<td>2. Узнаваемая сцена</td>
+<td>Читатель видит себя</td>
+<td>«Вы ведёте блог каждый день, а в личку никто не пишет»</td>
+</tr>
+<tr>
+<td>3. Неожиданный поворот</td>
+<td>Причина не там, где искали</td>
+<td>«Дело не в алгоритмах»</td>
+</tr>
+<tr>
+<td>4. Объяснение</td>
+<td>По одной мысли на абзац с примером</td>
+<td>2–4 абзаца (в ветке — 2–4 поста)</td>
+</tr>
+<tr>
+<td>5. Финальная мысль</td>
+<td>Фраза, которую хочется переслать</td>
+<td>Коротко и точно</td>
+</tr>
+<tr>
+<td>6. Мост</td>
+<td>Переход к подарку или продукту</td>
+<td>«Схема — в закрепе, забирайте по кнопке»</td>
+</tr>
+</tbody>
+</table></div>
+<h2>Пример поста целиком</h2>
+<p><strong>Хук.</strong> Вы ведёте блог каждый день. Сторис, посты, эфиры. А клиенты приходят по сарафанному радио. Расскажу, почему так происходит.</p>
+<p><strong>Поворот.</strong> Дело не в алгоритмах и не в охватах. Я поработала с больше чем 500 экспертами, и у большинства одна и та же дыра: блог есть, а дороги к покупке нет.</p>
+<p><strong>Объяснение.</strong> Человек посмотрел ваше видео, кивнул, даже сохранил. А дальше что? Куда ему идти? Если на этот вопрос нет ответа — он просто листает дальше.</p>
+<p><strong>Объяснение.</strong> У каждого контента должен быть следующий шаг: кодовое слово, подарок, диалог. Не «пишите, если интересно», а конкретное лёгкое действие.</p>
+<p><strong>Финальная мысль.</strong> Блог без воронки — это дневник. Блог с воронкой — система дохода.</p>
+<p><strong>Мост.</strong> Схему такой воронки для мягких ниш я разложила в закрепе канала. Забирайте.</p>
+<h2>Формат «пост + комментарий»</h2>
+<p>Когда мысль короткая, длинный пост не нужен.</p>
+<ul>
+<li>Пост: хук + одна мысль в 3–5 строк.</li>
+<li>Ваш первый комментарий: продолжение или пример + мост к подарку.</li>
+</ul>
+<p>Пример. Пост: «Скидка — это не забота о клиенте. Это способ избавиться от своего страха отказа». Комментарий: «Что говорить вместо скидки — 3 фразы в закрепе канала».</p>
+<h2>Пост в Telegram и MAX</h2>
+<ol>
+<li>Первая строка = хук: её видно в уведомлении, и именно она решает, откроют ли пост.</li>
+<li>Абзацы по 2–3 строки, между ними воздух.</li>
+<li>Одна тема на пост.</li>
+<li>В конце — вопрос для комментариев, кнопка с подарком или приглашение на продукт.</li>
+</ol>
+<h2>Правила живого текста</h2>
+<ul>
+<li>Короткие фразы. Абзацы по 1–3 предложения.</li>
+<li>Сначала сцена, потом объяснение.</li>
+<li>Свои наблюдения и случаи из практики вместо общих истин.</li>
+<li>Вместо прямого «подпишитесь» — причина остаться: серия, обещание следующего поста.</li>
+</ul>
+<h3>Так звучит ИИ → так звучит человек</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Звучит как ИИ</th>
+<th>Живой вариант</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>В современном мире важно заботиться о себе</td>
+<td>Вы помните, когда последний раз отдыхали без чувства вины?</td>
+</tr>
+<tr>
+<td>Давайте разберёмся, почему это происходит</td>
+<td>Вот что на самом деле происходит</td>
+</tr>
+<tr>
+<td>Важно понимать, что продажи — это процесс</td>
+<td>Продажи — это система. Не талант и не удача</td>
+</tr>
+<tr>
+<td>Это поможет вам достичь новых высот</td>
+<td>Через месяц вы перестанете думать, о чём писать</td>
+</tr>
+<tr>
+<td>Не секрет, что многие эксперты…</td>
+<td>Я сама так делала три года</td>
+</tr>
+<tr>
+<td>Итак, подведём итог</td>
+<td>Коротко:</td>
+</tr>
+</tbody>
+</table></div>
+<h2 class="ai">Делаем с ИИ — пошагово</h2>
+<div class="prep"><b>Перед началом</b><p>Откройте новый чат с нейросетью и первым сообщением отправьте свой «Паспорт эксперта» — <a href="#passport" class="go" data-go="passport">как его сделать</a>. Без него промпты дают общие, безликие тексты.</p><div class="legend"><span>Как читать промпт:</span> <mark class="fill">&gt;&gt;&gt; ВАША НИША &lt;&lt;&lt;</mark> <span>→ замените целиком на свой текст, например</span> <mark class="done">психолог по отношениям</mark></div></div>
+<h3 class="step"><span class="stepn">Шаг 1.</span> Найдите, где читатель узнает себя</h3>
+<p>Возьмите одну экспертную мысль. Нейросеть найдёт жизненные ситуации, в которых она проявляется, и напишет начала постов.</p>
+<p><strong>Что вставить:</strong> одну экспертную мысль.</p>
+<div class="prompt"><pre><code>Возьми мою экспертную мысль:
+<mark class="fill">&gt;&gt;&gt; ВАША МЫСЛЬ &lt;&lt;&lt;</mark>
+
+Найди 5 ситуаций из жизни моей аудитории, в которых эта проблема проявляется, но человек не осознаёт её причину.
+Для каждой напиши начало поста так, чтобы читатель мгновенно узнал себя.
+Не объясняй проблему сразу: сначала узнаваемая сцена, потом скрытая причина.
+
+Первую строку каждого начала строй по одной из 10 формул (каждый раз по разной):
+1. Эксперимент: «Я [действие] X дней — вот что изменилось»
+2. Ошибки: «X ошибок, из-за которых [плохой результат], даже если вы [что уже делаете]»
+3. Диагностика: «Если у вас [проблема] — проверьте [фактор]. Возможно, причина здесь»
+4. Запрет: «Я запретила себе [привычное действие] на X дней. Вот что произошло»
+5. Исследование: «Я разобрала X [постов / профилей / случаев] и нашла Y [закономерностей]»
+6. Один вопрос: «Ответьте на один вопрос — и многое станет понятно»
+7. Две новости: «Есть две новости. Начну с плохой»
+8. Сомнение: «Долго думала, рассказывать ли вам это…»
+9. Быстрый результат: «X действий, которые дадут [результат] уже за 7 дней»
+10. Вызов: «Сделайте это сегодня вечером и посмотрите, что изменится в [сфера]»
+
+Цифры не придумывай — где нужна цифра, оставь [X].
+</code></pre><button class="copy" type="button">Копировать промпт</button></div>
+<p>Что получите: 5 начал постов, каждое со своей узнаваемой сценой. Выберите одно — это основа поста.</p>
+<h3 class="step"><span class="stepn">Шаг 2.</span> Соберите пост</h3>
+<p><strong>Что вставить:</strong> идею, площадку и куда вести в конце.</p>
+<div class="prompt"><pre><code>Возьми эту идею:
+<mark class="fill">&gt;&gt;&gt; ВАША ИДЕЯ &lt;&lt;&lt;</mark>
+
+Придумай 5 неожиданных выводов, которые человек применит к своей ситуации или перескажет другому одной фразой. Выбери самый сильный.
+Построй вокруг него пост для <mark class="fill">&gt;&gt;&gt; TELEGRAM / MAX / VK / ВЕТКА THREADS ИЗ 5–7 ПОСТОВ &lt;&lt;&lt;</mark>: сильный хук → узнаваемая проблема → неожиданный поворот → объяснение → финальная мысль, которую хочется отправить другу.
+В конце веди сюда: <mark class="fill">&gt;&gt;&gt; НАПРИМЕР: ЗАБРАТЬ ПОДАРОК В ЗАКРЕПЕ / НАПИСАТЬ КОДОВОЕ СЛОВО &lt;&lt;&lt;</mark>
+
+Для первой строки предложи 3 варианта хука по разным формулам:
+1. Эксперимент: «Я [действие] X дней — вот что изменилось»
+2. Ошибки: «X ошибок, из-за которых [плохой результат], даже если вы [что уже делаете]»
+3. Диагностика: «Если у вас [проблема] — проверьте [фактор]. Возможно, причина здесь»
+4. Запрет: «Я запретила себе [привычное действие] на X дней. Вот что произошло»
+5. Исследование: «Я разобрала X [постов / профилей / случаев] и нашла Y [закономерностей]»
+6. Один вопрос: «Ответьте на один вопрос — и многое станет понятно»
+7. Две новости: «Есть две новости. Начну с плохой»
+8. Сомнение: «Долго думала, рассказывать ли вам это…»
+9. Быстрый результат: «X действий, которые дадут [результат] уже за 7 дней»
+10. Вызов: «Сделайте это сегодня вечером и посмотрите, что изменится в [сфера]»
+
+Убери очевидные советы и фразы в стиле «5 простых шагов». Цифры не придумывай.
+</code></pre><button class="copy" type="button">Копировать промпт</button></div>
+<p>Что получите: готовый пост с хуком, поворотом, финальной мыслью и мостом к подарку, плюс 3 варианта хука.</p>
+<h3 class="step"><span class="stepn">Шаг 3.</span> Уберите звучание ИИ</h3>
+<p><strong>Что вставить:</strong> любой готовый текст. Прогоняйте через этот промпт всё, что написала нейросеть.</p>
+<div class="prompt"><pre><code>Проанализируй этот текст:
+<mark class="fill">&gt;&gt;&gt; ВСТАВЬТЕ ТЕКСТ &lt;&lt;&lt;</mark>
+
+Найди места, где он звучит шаблонно, слишком правильно, предсказуемо или искусственно.
+Перепиши их так, будто это говорит живой эксперт с сильной позицией.
+Добавь конкретные наблюдения, короткие фразы, неожиданные формулировки и человеческую интонацию.
+Убери клише: «важно понимать», «в современном мире», «давайте разберёмся», «не секрет, что», «итак».
+Смысл и факты не меняй, новых цифр не добавляй.
+</code></pre><button class="copy" type="button">Копировать промпт</button></div>
+<p>Что получите: тот же смысл, но живым языком эксперта с позицией.</p>
+<h3 class="step"><span class="stepn">Шаг 4.</span> Проверьте, есть ли причина подписаться</h3>
+<p><strong>Что вставить:</strong> готовый пост перед публикацией.</p>
+<div class="prompt"><pre><code>Проанализируй этот пост:
+<mark class="fill">&gt;&gt;&gt; ВСТАВЬТЕ ТЕКСТ &lt;&lt;&lt;</mark>
+
+Представь, что человек впервые увидел его в ленте.
+Почему ему захотелось бы подписаться именно на автора, а не просто поставить лайк и уйти?
+Если причины нет — найди слабое место и предложи 5 способов встроить авторскую позицию, систему взглядов или обещание будущего контента.
+Не добавляй прямой призыв «подпишись» — создай естественную причину остаться.
+</code></pre><button class="copy" type="button">Копировать промпт</button></div>
+<p>Что получите: ответ, почему человек подпишется именно на вас. Если причины нет — 5 способов её встроить без прямого «подпишитесь».</p>
+<blockquote class="note"><span class="mono" aria-hidden="true">З</span><div>
+<p>Последнее слово всегда за вами. Прочитайте пост вслух. Если где-то споткнулись или сказали бы иначе — перепишите своими словами. Это и есть ваш голос.</p>
+<cite>Зульфия Ментор</cite></div></blockquote>
+<div class="sign"><span class="mono" aria-hidden="true">З</span><div><b>Зульфия Ментор</b><span>архитектор системных продаж · @zulfiyamentor</span></div></div>
+</section><section class="panel" id="content" role="tabpanel" aria-labelledby="t-content" hidden>
+<div class="eyebrow">Раздел 8 из 9 · авторская методика Зульфии Ментор</div>
+<h2>Контент: рубрикатор и продажи</h2>
+<p>Самый частый вопрос на разборах: «Сколько продавать, чтобы не отписывались?» Ответ — продавать регулярно, но не каждый день в лоб. Контент держится на балансе трёх видов.</p>
+<blockquote class="note"><span class="mono" aria-hidden="true">З</span><div>
+<p>Продажа в контенте — это не «купите». Это когда человек сам понимает, что ему нужно именно к вам. Если прогрев сделан честно, анонс читается как приглашение, а не как реклама.</p>
+<cite>Зульфия Ментор</cite></div></blockquote>
+<h3>Рубрикатор: три вида контента</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Вид</th>
+<th>Доля</th>
+<th>Задача</th>
+<th>Примеры</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Экспертный</td>
+<td>50%</td>
+<td>Показать, что вы знаете и умеете</td>
+<td>Ошибки, инструкции, разборы, мифы, ответы на вопросы</td>
+</tr>
+<tr>
+<td>Личный и вовлекающий</td>
+<td>30%</td>
+<td>Чтобы вас полюбили как человека</td>
+<td>Ваш путь, ценности, будни, мнения, задачки, опросы</td>
+</tr>
+<tr>
+<td>Продающий</td>
+<td>20%</td>
+<td>Перевести интерес в покупку</td>
+<td>Кейсы и отзывы, результаты учеников, анонсы, приглашения</td>
+</tr>
+</tbody>
+</table></div>
+<p>Как это выглядит на неделе из 5 публикаций: 2–3 экспертных, 1–2 личных, 1 продающая.</p>
+<h3>Продающий контент без давления</h3>
+<p>Продаёт не призыв «купите», а ответы на вопросы, которые человек задаёт себе перед покупкой:</p>
+<ol>
+<li><strong>Это про меня?</strong> — посты о болях и ситуациях клиента.</li>
+<li><strong>Это вообще решается?</strong> — кейсы и истории «было → стало».</li>
+<li><strong>Почему именно она?</strong> — ваш подход, ваш путь, ваши ценности.</li>
+<li><strong>Почему сейчас?</strong> — что будет, если ничего не менять.</li>
+<li><strong>Как это устроено?</strong> — формат, этапы, что внутри.</li>
+<li><strong>А вдруг не получится?</strong> — ответы на сомнения, отзывы.</li>
+</ol>
+<p>Если в вашем контенте за месяц есть ответ на каждый вопрос, анонс продукта продаёт сам.</p>
+<h3>Прогрев перед анонсом: 7 дней</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>День</th>
+<th>Тема</th>
+<th>Что публикуем</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Боль</td>
+<td>Ситуация, в которой узнает себя ваш клиент</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Причина</td>
+<td>Почему это происходит — неочевидная причина</td>
+</tr>
+<tr>
+<td>3</td>
+<td>История</td>
+<td>Ваш путь или история клиента «было → стало»</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Метод</td>
+<td>Как вы решаете эту задачу — без деталей «как именно»</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Доказательства</td>
+<td>Отзывы, результаты, цифры</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Анонс</td>
+<td>Что за продукт, для кого, что внутри, сколько мест</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Приглашение</td>
+<td>Сомнения, ответы на вопросы, кодовое слово для записи</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Как анонсировать мягко</h3>
+<ul>
+<li>Говорите о результате человека, а не о своём продукте.</li>
+<li>Называйте, для кого это <strong>не</strong> подходит: это снимает давление и повышает доверие.</li>
+<li>Дайте простой шаг: кодовое слово, а не «переходите по ссылке и заполняйте анкету».</li>
+<li>Ограничение — только честное: количество мест или дата старта.</li>
+<li>После анонса не исчезайте: продолжайте экспертный контент, продажи идут ещё 3–5 дней.</li>
+</ul>
+<div class="sign"><span class="mono" aria-hidden="true">З</span><div><b>Зульфия Ментор</b><span>архитектор системных продаж · @zulfiyamentor</span></div></div>
+</section><section class="panel" id="check" role="tabpanel" aria-labelledby="t-check" hidden>
+<div class="eyebrow">Раздел 9 из 9 · авторская методика Зульфии Ментор</div>
+<h2>Чек-лист и цифры</h2>
+<h3>Чек-лист перед публикацией</h3>
+<p>Пройдите эти пункты перед каждой публикацией: если хоть один «нет», доработайте.</p>
+<ul class="check"><li><label><input type="checkbox" id="ck0" data-ck="0"><span>Хук останавливает скролл: в нём есть конкретика, ответ спрятан</span></label></li><li><label><input type="checkbox" id="ck1" data-ck="1"><span>Обещанное в хуке раскрыто полностью</span></label></li><li><label><input type="checkbox" id="ck2" data-ck="2"><span>Одна мысль на слайд или пункт, без воды</span></label></li><li><label><input type="checkbox" id="ck3" data-ck="3"><span>Нет фраз «важно понимать», «в современном мире», «давайте разберёмся»</span></label></li><li><label><input type="checkbox" id="ck4" data-ck="4"><span>Видна моя позиция: понятно, зачем подписываться именно на меня</span></label></li><li><label><input type="checkbox" id="ck5" data-ck="5"><span>Цифры и кейсы реальные</span></label></li><li><label><input type="checkbox" id="ck6" data-ck="6"><span>Есть один понятный призыв: кодовое слово, кнопка, сохранить или ссылка</span></label></li><li><label><input type="checkbox" id="ck7" data-ck="7"><span>Видео: субтитры, вырезаны паузы, обложка читается в сетке</span></label></li><li><label><input type="checkbox" id="ck8" data-ck="8"><span>Карусель: 4:5, единый стиль, нумерация, фото на обложке</span></label></li><li><label><input type="checkbox" id="ck9" data-ck="9"><span>Подарок по кодовому слову готов к отправке</span></label></li></ul><button class="ghost" id="ckreset" type="button">Сбросить отметки</button>
+<h3>Стартовый ритм на неделю</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Формат</th>
+<th>Сколько</th>
+<th>Зачем</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Вертикальные видео</td>
+<td>3 в неделю</td>
+<td>Новые люди</td>
+</tr>
+<tr>
+<td>Карусели</td>
+<td>2 в неделю</td>
+<td>Сохранения и доверие</td>
+</tr>
+<tr>
+<td>Посты в канале (Telegram, MAX или VK)</td>
+<td>1 в день</td>
+<td>Прогрев и доверие</td>
+</tr>
+<tr>
+<td>Сторис</td>
+<td>Каждый день</td>
+<td>Прогрев и диалоги</td>
+</tr>
+<tr>
+<td>Механика «Реши задачку»</td>
+<td>1 раз в неделю</td>
+<td>Поток в личные сообщения</td>
+</tr>
+</tbody>
+</table></div>
+<p>Это стартовая нагрузка. Через месяц оставьте больше того формата, который дал больше заявок, а не лайков. Если сил мало — начните с «3 публикации в неделю и 1 цифра», как в пятом приёме статьи.</p>
+<blockquote class="note"><span class="mono" aria-hidden="true">З</span><div>
+<p>Не пытайтесь сделать всё идеально с первого дня. Сделайте 30 публикаций по структуре — и вы сами увидите, что работает именно у вас. Система важнее вдохновения.</p>
+<cite>Зульфия Ментор</cite></div></blockquote>
+<h2>Цифры воронки</h2>
+<p>Продажи — это система, а систему видно в цифрах. Раз в неделю записывайте пять чисел и смотрите, где поток людей обрывается.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Этап</th>
+<th>Что считать</th>
+<th>Если провал — что исправить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Охват</td>
+<td>Сколько людей увидели контент</td>
+<td>Хуки и обложки: вкладка «Хуки»</td>
+</tr>
+<tr>
+<td>2. Переходы в профиль</td>
+<td>Сколько зашли посмотреть, кто вы</td>
+<td>Нет причины подписаться: позиция и личный контент</td>
+</tr>
+<tr>
+<td>3. Кодовые слова</td>
+<td>Сколько написали слово или взяли подарок</td>
+<td>Слабый призыв или неинтересный подарок</td>
+</tr>
+<tr>
+<td>4. Диалоги</td>
+<td>Сколько ответили на ваш вопрос в личных сообщениях</td>
+<td>Холодное первое сообщение: скелет переписки</td>
+</tr>
+<tr>
+<td>5. Продажи</td>
+<td>Сколько дошли до оплаты</td>
+<td>Нет прогрева или приглашение слишком в лоб</td>
+</tr>
+</tbody>
+</table></div>
+<p>Исправляйте один этап за раз, начиная с самого верхнего провала. Если охвата нет, бессмысленно переписывать скрипт переписки.</p>
+<blockquote class="note"><span class="mono" aria-hidden="true">З</span><div>
+<p>Когда ученицы впервые видят свою воронку в цифрах, хаос заканчивается. Становится понятно, что делать в понедельник, — и что можно перестать делать вообще.</p>
+<cite>Зульфия Ментор</cite></div></blockquote>
+<div class="sign"><span class="mono" aria-hidden="true">З</span><div><b>Зульфия Ментор</b><span>архитектор системных продаж · @zulfiyamentor</span></div></div>
+</section></main>
+
+<section class="offer" aria-labelledby="offer-h">
+  <div class="wrap">
+    <div class="eyebrow">Следующий шаг</div>
+    <h2 id="offer-h">Внедрить систему не в одиночку</h2>
+    <p class="offer-lead">Гайд даёт систему. А чтобы она заработала именно у вас, нужны разборы, обратная связь и люди рядом. Выберите, что вам ближе.</p>
+    <div class="cards">
+      <article class="card main">
+        <div class="tag">Закрытый клуб</div>
+        <h3>Клуб «Магия продаж»</h3>
+        <div class="price">7 100 ₽ <small>гостевой месяц</small></div>
+        <div class="price">78 000 ₽ <small>годовой тариф</small></div>
+        <ul>
+          <li>Живые разборы каждый вторник в 10:00 мск — ваши вопросы, ваш профиль, ваш контент</li>
+          <li>База знаний: 300+ материалов</li>
+          <li>Тренинги «Создание лид-магнита» и «Продажи по переписке»</li>
+          <li>Разбор моего скрипта продаж с конверсией 70%</li>
+          <li>Живые встречи с практиками: трафик ВКонтакте, реклама в Telegram, продажи на созвонах</li>
+          <li>В годовом тарифе дополнительно: нейрометодолог и модуль «Сила трафика»</li>
+        </ul>
+        <div class="cta">Напишите слово <span class="code">КЛУБ</span> в личные сообщения <b>@zulfiyamentor</b></div>
+      </article>
+      <article class="card">
+        <div class="tag">Лично со мной · 8 недель</div>
+        <h3>Система устойчивых продаж</h3>
+        <p>Для тех, кто хочет результат быстро и готов к интенсивной работе лично со мной.</p>
+        <p>Начинаем с бесплатной «Личной навигации: от блога к клиентам» — 45 минут в Zoom:</p>
+        <ul>
+          <li>посмотрим ваш блог глазами клиента;</li>
+          <li>найдём главное место, где теряются клиенты;</li>
+          <li>составим 3 первых шага на неделю;</li>
+          <li>честно решим, подходит ли вам программа.</li>
+        </ul>
+        <div class="cta">Напишите слово <span class="code">БЛОГ</span> в личные сообщения <b>@zulfiyamentor</b></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><b>© 2026 Зульфия Ментор · @zulfiyamentor.</b> Авторская методика. Публикация и распространение материалов от своего имени без согласия автора запрещены.</p>
+    <p>* Instagram, Facebook и Threads — продукты компании Meta Platforms Inc., которая признана экстремистской организацией, её деятельность на территории РФ запрещена.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('nav.tabs a'));
+  var ids=tabs.map(function(a){return a.dataset.tab});
+  var toastEl=document.getElementById('toast'),tt;
+  function toast(m){toastEl.textContent=m;toastEl.hidden=false;clearTimeout(tt);tt=setTimeout(function(){toastEl.hidden=true},2600)}
+  function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+  function show(id,scroll){
+    if(ids.indexOf(id)<0)id='system';
+    ids.forEach(function(x){document.getElementById(x).hidden=(x!==id)});
+    tabs.forEach(function(a){var on=a.dataset.tab===id;a.setAttribute('aria-selected',on);a.tabIndex=on?0:-1;if(on&&a.scrollIntoView)a.scrollIntoView({block:'nearest',inline:'center'})});
+    store('zm-tab',id);
+    if(scroll){var top=document.querySelector('nav.tabs').offsetTop;if(window.scrollY>top)window.scrollTo(0,top)}
+  }
+  tabs.forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();show(a.dataset.tab,true);try{history.replaceState(null,'','#'+a.dataset.tab)}catch(_){}})});
+  document.querySelector('nav.tabs').addEventListener('keydown',function(e){
+    var i=ids.indexOf(store('zm-tab')||'system');
+    if(e.key==='ArrowRight'){show(ids[(i+1)%ids.length]);tabs[(i+1)%ids.length].focus()}
+    if(e.key==='ArrowLeft'){show(ids[(i-1+ids.length)%ids.length]);tabs[(i-1+ids.length)%ids.length].focus()}
+  });
+  // in-text links to other tabs: bold tab names
+  var map={'Старт':'system','Маршрут':'route','Хуки':'hooks','Видео':'video','Карусели':'carousels','Тексты':'texts','Контент':'content','Чек-лист и цифры':'check','Профиль и воронка':'profile'};
+  [].forEach.call(document.querySelectorAll('.panel p strong, .panel li strong'),function(s){
+    var t=s.textContent.trim();if(map[t]){s.style.cursor='pointer';s.style.color='var(--gold)';s.setAttribute('role','link');s.tabIndex=0;
+      var go=function(){show(map[t],true)};s.addEventListener('click',go);s.addEventListener('keydown',function(e){if(e.key==='Enter')go()})}
+  });
+
+  function goPassport(){show('system');var el=document.getElementById('passport');if(el)setTimeout(function(){el.scrollIntoView({block:'start'});window.scrollBy(0,-70)},30)}
+  [].forEach.call(document.querySelectorAll('a.go[data-go="passport"]'),function(a){a.addEventListener('click',function(e){e.preventDefault();goPassport()})});
+  var h=(location.hash||'').slice(1);
+  if(h!=='passport'){show(ids.indexOf(h)>=0?h:(store('zm-tab')||'system'));window.scrollTo(0,0);setTimeout(function(){window.scrollTo(0,0)},50);}
+  if(h==='passport')goPassport();
+  window.addEventListener('hashchange',function(){var x=location.hash.slice(1);if(x==='passport')goPassport();else show(x,true)});
+
+  // checklist
+  [].forEach.call(document.querySelectorAll('[data-ck]'),function(c){
+    c.checked=store('zm-ck'+c.dataset.ck)==='1';
+    c.addEventListener('change',function(){store('zm-ck'+c.dataset.ck,c.checked?'1':'0')});
+  });
+  var rs=document.getElementById('ckreset');
+  if(rs)rs.addEventListener('click',function(){[].forEach.call(document.querySelectorAll('[data-ck]'),function(c){c.checked=false;store('zm-ck'+c.dataset.ck,'0')});toast('Отметки сброшены')});
+
+  [].forEach.call(document.querySelectorAll('.prompt'),function(box){
+    var btn=box.querySelector('button.copy'),pre=box.querySelector('pre');
+    btn.addEventListener('click',function(){
+      var text=pre.textContent;
+      function ok(){btn.textContent='Скопировано ✓';btn.classList.add('ok');setTimeout(function(){btn.textContent='Копировать промпт';btn.classList.remove('ok')},1800)}
+      function fallback(){
+        var r=document.createRange();r.selectNodeContents(pre);var s=getSelection();s.removeAllRanges();s.addRange(r);
+        var done=false;try{done=document.execCommand('copy')}catch(_){}
+        if(done){ok();s.removeAllRanges()}else{toast('Промпт выделен — скопируйте его вручную')}
+      }
+      try{navigator.clipboard.writeText(text).then(ok,fallback)}catch(_){fallback()}
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

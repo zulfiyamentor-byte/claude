@@ -226,11 +226,113 @@ a{color:var(--gold-deep)}
   .chain,.model,.sc,.plan{padding:22px}
   .btn{padding:16px 22px}
 }
+/* ===== ДИНАМИКА ===== */
+html{overflow-x:clip}
+body{overflow-x:clip}
+@keyframes shimmer{0%{background-position:0% 50%}100%{background-position:250% 50%}}
+@keyframes sweep{0%{transform:translateX(-120%) skewX(-20deg)}60%,100%{transform:translateX(320%) skewX(-20deg)}}
+@keyframes floaty{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-24px) scale(1.08)}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(184,148,63,.55)}70%{box-shadow:0 0 0 18px rgba(184,148,63,0)}100%{box-shadow:0 0 0 0 rgba(184,148,63,0)}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes rise{from{opacity:.25;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes glowstep{0%,100%{box-shadow:none;border-color:rgba(237,217,138,.25)}10%,22%{box-shadow:0 0 0 1px #EDD98A,0 0 28px -4px rgba(237,217,138,.7);border-color:#EDD98A}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+
+h1 em,h2 em,h3 em,.key b,.result .big,.sign,.quote{
+  background:linear-gradient(90deg,var(--gold-deep) 0%,var(--gold) 20%,#F3DE97 35%,var(--gold) 50%,var(--gold-deep) 70%,var(--gold) 85%,var(--gold-deep) 100%);
+  background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shimmer 7s linear infinite}
+.chain h3 em{background:linear-gradient(90deg,#C9A24C,#F6E3A1,#D9B866,#F6E3A1,#C9A24C);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent}
+.quote cite{-webkit-text-fill-color:var(--muted)}
+
+.btn,.proof,.steps li.buy,.yn button[aria-pressed="true"].n{position:relative;overflow:hidden;isolation:isolate}
+.btn::after,.proof::after,.steps li.buy::after{content:"";position:absolute;top:-10%;bottom:-10%;left:0;width:28%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);transform:translateX(-120%) skewX(-20deg);animation:sweep 4.5s ease-in-out infinite;pointer-events:none;z-index:1}
+.proof::after{animation-duration:6s;width:18%}
+.proof{background-size:200% 200%;animation:shimmer 14s ease-in-out infinite alternate}
+.proof > *{position:relative;z-index:2}
+.cta .btn,.sticky .btn{animation:pulse 2.4s ease-out infinite}
+.btn.ghost::after{background:linear-gradient(90deg,transparent,rgba(184,148,63,.25),transparent)}
+
+.hero{position:relative}
+.hero > *:not(.fx){position:relative;z-index:1}
+.fx{position:absolute;inset:-40px -10vw 0;z-index:0;pointer-events:none;overflow:hidden}
+.fx .orb{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;animation:floaty 12s ease-in-out infinite}
+.fx .o1{width:340px;height:340px;background:#F1D88E;top:0;right:4%}
+.fx .o2{width:260px;height:260px;background:#E9C9A0;top:38%;left:-2%;animation-delay:-4s;animation-duration:15s}
+.fx .o3{width:220px;height:220px;background:#F6E7BE;bottom:6%;right:22%;animation-delay:-8s}
+.fx canvas{position:absolute;inset:0;width:100%;height:100%}
+
+.progress{position:fixed;left:0;right:0;top:0;height:calc(3px + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px);z-index:50;pointer-events:none}
+.progress i{display:block;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#9C7A2E,#F3DE97,#B8943F);box-shadow:0 0 12px rgba(184,148,63,.6)}
+
+.ticker{margin-top:56px;border-block:1px solid var(--line);background:var(--surface);overflow:hidden;margin-inline:-16px}
+.ticker .track{display:flex;width:max-content;animation:marquee 38s linear infinite}
+.ticker span{display:inline-flex;align-items:center;gap:18px;padding:14px 18px;white-space:nowrap;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--gold-deep)}
+.ticker span::after{content:"✦";color:var(--gold)}
+.ticker b{font-family:var(--display);font-size:22px;letter-spacing:0;color:var(--ink);font-weight:600}
+
+.reveal-ready [data-reveal]{animation:none}
+.reveal-ready [data-reveal].in{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+
+.steps{position:relative}
+.steps li{animation:glowstep 6s ease-in-out infinite}
+.steps li:nth-child(2){animation-delay:1.2s}.steps li:nth-child(3){animation-delay:2.4s}.steps li:nth-child(4){animation-delay:3.6s}.steps li:nth-child(5){animation-delay:4.8s}
+.chain{position:relative;overflow:hidden}
+.chain::before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(237,217,138,.18),transparent 65%);top:-160px;right:-120px;animation:floaty 14s ease-in-out infinite}
+.chain > *{position:relative}
+
+.funnel .bar{transition:width 1.4s cubic-bezier(.2,.7,.2,1);background:linear-gradient(90deg,var(--card),var(--gold-soft))}
+.cs,.plan,.wrong li,.pains li,.faq details{transition:transform .3s,box-shadow .3s,border-color .3s}
+.cs:hover,.wrong li:hover,.pains li:hover{transform:translateY(-4px);box-shadow:0 22px 40px -28px rgba(156,122,46,.7);border-color:var(--gold)}
+.plan:hover{transform:translateY(-6px)}
+
+/* График окупаемости */
+.payback{padding:28px;border-radius:24px;background:var(--card);border:1px solid var(--line)}
+.payback h3{font-size:28px}
+.pb-rows{display:flex;flex-direction:column;gap:14px;margin-top:20px}
+.pb-row{display:grid;grid-template-columns:170px 1fr;gap:14px;align-items:center}
+.pb-row .l{font-size:14px;color:var(--muted);line-height:1.3}
+.pb-row .track{height:38px;border-radius:10px;background:var(--surface);overflow:hidden;min-width:0}
+.pb-row .fill{height:100%;width:var(--w);border-radius:10px;display:flex;align-items:center;justify-content:flex-end;padding-inline:12px;font-family:var(--display);font-weight:600;font-size:20px;white-space:nowrap;transition:width 1.4s cubic-bezier(.2,.7,.2,1)}
+.pb-row.cost .fill{background:var(--night);color:#EDD98A}
+.pb-row.win .fill{background:var(--gold-grad);color:#1C1A14;background-size:200% 100%;animation:shimmer 6s linear infinite}
+.pb-note{margin-top:16px;font-size:14px;color:var(--muted)}
+.pb-note b{color:var(--gold-deep)}
+
+/* Кольцо самопроверки */
+.sc-head{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}
+.ring{width:118px;height:118px;position:relative}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .bg{fill:none;stroke:var(--surface);stroke-width:10}
+.ring .fg{fill:none;stroke:url(#ringGrad);stroke-width:10;stroke-linecap:round;stroke-dasharray:283;stroke-dashoffset:283;transition:stroke-dashoffset .6s cubic-bezier(.2,.7,.2,1)}
+.ring .lab{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.ring .lab b{font-family:var(--display);font-size:38px;font-weight:600;color:var(--gold)}
+.ring .lab span{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+
+.live{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gold);margin-right:8px;vertical-align:middle;animation:blink 1.4s ease-in-out infinite}
+
+/* Плавающая кнопка */
+.sticky{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translate(-50%,140%);z-index:40;transition:transform .45s cubic-bezier(.2,.7,.2,1);width:max-content;max-width:calc(100vw - 32px)}
+.sticky.show{transform:translate(-50%,0)}
+.sticky .btn{padding:15px 26px;font-size:12px}
+
+@media (max-width:720px){
+  .pb-row{grid-template-columns:1fr;gap:6px}
+  .sc-head{grid-template-columns:1fr}
+  .ring{width:96px;height:96px}
+  .fx .o1{width:220px;height:220px}
+}
+@media (prefers-reduced-motion: reduce){
+  .fx canvas{display:none}
+  h1 em,h2 em,h3 em,.key b,.result .big,.sign,.quote{animation:none}
+}
 </style>
 
 <div class="draft">Черновик для просмотра. Пунктирные пометки — места, куда вставить ссылки и скриншоты.</div>
 
+<div class="progress" aria-hidden="true"><i id="prog"></i></div>
 <header class="wrap hero">
+  <div class="fx" aria-hidden="true"><span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span><canvas id="sparks"></canvas></div>
   <div class="eyebrow">Подарок по слову КЛИЕНТЫ · 12–14 минут</div>
   <h1>5 приёмов, которые превращают маленький блог в <em>источник клиентов</em></h1>
   <p class="sub">Как получать заявки, даже если в блоге 100–300 подписчиков — без рекламы, ежедневных сторис и навязчивых продаж</p>
@@ -238,12 +340,12 @@ a{color:var(--gold-deep)}
   <p class="for">Для экспертов и специалистов частной практики: психологов, коучей, энергопрактиков, наставников, нутрициологов, маркетологов.</p>
 
   <div class="proof">
-    <div class="num">120<small>подписчиков</small></div>
+    <div class="num"><span data-count="120">120</span><small>подписчиков</small></div>
     <div class="txt flow">
       <p><strong>Столько было у моей ученицы Светланы.</strong> Дизайнер состояний, работала в найме. Мы скорректировали нишу и сделали контент тёплым — подписчики сами начали писать: <em>«Где ты так круто упаковалась?»</em></p>
       <p>Через <strong>7 дней</strong> после изменений — первая продажа. Потом Светлана ушла с работы. <span class="ph">скрин</span></p>
     </div>
-    <div class="num">230<small>подписчиков</small></div>
+    <div class="num"><span data-count="230">230</span><small>подписчиков</small></div>
     <div class="txt"><p>Столько было у меня в Telegram, когда я заработала <strong>свой первый миллион</strong>.</p></div>
   </div>
 
@@ -254,13 +356,20 @@ a{color:var(--gold-deep)}
   </div>
 </header>
 
+<div class="ticker" aria-label="Цифры и для кого статья">
+  <div class="track">
+    <span><b>500+</b> экспертов в работе</span><span><b>13</b> учеников-миллионеров</span><span><b>40+ млн ₽</b> заработали ученики</span><span>психологи</span><span>коучи</span><span>энергопрактики</span><span>наставники</span><span>нутрициологи</span><span>маркетологи</span>
+    <span aria-hidden="true"><b>500+</b> экспертов в работе</span><span aria-hidden="true"><b>13</b> учеников-миллионеров</span><span aria-hidden="true"><b>40+ млн ₽</b> заработали ученики</span><span aria-hidden="true">психологи</span><span aria-hidden="true">коучи</span><span aria-hidden="true">энергопрактики</span><span aria-hidden="true">наставники</span><span aria-hidden="true">нутрициологи</span><span aria-hidden="true">маркетологи</span>
+  </div>
+</div>
+
 <div class="wrap flow" style="margin-top:28px">
   <p>А у вас сколько подписчиков? 500? 1 000? 3 000? И сколько из них написали вам за последний месяц?</p>
   <p class="me">Я Зульфия Ментор, архитектор системных продаж. Через мою работу прошли 500+ экспертов, мои ученики заработали 40+ млн ₽, 13 стали миллионерами. Но здесь покажу не теорию, а пять конкретных мест, где блог теряет клиентов.</p>
 </div>
 
 <section class="wrap flow">
-  <div class="door-scene">
+  <div class="door-scene" data-reveal>
     <svg viewBox="0 0 200 220" role="img" aria-label="Витрина кафе без двери">
       <rect x="10" y="40" width="180" height="170" rx="6" fill="var(--surface)" stroke="var(--line)" stroke-width="2"/>
       <path d="M4 40 L100 8 L196 40 Z" fill="var(--gold)"/>
@@ -279,7 +388,7 @@ a{color:var(--gold-deep)}
     </div>
   </div>
   <p>Так выглядит блог большинства экспертов, с которыми я работаю. Знаний — на троих. Посты — глубокие и честные. А дороги от «прочитал» до «записался» нет. Узнаёте?</p>
-  <ul class="pains">
+  <ul class="pains" data-reveal>
     <li>Вы час пишете пост — пять лайков: два от коллег, один от мамы.</li>
     <li>Открываете запись — тишина. Пишете «осталось 2 места», хотя мест 10, и вам самой от этого неловко.</li>
     <li>Человек пишет в личку, вы отвечаете на три экрана — он отвечает «спасибо, подумаю» и пропадает навсегда.</li>
@@ -295,7 +404,7 @@ a{color:var(--gold-deep)}
   <p class="eyebrow">Узнаёте себя?</p>
   <h2>Про вас ли <em>эта статья</em></h2>
   <p>Она точно для вас, если:</p>
-  <ul class="check">
+  <ul class="check" data-reveal>
     <li>вы регулярно что-то публикуете, но не можете сказать, сколько клиентов принёс вам блог за месяц;</li>
     <li>вам неловко продавать — и вы скорее промолчите, чем «впаривать»;</li>
     <li>после каждого поста ждёте, что кто-нибудь напишет, — а пишут единицы;</li>
@@ -309,7 +418,7 @@ a{color:var(--gold-deep)}
 <section class="wrap flow">
   <p class="eyebrow">Почему это происходит</p>
   <h2>Что обычно делают эксперты — и почему это <em>не работает</em></h2>
-  <ul class="wrong">
+  <ul class="wrong" data-reveal>
     <li><b>Ещё одно обучение</b>«наверное, я чего-то не знаю»</li>
     <li><b>Больше постов</b>«наверное, мало контента»</li>
     <li><b>Гонка за охватами</b>50 000 просмотров и ни одной заявки</li>
@@ -323,7 +432,7 @@ a{color:var(--gold-deep)}
 </section>
 
 <section class="wide flow">
-  <div class="chain">
+  <div class="chain" data-reveal>
     <p class="eyebrow">Механизм</p>
     <h3 style="font-size:clamp(26px,4vw,36px);margin-top:6px">Цепочка <em>«Пост → Покупка»</em></h3>
     <p class="note">Клиент не прыгает от «впервые увидел ваш пост» к «купил консультацию за 15 000 ₽». Четыре приёма ведут его по пути:</p>
@@ -340,7 +449,7 @@ a{color:var(--gold-deep)}
 </section>
 
 <section class="wrap">
-  <article class="priem">
+  <article class="priem" data-reveal>
     <div class="n">1</div>
     <div class="body">
       <p class="stage">Звено «остановился»</p>
@@ -352,7 +461,7 @@ a{color:var(--gold-deep)}
       <p class="more">В гайде — <b>10 формул заголовков</b> и <b>6 правил сильного хука</b>.</p>
     </div>
   </article>
-  <article class="priem">
+  <article class="priem" data-reveal>
     <div class="n">2</div>
     <div class="body">
       <p class="stage">Звено «узнал себя»</p>
@@ -363,7 +472,7 @@ a{color:var(--gold-deep)}
       <p class="case">Анна Зарицкая, энергопрактик, называла это <em>«перевести с энергетического на русский»</em>. Её канал вырос с 43 до 1 500 подписчиков.</p>
     </div>
   </article>
-  <article class="priem">
+  <article class="priem" data-reveal>
     <div class="n">3</div>
     <div class="body">
       <p class="stage">Звено «сделал первый шаг»</p>
@@ -375,7 +484,7 @@ a{color:var(--gold-deep)}
       <p class="more">А вы сейчас читаете ровно такой подарок: написали слово КЛИЕНТЫ — и вот мы разговариваем.</p>
     </div>
   </article>
-  <article class="priem">
+  <article class="priem" data-reveal>
     <div class="n">4</div>
     <div class="body">
       <p class="stage">Звено «поговорил с вами»</p>
@@ -387,7 +496,7 @@ a{color:var(--gold-deep)}
       <p class="more">В гайде — <b>скелет переписки из 5 шагов</b>: от первого «здравствуйте» до оплаты.</p>
     </div>
   </article>
-  <article class="priem">
+  <article class="priem" data-reveal>
     <div class="n">5</div>
     <div class="body">
       <p class="stage">Двигатель цепочки</p>
@@ -400,15 +509,15 @@ a{color:var(--gold-deep)}
 </section>
 
 <section class="wide">
-  <div class="model">
+  <div class="model" data-reveal>
     <p class="eyebrow">Модель, а не прогноз</p>
     <h2 style="margin-top:10px">Давайте <em>посчитаем</em></h2>
     <p style="margin-top:12px">Представим блог на 300 подписчиков и три публикации в неделю.</p>
     <ol class="funnel">
-      <li><span class="v">90</span><span class="bar" style="width:100%">человек увидели один пост</span></li>
-      <li><span class="v">9</span><span class="bar" style="width:72%">диалогов в неделю — с каждого поста всего 3 попросили подарок</span></li>
-      <li><span class="v">36</span><span class="bar" style="width:52%">диалогов в месяц</span></li>
-      <li><span class="v">3–4</span><span class="bar" style="width:34%">клиента — если купит только каждый десятый</span></li>
+      <li><span class="v" data-count="90">90</span><span class="bar" style="width:100%" data-w="100%">человек увидели один пост</span></li>
+      <li><span class="v" data-count="9">9</span><span class="bar" style="width:72%" data-w="72%">диалогов в неделю — с каждого поста всего 3 попросили подарок</span></li>
+      <li><span class="v" data-count="36">36</span><span class="bar" style="width:52%" data-w="52%">диалогов в месяц</span></li>
+      <li><span class="v">3–4</span><span class="bar" style="width:34%" data-w="34%">клиента — если купит только каждый десятый</span></li>
     </ol>
     <div class="result"><span class="big">45–60 тыс. ₽</span><span>в месяц при среднем чеке 15 000 ₽</span></div>
     <p class="disclaimer">Это не обещание, что именно такие цифры получите вы. Это показывает другое: <strong>для продаж маленькому блогу вовсе не обязательно сначала становиться большим.</strong></p>
@@ -434,7 +543,7 @@ a{color:var(--gold-deep)}
 <section class="wrap flow">
   <p class="eyebrow">Сомнения</p>
   <h2>«А если у меня <em>не получится?»</em></h2>
-  <div class="faq">
+  <div class="faq" data-reveal>
     <details open><summary>«У меня слишком маленький блог»</summary><p>У Светланы было 120 подписчиков, у меня — 230, у Анны — 43. Цепочке не нужны тысячи. Ей нужны звенья.</p></details>
     <details><summary>«Я не умею и не хочу продавать»</summary><p>И не нужно «продавать» в привычном смысле. Нужно задать вопрос раньше цены. Это умеет каждый, кто хоть раз проводил консультацию.</p></details>
     <details><summary>«Я с техникой как маугли»</summary><p>Так о себе говорила одна из моих учениц. Поэтому в гайде — 15 промптов для нейросети, которые пишут тексты за вас, а в Клубе можно принести свою ситуацию на живой разбор.</p></details>
@@ -450,10 +559,10 @@ a{color:var(--gold-deep)}
     <h2>Что получают мои ученики, когда мы выстраиваем <em>систему продаж целиком</em></h2>
     <p>Пять приёмов — это начало. Когда к ним добавляются позиционирование, продуктовая линейка и регулярная работа, результаты становятся такими:</p>
   </div>
-  <div class="cases">
-    <div class="cs"><span class="who">Наталья Ярыгина</span><span class="fig">570 000 ₽<br><i>за 5 месяцев</i></span><p>Врач и психолог из Германии. Было: 100–300 € в месяц, канала нет. Завели канал с нуля. <span class="ph">скрин</span></p></div>
-    <div class="cs"><span class="who">Ольга Сапунова</span><span class="fig">545 650 ₽<br><i>за 1,5 месяца</i></span><p>Первые 2 месяца без продаж, <em>«убегала от себя»</em>. Распаковка, канал, эфиры, линейка — больше, чем за весь прошлый год. <span class="ph">скрин</span></p></div>
-    <div class="cs"><span class="who">Ольга Катриора</span><span class="fig">×16<br><i>окупила Клуб</i></span><p>Зашла по гостевому тарифу и стала одной из моих миллионеров: <em>«Заявки летят каждый час. Хоть посты не пиши»</em>. <span class="ph">скрин</span></p></div>
+  <div class="cases" data-reveal>
+    <div class="cs"><span class="who">Наталья Ярыгина</span><span class="fig"><span data-count="570000">570 000</span> ₽<br><i>за 5 месяцев</i></span><p>Врач и психолог из Германии. Было: 100–300 € в месяц, канала нет. Завели канал с нуля. <span class="ph">скрин</span></p></div>
+    <div class="cs"><span class="who">Ольга Сапунова</span><span class="fig"><span data-count="545650">545 650</span> ₽<br><i>за 1,5 месяца</i></span><p>Первые 2 месяца без продаж, <em>«убегала от себя»</em>. Распаковка, канал, эфиры, линейка — больше, чем за весь прошлый год. <span class="ph">скрин</span></p></div>
+    <div class="cs"><span class="who">Ольга Катриора</span><span class="fig">×<span data-count="16">16</span><br><i>окупила Клуб</i></span><p>Зашла по гостевому тарифу и стала одной из моих миллионеров: <em>«Заявки летят каждый час. Хоть посты не пиши»</em>. <span class="ph">скрин</span></p></div>
   </div>
 </section>
 
@@ -461,18 +570,26 @@ a{color:var(--gold-deep)}
   <p class="eyebrow">Зульфия Ментор · архитектор системных продаж</p>
   <h2>Кто <em>я</em></h2>
   <p>Зульфия Ментор, архитектор системных продаж. Ученицы пишут, что я объясняю <em>«чётко, по полочкам, без воды»</em>. Продаю с любовью и заботой — и учу этому. Без давления и без «осталось 2 места» каждый день.</p>
-  <div class="about">
-    <div><b>10 лет</b>в онлайн-бизнесе, 5 — в маркетинге</div>
-    <div><b>24 года</b>в образовании, кандидат наук, доцент</div>
-    <div><b>1000+</b>консультаций</div>
+  <div class="about" data-reveal>
+    <div><b><span data-count="10">10</span> лет</b>в онлайн-бизнесе, 5 — в маркетинге</div>
+    <div><b><span data-count="24">24</span> года</b>в образовании, кандидат наук, доцент</div>
+    <div><b><span data-count="1000">1000</span>+</b>консультаций</div>
   </div>
 </section>
 
 <section class="wide">
   <div class="sc" id="samoproverka">
-    <p class="eyebrow">2 минуты</p>
-    <h2 style="margin-top:10px">Самопроверка: где рвётся <em>ваша цепочка</em></h2>
-    <p style="margin-top:10px">Ответьте честно «да» или «нет» — внизу появится рекомендация.</p>
+    <div class="sc-head">
+      <div>
+        <p class="eyebrow">2 минуты</p>
+        <h2 style="margin-top:10px">Самопроверка: где рвётся <em>ваша цепочка</em></h2>
+        <p style="margin-top:10px">Ответьте честно «да» или «нет» — внизу появится рекомендация.</p>
+      </div>
+      <div class="ring" aria-hidden="true">
+        <svg viewBox="0 0 100 100"><defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E7C877"/><stop offset="1" stop-color="#9C7A2E"/></linearGradient></defs><circle class="bg" cx="50" cy="50" r="45"/><circle class="fg" id="ringFg" cx="50" cy="50" r="45"/></svg>
+        <div class="lab"><b id="ringNum">0</b><span>«нет» из 5</span></div>
+      </div>
+    </div>
     <ol class="qs" id="qs">
       <li><span>Вы бы сами остановились на первой строке пяти своих последних публикаций?<small>приём 1</small></span><div class="yn"><button type="button" class="y" id="q1y" aria-pressed="false">Да</button><button type="button" class="n" id="q1n" aria-pressed="false">Нет</button></div></li>
       <li><span>Человек, который никогда не был у психолога или коуча, с первой строки поймёт, что ваш пост про него?<small>приём 2</small></span><div class="yn"><button type="button" class="y" id="q2y" aria-pressed="false">Да</button><button type="button" class="n" id="q2n" aria-pressed="false">Нет</button></div></li>
@@ -495,7 +612,7 @@ a{color:var(--gold-deep)}
     <h2>Соберите цепочку <em>за месяц</em></h2>
     <p>Первые шаги из статьи вы можете сделать уже сегодня. Но пять первых шагов — это ещё не цепочка. Чтобы она заработала, нужны готовые формулировки, порядок внедрения и взгляд со стороны на ваш блог. Для этого — два пути.</p>
   </div>
-  <div class="plans">
+  <div class="plans" data-reveal>
     <div class="plan" id="plan-self">
       <span class="tag">Для тех, кто любит разбираться сам</span>
       <h3>«Сама»</h3>
@@ -537,14 +654,23 @@ a{color:var(--gold-deep)}
   </div>
   <div class="wrap flow" style="margin:0 auto">
     <p><strong>Почему так недорого.</strong> Мне важно, чтобы вы попробовали Клуб на своём блоге, а не судили о нём по словам. За месяц можно собрать цепочку, протестировать её на своём блоге и увидеть первые сигналы: ответы, диалоги, заявки. Остаться ли дальше — решите сами, по своему результату.</p>
-    <p><strong>Окупаемость.</strong> Один клиент на консультацию за 5 000 ₽ — и тариф «С поддержкой» уже окупился.</p>
-    <p class="timer">Цена 3 590 ₽ действует <b>24 часа</b> с момента, как вы получили статью. Потом месяц в Клубе — по обычной цене, 7 100 ₽.</p>
+    <div class="payback" data-reveal>
+      <p class="eyebrow">Окупаемость</p>
+      <h3 style="margin-top:8px">Один клиент — и тариф <em>окупился</em></h3>
+      <div class="pb-rows">
+        <div class="pb-row cost"><span class="l">Тариф «С поддержкой»</span><div class="track"><div class="fill" style="--w:24%" data-pw="24%">3 590 ₽</div></div></div>
+        <div class="pb-row win"><span class="l">Один клиент на консультацию</span><div class="track"><div class="fill" style="--w:33%" data-pw="33%">5 000 ₽</div></div></div>
+        <div class="pb-row win"><span class="l">Один клиент при чеке 15 000 ₽</span><div class="track"><div class="fill" style="--w:100%" data-pw="100%">15 000 ₽</div></div></div>
+      </div>
+      <p class="pb-note">Шкала общая: длина полосы — сумма в рублях. Цифры из модели выше, не обещание дохода.</p>
+    </div>
+    <p class="timer"><span class="live" aria-hidden="true"></span>Цена 3 590 ₽ действует <b>24 часа</b> с момента, как вы получили статью. Потом месяц в Клубе — по обычной цене, 7 100 ₽.</p>
   </div>
 </section>
 
 <section class="wrap flow">
   <h2>Через месяц могут быть <em>два сценария</em></h2>
-  <div class="two">
+  <div class="two" data-reveal>
     <div><b>Первый</b>Всё оставить как есть. Публиковать, ждать реакций, надеяться на сарафан и снова думать: «Наверное, надо больше контента».</div>
     <div><b>Второй</b>Начать собирать дорогу от поста к покупке. Чтобы у читателя после контента был следующий шаг, после подарка — разговор, а у вас — цифра, по которой видно, работает система или нет.</div>
   </div>
@@ -558,6 +684,8 @@ a{color:var(--gold-deep)}
   <p class="legal">Instagram — продукт компании Meta Platforms Inc., которая признана экстремистской организацией, её деятельность на территории РФ запрещена.</p>
 </section>
 
+<div class="sticky" id="sticky"><a class="btn" href="#samoproverka">Пройти самопроверку · 2 мин</a></div>
+
 <script>
 (function(){
   var ans=[null,null,null,null,null];
@@ -570,6 +698,8 @@ a{color:var(--gold-deep)}
     var r=-1;
     if(done===5){r=no<=1?0:(no<=3?1:2);}
     cards.forEach(function(c,i){c.classList.toggle('on',i===r);});
+    var fg=document.getElementById('ringFg');if(fg)fg.style.strokeDashoffset=283-283*no/5;
+    var rn=document.getElementById('ringNum');if(rn)rn.textContent=no;
     if(done===5){counter.innerHTML+=' — ваша рекомендация подсвечена ниже.';}
   }
   for(var i=1;i<=5;i++){(function(k){
@@ -579,5 +709,79 @@ a{color:var(--gold-deep)}
     n.addEventListener('click',function(){set('n')});
   })(i);}
   document.querySelectorAll('a[href="#"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();});});
+})();
+</script>
+
+<script>
+(function(){
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var vh=window.innerHeight||800;
+  function below(el){return el.getBoundingClientRect().top>vh*0.92;}
+  function fmt(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ');}
+
+  // прогресс чтения + плавающая кнопка
+  var prog=document.getElementById('prog'),sticky=document.getElementById('sticky');
+  var hero=document.querySelector('.hero'),sc=document.getElementById('samoproverka'),plans=document.querySelector('.plans');
+  function onScroll(){
+    var h=document.documentElement,max=h.scrollHeight-h.clientHeight;
+    if(prog)prog.style.transform='scaleX('+(max>0?h.scrollTop/max:0)+')';
+    if(sticky){
+      var pastHero=hero.getBoundingClientRect().bottom<0;
+      var r1=sc.getBoundingClientRect(),inSc=r1.top<vh&&r1.bottom>0;
+      var afterSc=r1.bottom<0;
+      sticky.classList.toggle('show',pastHero&&!inSc&&!afterSc);
+    }
+  }
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  if(!('IntersectionObserver' in window)||reduce)return;
+
+  // появление блоков (только тех, что ниже первого экрана)
+  document.documentElement.classList.add('reveal-ready');
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+  document.querySelectorAll('[data-reveal]').forEach(function(el){if(below(el))io.observe(el);});
+
+  // счётчики
+  function count(el){
+    var to=+el.getAttribute('data-count'),t0=null,d=1600;
+    function step(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/d);k=1-Math.pow(1-k,3);el.textContent=fmt(Math.round(to*k));if(k<1)requestAnimationFrame(step);}
+    requestAnimationFrame(step);
+  }
+  var cio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){count(e.target);cio.unobserve(e.target);}});},{threshold:.6});
+  document.querySelectorAll('[data-count]').forEach(function(el){cio.observe(el);});
+
+  // полосы графиков
+  function grow(sel,attr,prop){
+    document.querySelectorAll(sel).forEach(function(el){
+      if(!below(el))return;
+      var w=el.getAttribute(attr);
+      if(prop==='--w')el.style.setProperty('--w','0%');else el.style.width='0%';
+      var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+        setTimeout(function(){if(prop==='--w')el.style.setProperty('--w',w);else el.style.width=w;},120);o.disconnect();}});},{threshold:.4});
+      o.observe(el);
+    });
+  }
+  grow('.funnel .bar','data-w','width');
+  grow('.pb-row .fill','data-pw','--w');
+
+  // золотые искры в шапке
+  var c=document.getElementById('sparks');if(!c||!c.getContext)return;
+  var ctx=c.getContext('2d'),P=[],W,H,dpr=Math.min(2,window.devicePixelRatio||1),run=true;
+  function size(){W=c.clientWidth;H=c.clientHeight;c.width=W*dpr;c.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
+  size();addEventListener('resize',size);
+  for(var i=0;i<38;i++)P.push({x:Math.random(),y:Math.random(),r:Math.random()*1.8+.6,s:Math.random()*.25+.08,p:Math.random()*6.28});
+  new IntersectionObserver(function(es){run=es[0].isIntersecting;if(run)requestAnimationFrame(draw);}).observe(c);
+  function draw(t){
+    if(!run)return;
+    ctx.clearRect(0,0,W,H);
+    P.forEach(function(q){
+      q.y-=q.s/H*2.2; if(q.y<-.02){q.y=1.02;q.x=Math.random();}
+      var a=.35+.45*Math.sin(t/700+q.p), x=q.x*W, y=q.y*H;
+      ctx.fillStyle='rgba(205,166,70,'+a.toFixed(3)+')';
+      ctx.beginPath();ctx.arc(x,y,q.r,0,6.283);ctx.fill();
+      if(q.r>2){ctx.strokeStyle='rgba(205,166,70,'+(a*.6).toFixed(3)+')';ctx.lineWidth=.6;ctx.beginPath();ctx.moveTo(x-5,y);ctx.lineTo(x+5,y);ctx.moveTo(x,y-5);ctx.lineTo(x,y+5);ctx.stroke();}
+    });
+    requestAnimationFrame(draw);
+  }
 })();
 </script>

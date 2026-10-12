@@ -1,0 +1,230 @@
+<title>Автоворонка 890 ₽</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Mulish:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: one reading column; the funnel drawn as a vertical track split into two zones — robot (dashed rail) and live (solid gold rail) */
+:root{
+  /* brand palette from the guide: white + gold + canary; single light look by choice */
+  --paper:#FFFFFF; --ink:#2A2418; --muted:#6F6550; --line:#EFE6D0;
+  --gold:#A87B1E; --gold-line:#E3CF9A; --gold-soft:#FBF4E2;
+  --canary:#FFE936; --canary-soft:#FFF8C2;
+  --robot:#3E6B8A; --robot-soft:#EAF2F7; --robot-line:#B9D0E0;
+  --no:#9A5B3C; --no-soft:#F8EEE8;
+  --display:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --body:"Mulish",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:16px/1.6 var(--body);padding-inline:16px;padding-block:0 48px}
+.wrap{max-width:780px;margin:0 auto}
+header{padding-block:36px 24px;border-bottom:3px solid var(--canary)}
+.who{font:700 12px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+h1{font:600 clamp(36px,7vw,56px)/1.05 var(--display);margin:10px 0 12px;text-wrap:balance}
+h1 em{font-style:italic;font-weight:500;color:var(--gold);background:linear-gradient(transparent 62%,var(--canary) 62%,var(--canary) 90%,transparent 90%)}
+.lead{color:var(--muted);max-width:62ch;margin:0}
+h2{font:600 clamp(28px,5vw,38px)/1.1 var(--display);margin:52px 0 12px;text-wrap:balance}
+h3{font:700 15px var(--body);margin:0}
+p{max-width:65ch}
+.eyebrow{font:700 12px var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-top:52px}
+.eyebrow+h2{margin-top:6px}
+
+/* zone legend */
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 6px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;font-weight:700;font-size:13.5px}
+.chip.r{background:var(--robot-soft);color:var(--robot);border:1.5px dashed var(--robot)}
+.chip.h{background:var(--canary-soft);color:var(--ink);border:1.5px solid var(--gold)}
+.chip.n{background:var(--no-soft);color:var(--no);border:1.5px solid var(--no-soft)}
+
+/* the track */
+.zone{position:relative;margin-top:26px;padding:18px 16px 18px 18px;border-radius:18px}
+.zone.robot{background:var(--robot-soft);border:1.5px dashed var(--robot-line)}
+.zone.human{background:var(--canary-soft);border:1.5px solid var(--gold-line)}
+.zone-title{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.zone-title b{font:600 24px var(--display)}
+.zone.robot .zone-title b{color:var(--robot)}
+.zone-title span{font-size:13px;color:var(--muted)}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;position:relative}
+.steps::before{content:"";position:absolute;left:17px;top:18px;bottom:18px;border-left:2px dashed var(--robot-line)}
+.zone.human .steps::before{border-left:2px solid var(--gold-line)}
+.step{position:relative;display:grid;grid-template-columns:36px minmax(0,1fr);gap:12px;align-items:start}
+.dot{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font:700 14px var(--body);background:var(--paper);border:2px solid var(--robot);color:var(--robot);position:relative;z-index:1}
+.zone.human .dot{border-color:var(--gold);color:var(--gold);background:var(--canary)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-width:0}
+.card p{margin:4px 0 0;font-size:14.5px;color:var(--muted)}
+.card .say{margin-top:8px;padding:8px 10px;border-radius:8px;background:var(--gold-soft);font-size:14px;color:var(--ink);font-style:italic}
+.tag{display:inline-block;font:700 11px var(--body);letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-left:6px;vertical-align:2px}
+.tag.money{background:var(--canary);color:var(--ink)}
+.tag.big{background:var(--gold);color:#fff}
+
+/* fork */
+.fork{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
+.fork .card{border-width:1.5px}
+.fork .yes{border-color:var(--gold)}
+.fork .no{border-color:var(--no-soft);background:var(--no-soft)}
+.fork .no h3{color:var(--no)}
+@media (max-width:560px){.fork{grid-template-columns:1fr}}
+.arrow-down{text-align:center;color:var(--gold);font-weight:800;font-size:22px;line-height:1;margin:10px 0 -6px}
+
+/* explanation blocks */
+.why{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}
+@media (max-width:620px){.why{grid-template-columns:1fr}}
+.why div{padding:14px 16px;border-top:3px solid var(--canary);background:var(--gold-soft);border-radius:0 0 12px 12px;min-width:0}
+.why b{display:block;font:600 21px/1.2 var(--display);margin-bottom:4px}
+.why span{font-size:14.5px;color:var(--muted)}
+
+.tw{overflow-x:auto;margin:16px 0;border:1px solid var(--gold-line);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14.5px}
+th{text-align:left;font:700 12px var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--gold);background:var(--canary-soft);padding:10px 12px}
+td{padding:11px 12px;border-top:1px solid var(--line);vertical-align:top}
+td:first-child{font-weight:700}
+.pick{display:inline-block;font:700 11px var(--body);background:var(--canary);padding:1px 7px;border-radius:999px;margin-left:4px}
+
+.split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+@media (max-width:620px){.split{grid-template-columns:1fr}}
+.split>div{padding:16px 18px;border-radius:14px;border:1px solid var(--line);min-width:0}
+.split .me{background:var(--robot-soft);border-color:var(--robot-line)}
+.split .you{background:var(--canary-soft);border-color:var(--gold-line)}
+.split h3{font:600 22px var(--display);margin-bottom:6px}
+.split ul{margin:0;padding-left:1.2em}
+.split li{margin:5px 0;font-size:14.5px}
+
+ol.launch{padding-left:1.3em}
+ol.launch li{margin:8px 0;max-width:65ch}
+ol.launch li::marker{color:var(--gold);font-weight:800}
+.note{margin-top:22px;padding:14px 16px;border-left:4px solid var(--canary);background:var(--gold-soft);border-radius:0 12px 12px 0;font-size:14.5px}
+footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="who">Зульфия Ментор · схема продаж</div>
+  <h1>Гайд за 890 ₽ продаёт <em>робот</em>, Клуб и наставничество — вы</h1>
+  <p class="lead">Вся воронка делится на две зоны. В синей работает бот: днём и ночью, без вашего участия, он ведёт человека от поста до оплаты гайда. В жёлтой работаете вы: туда попадают уже тёплые люди, которые купили гайд и хотят большего.</p>
+  <div class="legend">
+    <span class="chip r">Работает бот</span>
+    <span class="chip h">Работаете вы</span>
+    <span class="chip n">Если не купил</span>
+  </div>
+</header>
+
+<section aria-labelledby="map">
+<div class="eyebrow">Схема</div>
+<h2 id="map">Путь одного человека</h2>
+
+<div class="zone robot">
+  <div class="zone-title"><b>Зона бота</b><span>вы не участвуете</span></div>
+  <ol class="steps">
+    <li class="step"><span class="dot">1</span><div class="card"><h3>Блог</h3><p>Видео, карусели, посты на боли вашей аудитории. В конце каждой второй публикации — кодовое слово.</p><div class="say">«Напишите ТЕСТ — узнаете, где ваш блог теряет клиентов»</div></div></li>
+    <li class="step"><span class="dot">2</span><div class="card"><h3>Бот присылает тест</h3><p>7 вопросов с кнопками, 3 минуты. Бот сам считает ответы.</p></div></li>
+    <li class="step"><span class="dot">3</span><div class="card"><h3>Результат: «Ваш тип — Витрина без двери»</h3><p>Описание, почему уходят клиенты, одно действие на сегодня. Человек получает пользу и видит, чего ему не хватает.</p></div></li>
+    <li class="step"><span class="dot">4</span><div class="card"><h3>Сразу предложение гайда <span class="tag money">890 ₽</span></h3><p>В том же сообщении: «Как закрыть ваше слабое звено — в разделе "Профиль и воронка" гайда. Там пошагово и с готовыми промптами». Кнопка «Оплатить».</p><div class="say">Продаём в момент, когда человек только что увидел свою проблему. Это самая горячая точка всей воронки.</div></div></li>
+  </ol>
+
+  <div class="arrow-down" aria-hidden="true">↓</div>
+  <div class="fork">
+    <div class="card yes">
+      <h3>Оплатил</h3>
+      <p>Платёжный сервис сообщает боту об оплате. Бот сам присылает ссылку на гайд и первое задание: «Начните с паспорта эксперта, это 20 минут».</p>
+    </div>
+    <div class="card no">
+      <h3>Не оплатил</h3>
+      <p>Бот 3 дня мягко напоминает: день 1 — статья и видео в подарок, день 2 — кейс ученицы, день 3 — «завтра цена вырастет» (только если это правда). Потом человек остаётся в боте и получает ваши новости раз в неделю.</p>
+    </div>
+  </div>
+
+  <ol class="steps" style="margin-top:14px">
+    <li class="step"><span class="dot">5</span><div class="card"><h3>День 3 после покупки</h3><p>«Как идёт первая неделя? Где застряли?» Если человек ответил, бот передаёт диалог вам.</p></div></li>
+    <li class="step"><span class="dot">6</span><div class="card"><h3>День 7 после покупки</h3><p>Приглашение на бесплатную «Личную навигацию». Бот присылает анкету из 3 вопросов и ссылку на запись.</p><div class="say">«Хотите, я лично посмотрю, как вы внедряете, и подскажу следующий шаг? Напишите БЛОГ»</div></div></li>
+  </ol>
+</div>
+
+<div class="arrow-down" aria-hidden="true">↓</div>
+
+<div class="zone human">
+  <div class="zone-title"><b>Ваша зона</b><span>только тёплые люди</span></div>
+  <ol class="steps">
+    <li class="step"><span class="dot">7</span><div class="card"><h3>«Личная навигация», 45 минут в Zoom</h3><p>Человек уже купил у вас, прочитал гайд и попробовал внедрить. Ему не нужно доказывать, что вы эксперт.</p></div></li>
+    <li class="step"><span class="dot">8</span><div class="card"><h3>Вы предлагаете один путь</h3><p>Клуб «Магия продаж» на год <span class="tag big">в своём темпе</span> или «Система устойчивых продаж» <span class="tag big">8 недель</span>. Если сейчас не время — честно говорите об этом.</p></div></li>
+  </ol>
+</div>
+</section>
+
+<section aria-labelledby="logic">
+<div class="eyebrow">Логика</div>
+<h2 id="logic">Почему именно в таком порядке</h2>
+<p>Раньше схема была «статья → консультация → гайд, если не готов». Для продаж на автомате порядок меняется: гайд идёт первым.</p>
+<div class="why">
+  <div><b>Маленькое «да» перед большим</b><span>Купить за 890 ₽ легко. А человек, который один раз заплатил вам, в разы охотнее заплатит второй раз.</span></div>
+  <div><b>Продаём на пике</b><span>Сразу после теста человек увидел свою проблему. Через день это чувство остывает. Поэтому предложение — в том же сообщении, что и результат.</span></div>
+  <div><b>Ваше время — только тёплым</b><span>На «Личную навигацию» приходят те, кто уже купил и попробовал. Встречи короче, а продаж с них больше.</span></div>
+  <div><b>Гайд окупает рекламу</b><span>Если когда-нибудь подключите платное продвижение, продажи по 890 ₽ вернут часть вложений, пока вы спите.</span></div>
+</div>
+</section>
+
+<section aria-labelledby="tools">
+<div class="eyebrow">Сервисы</div>
+<h2 id="tools">На чём это собрать</h2>
+<p>Нужны три вещи: бот, приём оплаты и страница, где лежит гайд. Бот должен уметь три вещи: тест с подсчётом баллов, цепочки сообщений по дням и выдачу доступа после оплаты.</p>
+<div class="tw"><table>
+<thead><tr><th>Что</th><th>Мой выбор</th><th>Альтернатива</th><th>Зачем</th></tr></thead>
+<tbody>
+<tr><td>Бот и цепочки</td><td>SaleBot<span class="pick">рекомендую</span></td><td>BotHelp, Leadteh; для VK — Senler</td><td>Один конструктор на Telegram, VK и автоответы в директ. Умеет тесты с кнопками, переменные для подсчёта баллов, цепочки по дням и подключение оплаты</td></tr>
+<tr><td>Приём оплаты</td><td>Prodamus</td><td>ЮKassa, Робокасса, Т-Банк</td><td>Ссылка на оплату прямо в боте. После оплаты сервис сообщает боту, и тот сам отправляет доступ</td></tr>
+<tr><td>Где лежит гайд</td><td>Tilda (страница без ссылки в меню)</td><td>Любой хостинг для одной страницы</td><td>Гайд — это одна HTML-страница. Бот отдаёт ссылку только тем, кто оплатил</td></tr>
+<tr><td>Запись на встречу</td><td>Анкета прямо в боте</td><td>Календарь записи, например Calendly</td><td>Человек отвечает на 3 вопроса и выбирает время, не выходя из бота</td></tr>
+</tbody>
+</table></div>
+<p class="note">Возможности и тарифы сервисов меняются. Перед подключением проверьте у выбранного сервиса две вещи: работает ли он с вашей платёжной системой и какие площадки (Telegram, VK, Instagram*) поддерживает сейчас.</p>
+</section>
+
+<section aria-labelledby="who">
+<div class="eyebrow">Кто что делает</div>
+<h2 id="who">Что могу сделать я, а что — вы</h2>
+<p>Сам бот я запустить не могу: у меня нет доступа к вашим аккаунтам и платёжной системе. Но всё содержимое могу подготовить так, чтобы вам или техническому специалисту оставалось только вставить.</p>
+<div class="split">
+  <div class="me">
+    <h3>Делаю я</h3>
+    <ul>
+      <li>Тексты всех сообщений бота, по блокам и с кнопками</li>
+      <li>Тест: вопросы, подсчёт баллов, 5 результатов</li>
+      <li>Предложение гайда под каждый тип результата</li>
+      <li>Цепочку напоминаний для тех, кто не купил</li>
+      <li>Сообщения после покупки и приглашение на встречу</li>
+      <li>Схему для техспециалиста: какой блок куда ведёт</li>
+      <li>Продающую страницу гайда, если нужна отдельно от бота</li>
+    </ul>
+  </div>
+  <div class="you">
+    <h3>Делаете вы или техспециалист</h3>
+    <ul>
+      <li>Регистрируете SaleBot и подключаете Telegram или VK</li>
+      <li>Подключаете Prodamus и связываете его с ботом</li>
+      <li>Размещаете гайд на Tilda</li>
+      <li>Вставляете мои тексты в блоки по схеме</li>
+      <li>Проходите воронку сами от начала до конца и оплачиваете тестово</li>
+      <li>Раз в неделю смотрите цифры</li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<section aria-labelledby="launch">
+<div class="eyebrow">Запуск</div>
+<h2 id="launch">Порядок действий</h2>
+<ol class="launch">
+  <li>Решаете, где будет бот: Telegram, VK или оба.</li>
+  <li>Я пишу все тексты бота и схему блоков.</li>
+  <li>Техспециалист собирает бота и подключает оплату.</li>
+  <li>Вы проходите воронку сами и покупаете гайд тестовой оплатой.</li>
+  <li>Меняете шапку профиля и закреп: везде кодовое слово ТЕСТ.</li>
+  <li>Две недели публикуете по рубрикатору с призывом в каждой второй публикации.</li>
+  <li>Смотрите цифры: сколько написали ТЕСТ → прошли тест → купили гайд → записались на встречу. Чините этап, где обрыв больше всего.</li>
+</ol>
+</section>
+
+<footer>
+  <p>© Зульфия Ментор · @zulfiyamentor</p>
+  <p>* Instagram — продукт компании Meta Platforms Inc., которая признана экстремистской организацией, её деятельность на территории РФ запрещена.</p>
+</footer>
+</div>

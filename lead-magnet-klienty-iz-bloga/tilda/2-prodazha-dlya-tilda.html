@@ -401,6 +401,15 @@ section{padding-block:96px}
 @media (max-width:720px){.duo-pics .pic img{height:200px}}
 @media (max-width:980px){.priem.has-img{grid-template-columns:120px minmax(0,1fr)}.priem .side{grid-column:2;max-width:260px}}
 @media (max-width:720px){.priem.has-img{grid-template-columns:1fr}.priem .side{grid-column:auto}}
+.hero-vis{position:relative;min-height:440px;max-width:460px;width:100%;justify-self:center}
+.hero-vis .hv-book{position:absolute;left:0;top:0;width:62%;max-width:100%;border-radius:22px;box-shadow:0 40px 70px -40px rgba(148,100,0,.6);animation:float 7s ease-in-out infinite}
+.hero-vis .hv-card{position:absolute;right:0;top:34%;width:62%;max-width:100%;border-radius:20px;box-shadow:0 40px 70px -36px rgba(148,100,0,.65);transform:rotate(-6deg);animation:float 7s ease-in-out -3s infinite}
+.hero-vis .hv-chain{list-style:none;margin:0;padding:0;position:absolute;left:0;right:0;bottom:0;display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.hero-vis .hv-chain li{background:var(--white);border:1px solid var(--line-gold);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:700;color:var(--accent)}
+.hero-vis .hv-chain li.buy{background:var(--btn);color:var(--ink);border-color:transparent}
+.vblock2{padding:32px;border-radius:28px;background:var(--soft);border:1px solid var(--line-gold);max-width:860px}
+@media (max-width:980px){.hero-vis{min-height:380px;max-width:400px}}
+@media (max-width:720px){.hero-vis{min-height:330px}}
 </style>
 
 <header class="top">
@@ -424,18 +433,19 @@ section{padding-block:96px}
   <div class="in">
     <div>
       <span class="pill"><span class="dot"></span>Гайд + месяц внедрения в Клубе «Магия продаж»</span>
-      <h1>Соберите цепочку <span class="shine" style="display:block">«Пост → Покупка»</span> за 4 недели</h1>
-      <p class="sub" style="font-family:var(--display);font-weight:700;font-size:clamp(24px,2.4vw,30px);line-height:1.2;margin-top:18px">Не очередное обучение ради знаний. А дорога от поста до заявки — с разбором именно вашего блога.</p>
-      <div class="act" style="display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px;margin-top:30px"><a class="btn pulse" href="#tarify">Хочу месяц внедрения — 3 590 ₽</a><span style="font-size:15px;color:var(--muted)">Цена для новых участников по статье · 24 часа</span></div>
+      <h1>Вы уже нашли своё слабое звено. <span class="shine" style="display:block">За 4 недели соберите всю цепочку</span></h1>
+      <p class="sub" style="font-family:var(--display);font-weight:700;font-size:clamp(24px,2.4vw,30px);line-height:1.2;margin-top:18px">«Пост → Покупка» — без огромного курса и без «вот вам 300 материалов, разбирайтесь». Маршрут по неделям и разбор именно вашего блога.</p>
+      <div class="act" style="display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px;margin-top:30px"><a class="btn pulse" href="#tarify">Хочу месяц внедрения — 3 590 ₽</a><span style="font-size:15px;color:var(--muted)">Для читателей статьи · 24 часа</span></div>
       <div class="stats">
         <div><b>4</b><span>недели по маршруту — шаг за шагом</span></div>
         <div><b>15</b><span>промптов, которые пишут тексты за вас</span></div>
         <div><b>10:00</b><span>каждый вторник — живой разбор блогов</span></div>
       </div>
     </div>
-    <div class="photo">
-      <div class="arch"><img src="https://optim.tildacdn.com/tild3765-6665-4964-b738-633139366464/-/format/webp/photo_2026-02-02_16-.jpg.webp" alt="Зульфия Ментор"></div>
-      <div class="name"><b>Зульфия Mentor</b><span>архитектор системных продаж для экспертов</span></div>
+    <div class="hero-vis" aria-hidden="false">
+      <img class="hv-book" src="https://optim.tildacdn.com/tild3637-3264-4537-a333-646661356136/-/format/webp/71cfb0c0-edd3-470e-b.png.webp" alt="Гайд «Клиенты из блога»">
+      <img class="hv-card" src="https://optim.tildacdn.com/tild3134-6138-4235-b065-393832666637/-/format/webp/b2a0347d-19b9-41fd-a.png.webp" alt="Золотая карта Клуба «Магия продаж»">
+      <ol class="hv-chain"><li>остановился</li><li>узнал себя</li><li>первый шаг</li><li>разговор</li><li class="buy">купил</li></ol>
     </div>
   </div>
 </section>
@@ -446,43 +456,7 @@ section{padding-block:96px}
   </div>
 </div>
 
-<section>
-  <div class="in">
-    <div class="pillars" data-reveal>
-      <div class="card"><span class="num shine">01</span><h3>Работает в мягких нишах</h3><p style="color:var(--muted)">Психологи, коучи, энергопрактики, наставники, нутрициологи. «Тонкая» тема продаёт, если перевести её на язык клиента.</p></div>
-      <div class="card hl"><span class="num shine">02</span><h3>Не нужен маркетинговый опыт</h3><p style="color:var(--muted)">Есть экспертиза и готовность внедрять — остальное в гайде: формулы, шаблоны и 15 промптов, которые пишут тексты за вас.</p></div>
-      <div class="card"><span class="num shine">03</span><h3>Не нужно продавать в лоб</h3><p style="color:var(--muted)">Цепочка ведёт человека сама: пост → подарок → разговор → запись. Вы задаёте вопрос раньше цены, а не уговариваете.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="band">
-  <div class="in">
-    <p class="eyebrow">Кому подойдёт</p>
-    <h2 style="margin-top:16px">Это для вас, <span class="shine">если…</span></h2>
-    <div class="fit" data-reveal>
-      <div class="card"><h3>Подойдёт, если</h3><ul class="checks"><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>у вас есть экспертиза, практика или хотя бы понятная тема;</span></li><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>вы готовы месяц не просто читать, а внедрять по маршруту;</span></li><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>вы хотите, чтобы блог приводил клиентов, а не только лайки коллег;</span></li><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>вам неловко продавать — и вы ищете способ без давления.</span></li></ul></div>
-      <div class="card"><h3>Не подойдёт, если</h3><ul class="nos"><li><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg><span>вы ждёте заявок без публикаций и действий;</span></li><li><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg><span>вы хотите гарантированный доход просто за факт оплаты;</span></li><li><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg><span>у вас нет темы и желания разбираться;</span></li><li><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg><span>вы хотите «посмотреть материалы», а не собрать цепочку.</span></li></ul></div>
-    </div>
-    <p class="key" style="margin-top:28px" data-reveal>Месяц внедрения — не кнопка «клиенты сами». <span class="shine">Это понятный маршрут, который превращает внимание в заявки.</span></p>
-  </div>
-</section>
-
-<section>
-  <div class="in stack">
-    <p class="eyebrow">Маленький блог? Тем более</p>
-    <h2>Когда подписчиков 100–300, <span class="shine">каждый пост должен работать</span></h2>
-    <p class="lead read">Когда у эксперта десятки тысяч подписчиков, он может позволить себе дырявую цепочку — кто-то всё равно купит. Маленькому блогу нужны не охваты, а дверь: человек остановился на посте → узнал себя → сделал первый шаг: написал слово и получил подарок → поговорил с вами → записался.</p>
-    <figure class="pic wide"><img src="https://optim.tildacdn.com/tild3361-6335-4463-b266-303064373230/-/format/webp/21329a9d-81b7-4c88-b.png.webp" alt="Пять золотых ступеней к открытой двери кафе" loading="lazy"></figure>
-    <div class="stats read" style="margin-top:8px" data-reveal>
-      <div><b data-count="120">120</b><span>подписчиков у Светланы — первая продажа через 7 дней</span></div>
-      <div><b data-count="230">230</b><span>подписчиков у меня при первом миллионе</span></div>
-      <div><b data-count="43">43</b><span>подписчика у Анны в начале — потом 1 500</span></div>
-    </div>
-  </div>
-</section>
-
-<section class="band" id="format">
+<section id="format">
   <div class="in">
     <p class="eyebrow">Как устроено</p>
     <h2 style="margin-top:16px">Вы не останетесь <span class="shine">одна с материалами</span></h2>
@@ -497,18 +471,6 @@ section{padding-block:96px}
   </div>
 </section>
 
-<section>
-  <div class="in">
-    <p class="eyebrow">Нейросеть + вы</p>
-    <h2 style="margin-top:16px">Что сделает нейросеть, <span class="shine">а что — вы</span></h2>
-    <div class="duo" data-reveal>
-      <div class="card hl"><h3 style="margin-bottom:14px">С промптами из гайда нейросеть поможет</h3><ul class="checks"><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>запомнить вас, вашу аудиторию и боли клиентов их словами — «Паспорт эксперта»;</span></li><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>предложить 10 вариантов первой строки, которые останавливают скролл;</span></li><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>составить контент-план из 30 тем для видео на месяц;</span></li><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>написать сценарии коротких видео, карусели и посты;</span></li><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>убрать из текста шаблонность, чтобы он звучал вашим голосом.</span></li></ul></div>
-      <div class="card"><h3 style="margin-bottom:14px">Вы отвечаете за</h3><ul class="checks"><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>свою экспертность и живые истории;</span></li><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>выбор подарка и кодового слова;</span></li><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>разговор с человеком — вопрос раньше цены;</span></li><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>регулярность: 3 публикации в неделю;</span></li><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>свою цифру по пятницам.</span></li></ul></div>
-    </div>
-    <p class="read" style="margin-top:24px;color:var(--muted)">Нейросеть не сделает вас экспертом. Но заберёт ту часть работы, на которой большинство бросает.</p>
-  </div>
-</section>
-
 <section class="band" id="marshrut">
   <div class="in">
     <p class="eyebrow">Маршрут</p>
@@ -517,7 +479,7 @@ section{padding-block:96px}
       <div class="wk"><span class="w">Неделя 1</span><div class="bar-progress"><i style="--p:25%"></i></div><h3>Фундамент</h3><p>Паспорт эксперта, описание профиля или канала, подарок и кодовое слово, 3 поста-закрепа, ответы на кодовое слово.</p><p class="res">Человек, попавший в ваш профиль, понимает, кто вы, и знает, как получить подарок.</p><p class="tools"><b>Инструменты:</b> паспорт эксперта, структура шапки и 3 постов-закрепов, форматы подарков для мягких ниш.</p></div>
       <div class="wk"><span class="w">Неделя 2</span><div class="bar-progress"><i style="--p:50%"></i></div><h3>Первый контент</h3><p>20 хуков на ваши темы, план видео на месяц, первые 3 видео за одну сессию, первая карусель.</p><p class="res">В профиле свежий контент, а у вас — запас хуков и тем.</p><p class="tools"><b>Инструменты:</b> 10 формул заголовков, 6 правил сильного хука, сценарии роликов, структура карусели.</p></div>
       <div class="wk"><span class="w">Неделя 3</span><div class="bar-progress"><i style="--p:75%"></i></div><h3>Ритм</h3><p>3 видео и 2 карусели в неделю, посты в канал, сторис-механика «Реши задачку», рубрикатор.</p><p class="res">Контент выходит регулярно, без мучительного «о чём сегодня писать».</p><p class="tools"><b>Инструменты:</b> промпты для постов, рубрикатор.</p></div>
-      <div class="wk"><span class="w">Неделя 4</span><div class="bar-progress"><i style="--p:100%"></i></div><h3>Цифры и первая продажа</h3><p>Цифры воронки, поиск места, где теряются люди, мягкий анонс, приглашение на консультацию тех, кто уже написал.</p><p class="res">Вы видите свою воронку в цифрах и знаете, что улучшать дальше.</p><p class="tools"><b>Инструменты:</b> таблица цифр, скелет переписки из 5 шагов.</p></div>
+      <div class="wk"><span class="w">Неделя 4</span><div class="bar-progress"><i style="--p:100%"></i></div><h3>Цифры и продажи</h3><p>Цифры воронки, поиск места, где теряются люди, мягкий анонс, приглашение на консультацию тех, кто уже написал.</p><p class="res">Вы видите свою воронку в цифрах и знаете, что улучшать дальше.</p><p class="tools"><b>Инструменты:</b> таблица цифр, скелет переписки из 5 шагов.</p></div>
     </div>
     <div class="engine" data-reveal><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg>И каждый вторник — разбор, на который можно принести то, что получилось.</div>
   </div>
@@ -525,19 +487,24 @@ section{padding-block:96px}
 
 <section>
   <div class="in">
-    <p class="eyebrow">Где использовать</p>
-    <h2 style="margin-top:16px">Под вашу <span class="shine">нишу</span></h2>
-    <div class="uses" data-reveal>
-      <div class="card"><h3>Психологу и коучу</h3><p>Чтобы клиенты приходили не только по сарафану.</p></div>
-      <div class="card"><h3>Энергопрактику</h3><p>Чтобы «тонкая» тема стала понятной клиенту.</p></div>
-      <div class="card"><h3>Нутрициологу</h3><p>Чтобы пост приводил на консультацию, а не только в сохранённые.</p></div>
-      <div class="card"><h3>Наставнику и маркетологу</h3><p>Чтобы собрать систему себе и показывать её клиентам.</p></div>
-    </div>
+    <p class="eyebrow">Без кота в мешке</p>
+    <h2 style="margin-top:16px">Посмотрите, как это <span class="shine">устроено изнутри</span></h2>
     <div class="video" data-reveal><div><div class="play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div><h3>Посмотрите, как это устроено изнутри</h3><p style="color:var(--muted);margin-top:6px">Видео 2–3 минуты: «Старт здесь», запись разбора, гайд</p><p style="margin-top:10px"><span class="ph">вставить видео</span></p></div></div>
   </div>
 </section>
 
-<section class="band" id="tarify">
+<section class="band">
+  <div class="in">
+    <p class="eyebrow">Что вам подходит</p>
+    <h2 style="margin-top:16px">Вспомните свою <span class="shine">самопроверку</span></h2>
+    <div class="duo" data-reveal>
+      <div class="card"><h3 style="margin-bottom:14px">Берите «Сама», если</h3><ul class="checks"><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>в самопроверке у вас 0–1 «нет»;</span></li><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>вы дисциплинированы и внедряете без напоминаний;</span></li><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>вам нужны формулировки и порядок действий, а не взгляд со стороны.</span></li></ul></div>
+      <div class="card hl"><h3 style="margin-bottom:14px">Берите «С поддержкой», если</h3><ul class="checks"><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>в самопроверке у вас 2–5 «нет»;</span></li><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>вы знаете за собой «прочитаю и отложу»;</span></li><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>вам важно, чтобы кто-то посмотрел на ваш блог и сказал, с чего начать;</span></li><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>вы хотите быть среди экспертов, которые внедряют, а не только читают.</span></li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="tarify">
   <div class="in">
     <p class="eyebrow" style="text-align:center">Сколько стоит</p>
     <h2 style="text-align:center;margin-top:16px">Два тарифа — <span class="shine">выберите свой</span></h2>
@@ -566,7 +533,7 @@ section{padding-block:96px}
           <span>Отдельно: гайд</span><span>890 ₽</span>
           <span>месяц в Клубе</span><span>7 100 ₽</span>
           <span class="tot">вместе</span><span class="tot">7 990 ₽</span>
-          <span class="tot hl">для новых участников по статье</span><span class="tot hl">3 590 ₽</span>
+          <span class="tot hl">для читателей статьи</span><span class="tot hl">3 590 ₽</span>
         </div>
         <ul class="incl">
           <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>всё из тарифа «Сама»</span></li>
@@ -596,18 +563,31 @@ section{padding-block:96px}
   </div>
 </section>
 
-<section>
+<section class="band">
   <div class="in">
-    <p class="eyebrow">Как выбрать тариф</p>
-    <h2 style="margin-top:16px">Подсказка — <span class="shine">ваша самопроверка</span></h2>
+    <p class="eyebrow">Кому подойдёт</p>
+    <h2 style="margin-top:16px">Подойдёт — <span class="shine">и кому нет</span></h2>
     <div class="duo" data-reveal>
-      <div class="card"><h3 style="margin-bottom:14px">Берите «Сама», если</h3><ul class="checks"><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>в самопроверке у вас 0–1 «нет»;</span></li><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>вы дисциплинированы и внедряете без напоминаний;</span></li><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>вам нужны формулировки и порядок действий, а не взгляд со стороны.</span></li></ul></div>
-      <div class="card hl"><h3 style="margin-bottom:14px">Берите «С поддержкой», если</h3><ul class="checks"><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>в самопроверке у вас 2–5 «нет»;</span></li><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>вы знаете за собой «прочитаю и отложу»;</span></li><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>вам важно, чтобы кто-то посмотрел на ваш блог и сказал, с чего начать;</span></li><li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>вы хотите быть среди экспертов, которые внедряют, а не только читают.</span></li></ul></div>
+      <div class="card hl"><h3 style="margin-bottom:10px">Подойдёт</h3><p>Если у вас есть экспертиза и тема, вы готовы месяц не просто читать, а внедрять по маршруту, и вам неловко продавать — вы ищете способ без давления.</p></div>
+      <div class="card"><h3 style="margin-bottom:10px">Не подойдёт</h3><p style="color:var(--muted)">Если вы ждёте заявок без публикаций и действий, хотите гарантированный доход за факт оплаты или хотите «посмотреть материалы», а не собрать цепочку.</p></div>
     </div>
   </div>
 </section>
 
-<section class="band">
+<section>
+  <div class="in">
+    <div class="vblock2" data-reveal>
+      <div class="stack" style="gap:12px">
+        <p class="eyebrow">Чтобы внедрять было легче</p>
+        <h3 style="font-size:clamp(28px,3vw,36px)">Нейросеть пишет черновики, <span class="shine">вы — живые смыслы</span></h3>
+        <p style="color:var(--muted)">Главное в месяце внедрения — ваша цепочка и разбор вашего блога. А чтобы тексты не отнимали вечера, в гайде 15 промптов: «Паспорт эксперта», 10 вариантов первой строки, контент-план из 30 тем, сценарии видео, карусели, посты и «антишаблон», чтобы текст звучал вашим голосом.</p>
+        <p style="color:var(--muted)"><em>Нейросеть не сделает вас экспертом, но заберёт ту часть работы, на которой большинство бросает.</em></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
   <div class="in">
     <p class="eyebrow">Результаты учеников</p>
     <h2 style="margin-top:16px">Когда цепочка <span class="shine">собрана</span></h2>
@@ -623,16 +603,13 @@ section{padding-block:96px}
   </div>
 </section>
 
-<section id="voprosy">
+<section class="band" id="voprosy">
   <div class="in">
     <div class="read" style="margin-inline:auto">
       <p class="eyebrow">Вопросы</p>
       <h2 style="margin-top:16px">Частые <span class="shine">вопросы</span></h2>
       <div class="faq">
-        <details open><summary>«У меня слишком маленький блог»</summary><p>У Светланы было 120 подписчиков, у меня — 230, у Анны — 43. Цепочке не нужны тысячи. Ей нужны звенья.</p></details>
-        <details><summary>«Я не умею и не хочу продавать»</summary><p>И не нужно «продавать» в привычном смысле. Нужно задать вопрос раньше цены. Это умеет каждый, кто хоть раз проводил консультацию.</p></details>
-        <details><summary>«Я с техникой как маугли»</summary><p>Так о себе говорила одна из моих учениц. Поэтому в гайде — 15 промптов, которые пишут тексты за вас, а на разборе можно спросить про любую мелочь.</p></details>
-        <details><summary>«Моя тема не для соцсетей»</summary><p>«Тонкие» ниши продают так же, если перевести их на язык клиента.</p></details>
+        <details open><summary>«Я с техникой как маугли»</summary><p>Так о себе говорила одна из моих учениц. Поэтому в гайде — 15 промптов, которые пишут тексты за вас, а на разборе можно спросить про любую мелочь.</p></details>
         <details><summary>«У меня нет времени»</summary><p>3 публикации в неделю и одна цифра по пятницам. Это меньше, чем ежедневные сторис.</p></details>
         <details><summary>«Я уже столько обучений прошла — и не внедрила»</summary><p>Это не с вами что-то не так. Поэтому здесь маршрут из маленьких шагов и разбор, который не даст бросить на середине.</p></details>
         <details><summary>«Не могу во вторник в 10:00»</summary><p>Разбор записывается, ответ на вашу анкету будет в записи.</p></details>
@@ -642,7 +619,7 @@ section{padding-block:96px}
   </div>
 </section>
 
-<section class="band">
+<section>
   <div class="in">
     <div class="author" data-reveal style="margin-top:0">
       <div class="av"><img src="https://optim.tildacdn.com/tild3765-6665-4964-b738-633139366464/-/format/webp/photo_2026-02-02_16-.jpg.webp" alt="Зульфия Ментор"></div>
@@ -661,7 +638,7 @@ section{padding-block:96px}
   </div>
 </section>
 
-<section>
+<section class="band">
   <div class="in">
     <p class="eyebrow" style="text-align:center">Решение</p>
     <h2 style="text-align:center;margin-top:16px">Сейчас у вас <span class="shine">три пути</span></h2>

@@ -3,33 +3,28 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Montserrat:wght@400;500;600;700&display=swap">
 <style>
-/* Layout: стиль Клуба «Магия продаж» — кремовая бумага, золото, Cormorant + Montserrat; колонка чтения ~65 знаков, широкие вставки шире */
+/* Layout: стиль Клуба «Магия продаж» — белый фон, золото и канареечный, Cormorant + Montserrat; колонка чтения ~65 знаков, широкие вставки шире */
 :root{
-  --bg:#FDFAF4;        /* крем */
-  --surface:#FAF3E0;   /* тёплая подложка */
+  --bg:#FFFFFF;        /* белый */
+  --surface:#FFF8D6;   /* светло-канареечная подложка */
+  --canary:#FFD21F;    /* канареечный акцент */
+  --canary-soft:#FFF1A8;
   --card:#FFFFFF;
   --ink:#2C2416;       /* текст */
   --muted:#7A6A48;     /* вторичный */
-  --line:#EADFC6;
+  --line:#F1E4B3;
   --gold:#B8943F;      /* золото: крупные цифры, линии */
   --gold-deep:#8C6A22; /* золото для мелкого текста */
-  --gold-soft:#F6ECD0;
-  --gold-grad:linear-gradient(135deg,#D9B866 0%,#B8943F 55%,#9C7A2E 100%);
+  --gold-soft:#FFF4C4;
+  --gold-grad:linear-gradient(135deg,#FFDB4D 0%,#F2C230 35%,#D4A93A 65%,#B8943F 100%);
   --night:#1C1A14;     /* тёмные блоки */
   --night-ink:#F3EBD8;
   --sage:#4E8F4B;
   --sage-soft:#E6F0E2;
+  color-scheme:light;
   --display:"Cormorant Garamond", Georgia, "Times New Roman", serif;
   --body:"Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#17150F;--surface:#221F17;--card:#1E1B14;--ink:#F3EBD8;--muted:#C0AE8A;--line:#3B3526;
-  --gold:#D4B062;--gold-deep:#E6C77A;--gold-soft:#2E2817;--night:#0F0D09;--night-ink:#F3EBD8;
-  --sage:#86C383;--sage-soft:#1E2A1C;color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#17150F;--surface:#221F17;--card:#1E1B14;--ink:#F3EBD8;--muted:#C0AE8A;--line:#3B3526;
-  --gold:#D4B062;--gold-deep:#E6C77A;--gold-soft:#2E2817;--night:#0F0D09;--night-ink:#F3EBD8;
-  --sage:#86C383;--sage-soft:#1E2A1C;color-scheme:dark}
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -239,7 +234,7 @@ body{overflow-x:clip}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
 
 h1 em,h2 em,h3 em,.key b,.result .big,.sign,.quote{
-  background:linear-gradient(90deg,var(--gold-deep) 0%,var(--gold) 20%,#F3DE97 35%,var(--gold) 50%,var(--gold-deep) 70%,var(--gold) 85%,var(--gold-deep) 100%);
+  background:linear-gradient(90deg,var(--gold-deep) 0%,var(--gold) 20%,#E5AE00 35%,var(--gold) 50%,var(--gold-deep) 70%,var(--gold) 85%,var(--gold-deep) 100%);
   background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
   animation:shimmer 7s linear infinite}
 .chain h3 em{background:linear-gradient(90deg,#C9A24C,#F6E3A1,#D9B866,#F6E3A1,#C9A24C);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -256,20 +251,20 @@ h1 em,h2 em,h3 em,.key b,.result .big,.sign,.quote{
 .hero{position:relative}
 .hero > *:not(.fx){position:relative;z-index:1}
 .fx{position:absolute;inset:-40px -10vw 0;z-index:0;pointer-events:none;overflow:hidden}
-.fx .orb{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;animation:floaty 12s ease-in-out infinite}
-.fx .o1{width:340px;height:340px;background:#F1D88E;top:0;right:4%}
-.fx .o2{width:260px;height:260px;background:#E9C9A0;top:38%;left:-2%;animation-delay:-4s;animation-duration:15s}
-.fx .o3{width:220px;height:220px;background:#F6E7BE;bottom:6%;right:22%;animation-delay:-8s}
+.fx .orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:.38;animation:floaty 12s ease-in-out infinite}
+.fx .o1{width:340px;height:340px;background:#FFE14D;top:0;right:4%}
+.fx .o2{width:260px;height:260px;background:#FFD21F;top:38%;left:-2%;animation-delay:-4s;animation-duration:15s}
+.fx .o3{width:220px;height:220px;background:#FFEB85;bottom:6%;right:22%;animation-delay:-8s}
 .fx canvas{position:absolute;inset:0;width:100%;height:100%}
 
 .progress{position:fixed;left:0;right:0;top:0;height:calc(3px + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px);z-index:50;pointer-events:none}
 .progress i{display:block;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#9C7A2E,#F3DE97,#B8943F);box-shadow:0 0 12px rgba(184,148,63,.6)}
 
-.ticker{margin-top:56px;border-block:1px solid var(--line);background:var(--surface);overflow:hidden;margin-inline:-16px}
+.ticker{margin-top:56px;background:var(--canary);overflow:hidden;margin-inline:-16px}
 .ticker .track{display:flex;width:max-content;animation:marquee 38s linear infinite}
-.ticker span{display:inline-flex;align-items:center;gap:18px;padding:14px 18px;white-space:nowrap;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--gold-deep)}
-.ticker span::after{content:"✦";color:var(--gold)}
-.ticker b{font-family:var(--display);font-size:22px;letter-spacing:0;color:var(--ink);font-weight:600}
+.ticker span{display:inline-flex;align-items:center;gap:18px;padding:14px 18px;white-space:nowrap;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:#3A2E12}
+.ticker span::after{content:"✦";color:#FFFFFF}
+.ticker b{font-family:var(--display);font-size:22px;letter-spacing:0;color:#1C1A14;font-weight:700}
 
 .reveal-ready [data-reveal]{animation:none}
 .reveal-ready [data-reveal].in{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
@@ -326,6 +321,42 @@ h1 em,h2 em,h3 em,.key b,.result .big,.sign,.quote{
   .fx canvas{display:none}
   h1 em,h2 em,h3 em,.key b,.result .big,.sign,.quote{animation:none}
 }
+/* Канареечные акценты */
+.belief .truth strong,.key b + *,.disclaimer strong{background:linear-gradient(transparent 58%,var(--canary-soft) 58%);padding-inline:2px}
+.priem .n{background:linear-gradient(transparent 62%,var(--canary-soft) 62%);width:max-content;padding-inline:4px}
+.rule{background:var(--canary);height:3px;width:80px}
+.eyebrow::before{background:var(--canary);height:2px}
+.pains li,.belief{border-left-color:var(--canary)}
+.ba .now{background:var(--canary-soft);border-color:var(--canary)}
+.check li::before,.why li::before{color:#E5AE00}
+.funnel .bar{border-left-color:var(--canary);background:linear-gradient(90deg,#FFFFFF,var(--canary-soft))}
+.verdict div.on{background:var(--canary-soft);outline-color:var(--canary)}
+.two div:last-child{background:var(--canary-soft);border-color:var(--canary)}
+.live{background:var(--canary);box-shadow:0 0 0 3px rgba(255,210,31,.35)}
+.progress i{background:linear-gradient(90deg,#B8943F,#FFD21F,#FFE97A)}
+/* Без чёрного: светлые цепочка и тариф */
+.chain{background:linear-gradient(135deg,#FFF9DC 0%,#FFEFA0 100%);color:var(--ink);border:1.5px solid var(--canary)}
+.chain::before{background:radial-gradient(circle,rgba(255,255,255,.8),transparent 65%)}
+.chain .eyebrow{color:var(--gold-deep)}
+.chain .eyebrow::before{background:var(--gold)}
+.chain h3{color:var(--ink)}
+.chain h3 em{background:linear-gradient(90deg,var(--gold-deep),var(--gold),#E5AE00,var(--gold),var(--gold-deep));background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent}
+.chain p.note{color:var(--muted)}
+.steps li{background:#FFFFFF;border:1px solid var(--line)}
+.steps li .t{color:var(--gold-deep)}
+.steps li.buy .t{color:rgba(28,26,20,.7)}
+.engine{border-color:var(--gold);background:rgba(255,255,255,.6)}
+@keyframes glowstep{0%,100%{box-shadow:none;border-color:var(--line)}10%,22%{box-shadow:0 0 0 2px var(--canary),0 10px 26px -8px rgba(229,174,0,.55);border-color:var(--canary)}}
+.plan.main{background:linear-gradient(160deg,#FFFBE8 0%,#FFF1A8 100%);color:var(--ink);border:2px solid var(--canary);box-shadow:0 30px 70px -40px rgba(229,174,0,.7)}
+.plan.main h3{color:var(--ink)}
+.plan.main .tag,.plan.main a{color:var(--gold-deep)}
+.plan.main .price{color:var(--gold-deep)}
+.plan.main .ph{color:var(--gold-deep);border-color:var(--gold)}
+.sep,.calc .tot{border-color:var(--line)}
+.calc .hl{color:var(--gold-deep)}
+.pb-row.cost .fill{background:#EFE8D3;color:var(--ink)}
+.proof .num{color:#2C2416}
+.proof .num small{color:rgba(28,26,20,.75)}
 </style>
 
 <div class="draft">Черновик для просмотра. Пунктирные пометки — места, куда вставить ссылки и скриншоты.</div>
@@ -777,9 +808,9 @@ h1 em,h2 em,h3 em,.key b,.result .big,.sign,.quote{
     P.forEach(function(q){
       q.y-=q.s/H*2.2; if(q.y<-.02){q.y=1.02;q.x=Math.random();}
       var a=.35+.45*Math.sin(t/700+q.p), x=q.x*W, y=q.y*H;
-      ctx.fillStyle='rgba(205,166,70,'+a.toFixed(3)+')';
+      ctx.fillStyle='rgba(236,180,20,'+a.toFixed(3)+')';
       ctx.beginPath();ctx.arc(x,y,q.r,0,6.283);ctx.fill();
-      if(q.r>2){ctx.strokeStyle='rgba(205,166,70,'+(a*.6).toFixed(3)+')';ctx.lineWidth=.6;ctx.beginPath();ctx.moveTo(x-5,y);ctx.lineTo(x+5,y);ctx.moveTo(x,y-5);ctx.lineTo(x,y+5);ctx.stroke();}
+      if(q.r>2){ctx.strokeStyle='rgba(236,180,20,'+(a*.6).toFixed(3)+')';ctx.lineWidth=.6;ctx.beginPath();ctx.moveTo(x-5,y);ctx.lineTo(x+5,y);ctx.moveTo(x,y-5);ctx.lineTo(x,y+5);ctx.stroke();}
     });
     requestAnimationFrame(draw);
   }

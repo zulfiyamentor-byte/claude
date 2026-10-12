@@ -342,6 +342,11 @@ section{padding-block:96px}
 @media (max-width:720px){.duo-pics .pic img{height:200px}}
 @media (max-width:980px){.priem.has-img{grid-template-columns:120px minmax(0,1fr)}.priem .side{grid-column:2;max-width:260px}}
 @media (max-width:720px){.priem.has-img{grid-template-columns:1fr}.priem .side{grid-column:auto}}
+.vblock{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:28px;align-items:center;padding:28px;border-radius:28px;background:var(--soft);border:1px solid var(--line-gold)}
+.vbox{aspect-ratio:16/9;max-width:100%;border-radius:20px;background:linear-gradient(135deg,#FFFFFF,#FFF3D1);border:1.5px dashed var(--line-gold);display:grid;place-items:center;text-align:center}
+.vbox .play{width:76px;height:76px;border-radius:50%;background:var(--btn);display:grid;place-items:center;margin:0 auto 10px;animation:pulse 2.4s ease-out infinite}
+.vbox .play svg{width:28px;height:28px;fill:var(--ink);margin-left:4px}
+@media (max-width:720px){.vblock{grid-template-columns:1fr;padding:20px}}
 </style>
 
 <header class="top">
@@ -407,6 +412,14 @@ section{padding-block:96px}
         <p class="myth">«Сначала наберу аудиторию — потом начну продавать»</p>
         <p class="truth">Не обязательно. Сначала блогу нужна <span class="mark"><strong>дорога от читателя к покупке</strong></span>.</p>
         <p class="truth">А у вас сколько подписчиков? 500? 1 000? 3 000? И сколько из них написали вам за последний месяц?</p>
+      </div>
+    </div>
+    <div class="vblock" data-reveal>
+      <div class="vbox"><div><div class="play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div><span class="ph">вставить видео 15 минут</span></div></div>
+      <div class="stack" style="gap:10px">
+        <p class="eyebrow">Не любите читать?</p>
+        <h3>То же самое — за 15 минут на видео</h3>
+        <p style="color:var(--muted);font-size:16px">На живых примерах блогов: где рвётся цепочка от поста к покупке. В конце — самопроверка.</p>
       </div>
     </div>
     <p class="me read">Я Зульфия Ментор, архитектор системных продаж. Через мою работу прошли 500+ экспертов, мои ученики заработали 40+ млн ₽, 13 стали миллионерами. Но здесь покажу не теорию, а пять конкретных мест, где блог теряет клиентов.</p>

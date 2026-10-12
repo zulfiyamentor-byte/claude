@@ -1,0 +1,980 @@
+<title>Воронка «Клиенты из блога»</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Mulish:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: one working document in the brand of the guide — header, sticky tab rail, one reading column; the funnel is drawn as a vertical path of stations with a fork into two tariffs */
+:root{
+  /* brand palette from the guide (white + gold + canary), single light look by choice */
+  --paper:#FFFFFF; --ink:#2A2418; --muted:#6F6550; --line:#EFE6D0;
+  --gold:#A87B1E; --gold-line:#E3CF9A; --gold-soft:#FBF4E2;
+  --canary:#FFE936; --canary-soft:#FFF8C2;
+  --robot:#3E6B8A; --robot-soft:#EAF2F7; --robot-line:#B9D0E0;
+  --display:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --body:"Mulish",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:16px/1.65 var(--body)}
+.wrap{max-width:820px;margin:0 auto;padding-inline:16px}
+header.top{padding-block:30px 22px;border-bottom:3px solid var(--canary)}
+.who{font:700 12px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+h1{font:600 clamp(34px,6.5vw,54px)/1.05 var(--display);margin:10px 0 10px;text-wrap:balance}
+h1 em{font-style:italic;font-weight:500;color:var(--gold);background:linear-gradient(transparent 62%,var(--canary) 62%,var(--canary) 90%,transparent 90%)}
+.lead{color:var(--muted);max-width:62ch;margin:0}
+
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-block:8px}
+nav.tabs .wrap::-webkit-scrollbar{display:none}
+nav.tabs a{flex:none;padding:8px 14px;border-radius:999px;color:var(--muted);text-decoration:none;font-weight:700;font-size:14px;white-space:nowrap}
+nav.tabs a:hover{color:var(--ink);background:var(--canary-soft)}
+nav.tabs a[aria-selected="true"]{background:var(--canary);color:var(--ink);box-shadow:inset 0 0 0 1px var(--gold-line)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+main{padding-block:26px 56px}
+.eyebrow{font:700 12px var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:0 0 4px}
+.panel>h2,.doc h2{font:600 clamp(28px,5vw,38px)/1.1 var(--display);margin:0 0 12px;text-wrap:balance}
+.doc h3{font:600 clamp(23px,4vw,28px)/1.2 var(--display);margin:38px 0 10px;text-wrap:balance}
+.doc h4{font:700 16px var(--body);margin:26px 0 6px}
+.doc h5{font:700 15px var(--body);margin:20px 0 6px}
+.doc p,.doc li{max-width:66ch}
+.doc ul,.doc ol{padding-left:1.3em}
+.doc li{margin:5px 0}
+.doc li::marker{color:var(--gold);font-weight:700}
+.doc blockquote{margin:16px 0;padding:12px 16px;border-left:4px solid var(--canary);background:var(--gold-soft);border-radius:0 12px 12px 0}
+.doc blockquote p{margin:6px 0}
+.doc hr{border:0;border-top:1px solid var(--line);margin:30px 0}
+.doc code{font-size:.92em;background:var(--gold-soft);padding:1px 5px;border-radius:5px}
+.tw{overflow-x:auto;margin:16px 0;border:1px solid var(--gold-line);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:14.5px}
+th{text-align:left;font:700 12px var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--gold);background:var(--canary-soft);padding:10px 12px}
+td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+
+/* intro notes on each material tab */
+.howto{display:grid;gap:4px;padding:14px 16px;margin:0 0 22px;border:1px dashed var(--gold);border-radius:12px;background:var(--paper)}
+.howto b{font:700 12px var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.howto p{margin:0;max-width:66ch}
+.bar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+button.btn{border:0;border-radius:999px;padding:10px 16px;font:700 14px var(--body);background:var(--canary);color:var(--ink);cursor:pointer;box-shadow:inset 0 0 0 1px var(--gold-line)}
+button.btn:hover{background:var(--gold);color:var(--paper)}
+button.mini{border:1px solid var(--gold-line);border-radius:999px;padding:5px 12px;font:700 12.5px var(--body);background:var(--paper);color:var(--gold);cursor:pointer;margin-top:8px}
+button.mini:hover{background:var(--canary-soft)}
+.article{border:1px solid var(--line);border-radius:16px;padding:22px clamp(16px,4vw,32px)}
+.article h2{font-size:clamp(28px,5vw,40px)}
+
+/* ===== scheme ===== */
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;font:700 13px var(--body)}
+.chip.r{background:var(--robot-soft);color:var(--robot);border:1.5px dashed var(--robot)}
+.chip.h{background:var(--canary-soft);color:var(--ink);border:1.5px solid var(--gold)}
+.path{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.station{display:grid;grid-template-columns:52px minmax(0,1fr);gap:14px;position:relative;padding-bottom:22px}
+.station:not(:last-child)::before{content:"";position:absolute;left:25px;top:52px;bottom:0;border-left:2px dashed var(--robot-line)}
+.station.human:not(:last-child)::before{border-left:2px solid var(--gold-line)}
+.num{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font:800 20px var(--body);background:var(--robot-soft);color:var(--robot);border:2px solid var(--robot)}
+.human .num{background:var(--canary);color:var(--ink);border-color:var(--gold)}
+.sbox{min-width:0;padding:14px 16px;border-radius:14px;background:var(--paper);border:1px solid var(--line)}
+.sbox .k{font:700 11.5px var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--robot)}
+.human .sbox .k{color:var(--gold)}
+.sbox h3{font:600 25px/1.15 var(--display);margin:2px 0 6px}
+.sbox p{margin:4px 0;max-width:62ch}
+.say{margin-top:8px;padding:9px 12px;border-radius:10px;background:var(--gold-soft);font-style:italic}
+.fork{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
+@media (max-width:560px){.fork{grid-template-columns:1fr}}
+.tariff{padding:12px 14px;border-radius:12px;border:1.5px solid var(--gold-line);background:var(--paper)}
+.tariff.star{border:2px solid var(--gold);background:var(--canary-soft)}
+.tariff b{display:block;font:600 21px var(--display)}
+.tariff .p{font:700 24px var(--display);font-variant-numeric:tabular-nums}
+.tariff s{color:var(--muted);font-size:15px;margin-left:6px}
+.tariff span{font-size:14px;color:var(--muted)}
+.zone-label{display:flex;align-items:center;gap:10px;margin:6px 0 14px;font:700 12px var(--body);letter-spacing:.1em;text-transform:uppercase}
+.zone-label.r{color:var(--robot)}
+.zone-label.h{color:var(--gold)}
+.zone-label::after{content:"";flex:1;border-top:1px dashed currentColor}
+.side{margin-top:6px;padding:14px 16px;border-radius:14px;border:1.5px dashed var(--gold);background:var(--paper)}
+.side b{font:600 21px var(--display)}
+.side p{margin:4px 0;max-width:62ch}
+
+.timeline{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0 6px}
+@media (max-width:680px){.timeline{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tl{padding:12px 14px;border-radius:12px;background:var(--robot-soft);border:1px solid var(--robot-line);min-width:0}
+.tl .t{font:700 22px var(--display);color:var(--robot);font-variant-numeric:tabular-nums}
+.tl p{margin:2px 0 0;font-size:14px}
+.tl.end{background:var(--gold-soft);border-color:var(--gold-line)}
+.tl.end .t{color:var(--gold)}
+
+.why{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+@media (max-width:620px){.why{grid-template-columns:1fr}}
+.why div{padding:14px 16px;border-top:3px solid var(--canary);background:var(--gold-soft);border-radius:0 0 12px 12px;min-width:0}
+.why b{display:block;font:600 21px/1.2 var(--display);margin-bottom:2px}
+.why span{font-size:14.5px;color:var(--muted)}
+.sec{margin-top:44px}
+
+/* launch checklist */
+ul.todo{list-style:none;padding:0;margin:14px 0;display:grid;gap:8px}
+ul.todo label{display:grid;grid-template-columns:22px minmax(0,1fr);gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;cursor:pointer;align-items:start}
+ul.todo input{width:20px;height:20px;accent-color:var(--gold);margin-top:3px}
+ul.todo b{display:block}
+ul.todo span{color:var(--muted);font-size:14.5px}
+ul.todo input:checked+div{opacity:.55;text-decoration:line-through}
+.progress{height:8px;border-radius:999px;background:var(--line);overflow:hidden;margin:6px 0 4px}
+.progress i{display:block;height:100%;background:var(--gold);width:0;transition:width .3s}
+.ptext{font-size:13.5px;color:var(--muted)}
+
+/* products */
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+.card{padding:18px;border-radius:16px;border:1px solid var(--gold-line);background:var(--paper);display:flex;flex-direction:column;gap:6px;min-width:0}
+.card.star{border:2px solid var(--gold);box-shadow:8px 8px 0 var(--canary)}
+.card .tag{font:700 11.5px var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.card h3{font:600 26px/1.1 var(--display);margin:0}
+.card .p{font:700 26px var(--display);font-variant-numeric:tabular-nums}
+.card .p small{font:600 14px var(--body);color:var(--muted)}
+.card ul{margin:4px 0;padding-left:1.2em}
+.card li{margin:4px 0}
+.card .how{margin-top:auto;padding:9px 12px;border-radius:10px;background:var(--gold-soft);font-size:14px}
+.card.wide{grid-column:1/-1}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:999px;font:700 13.5px var(--body);z-index:20;max-width:calc(100% - 32px);text-align:center}
+footer{border-top:1px solid var(--line);padding-block:18px 36px;font-size:12.5px;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.panel:not([hidden]){animation:fade .2s ease-out}@keyframes fade{from{opacity:.6}to{opacity:1}}}
+</style>
+
+<header class="top"><div class="wrap">
+  <div class="who">Зульфия Ментор · рабочий документ</div>
+  <h1>Воронка <em>«Клиенты из блога»</em></h1>
+  <p class="lead">Вся цепочка в одном месте: схема, что сделать до запуска и все готовые материалы — статья, видео, сообщения бота, продукты и отзывы. Тексты можно копировать кнопкой.</p>
+</div></header>
+
+<nav class="tabs" aria-label="Разделы"><div class="wrap" role="tablist">
+  <a role="tab" href="#scheme" data-tab="scheme">Схема</a>
+  <a role="tab" href="#launch" data-tab="launch">Запуск</a>
+  <a role="tab" href="#article" data-tab="article">Статья</a>
+  <a role="tab" href="#video" data-tab="video">Видео</a>
+  <a role="tab" href="#messages" data-tab="messages">Сообщения бота</a>
+  <a role="tab" href="#products" data-tab="products">Продукты</a>
+  <a role="tab" href="#reviews" data-tab="reviews">Отзывы и кейсы</a>
+  <a role="tab" href="#later" data-tab="later">На потом</a>
+</div></nav>
+
+<main class="wrap">
+
+<!-- ===================== СХЕМА ===================== -->
+<section class="panel" id="scheme" hidden>
+  <div class="eyebrow">Путь одного человека</div>
+  <h2>Схема воронки</h2>
+  <p>Четыре шага. Первые три работают без вас: человек пишет кодовое слово, бот присылает статью, статья продаёт. Вы подключаетесь, когда человек уже заплатил и пришёл в Клуб.</p>
+  <div class="legend"><span class="chip r">Работает бот, без вас</span><span class="chip h">Работаете вы</span></div>
+
+  <div class="zone-label r">Автоматически</div>
+  <ol class="path">
+    <li class="station"><span class="num">1</span><div class="sbox">
+      <div class="k">Блог · Telegram, MAX, VK, Instagram*</div>
+      <h3>Пост, видео или сторис с призывом</h3>
+      <p>Заход через результат. Призыв в шапке, в закрепе и в каждой второй-третьей публикации.</p>
+      <div class="say">«У моей ученицы было 120 подписчиков — и она продавала. Напишите КЛИЕНТЫ — пришлю 5 приёмов, как она это сделала»</div>
+    </div></li>
+    <li class="station"><span class="num">2</span><div class="sbox">
+      <div class="k">Лидмагнит · бесплатно</div>
+      <h3>Статья + видео 20 минут</h3>
+      <p>«У моей ученицы было 120 подписчиков — и она продавала. 5 приёмов, которые превращают маленький блог в источник клиентов».</p>
+      <p>Внутри: история Светланы и ваша (первый миллион при 230 подписчиках), 5 приёмов с заданием «сделайте сегодня», кейсы учениц.</p>
+    </div></li>
+    <li class="station"><span class="num">3</span><div class="sbox">
+      <div class="k">Конец статьи и видео</div>
+      <h3>Самопроверка → два тарифа</h3>
+      <p>5 вопросов «да/нет». Каждое «нет» показывает, с какого приёма начать, и в каком разделе гайда он расписан полностью. Сразу под этим — выбор:</p>
+      <div class="fork">
+        <div class="tariff"><b>«Сама»</b><div class="p">890 ₽</div><span>Гайд «Система органического трафика»</span></div>
+        <div class="tariff star"><b>«С поддержкой» ⭐</b><div class="p">2 490 ₽<s>7 990 ₽</s></div><span>Гайд + гостевой месяц Клуба. Бонусная цена — 24 часа</span></div>
+      </div>
+    </div></li>
+  </ol>
+
+  <div class="zone-label h">Ваша зона</div>
+  <ol class="path" start="4">
+    <li class="station human"><span class="num">4</span><div class="sbox">
+      <div class="k">Клуб «Магия продаж»</div>
+      <h3>Гостевой месяц → годовой тариф 78 000 ₽</h3>
+      <p>Разборы каждый вторник в 10:00 мск. Человек видит вас живьём, сильных участниц и первые сдвиги. В конце месяца — предложение перейти на год.</p>
+    </div></li>
+  </ol>
+  <div class="side">
+    <b>Боковой вход для тех, кто хочет быстро и лично</b>
+    <p>Из статьи или из Клуба: слово <b>БЛОГ</b> → бесплатная «Личная навигация» (45 минут) → «Система устойчивых продаж», 8 недель.</p>
+  </div>
+
+  <div class="sec">
+    <div class="eyebrow">Что делает бот по времени</div>
+    <h2>Сообщения за первые сутки</h2>
+    <div class="timeline">
+      <div class="tl"><div class="t">0 ч</div><p>Статья и видео сразу после слова КЛИЕНТЫ</p></div>
+      <div class="tl"><div class="t">3–4 ч</div><p>«Сколько у вас "нет" в самопроверке?» — начало диалога</p></div>
+      <div class="tl"><div class="t">21 ч</div><p>«Через 3 часа заканчивается бонусная цена 2 490 ₽»</p></div>
+      <div class="tl end"><div class="t">24 ч +</div><p>Кнопка 2 490 ₽ исчезает. «Гайд по-прежнему 890 ₽» — и тишина</p></div>
+    </div>
+    <p class="ptext">Купил — бот сразу присылает доступ. Тексты всех сообщений — во вкладке «Сообщения бота».</p>
+  </div>
+
+  <div class="sec">
+    <div class="eyebrow">Логика</div>
+    <h2>Почему именно так</h2>
+    <div class="why">
+      <div><b>Сначала доверие</b><span>Человек из ленты вас не знает. Статья и видео показывают результат учениц, вашу историю и дают 5 приёмов, которые работают сразу.</span></div>
+      <div><b>Надежда вместо страха</b><span>«120 подписчиков — и продажи» и «первый миллион при 230» снимают главное сомнение: «у меня слишком маленький блог».</span></div>
+      <div><b>Выбор вместо «купить или нет»</b><span>Рядом с 2 490 ₽ сумма 890 ₽ кажется лёгкой, а 2 490 ₽ выглядит выгодно на фоне 7 990 ₽.</span></div>
+      <div><b>Клуб продаёт себя сам</b><span>За гостевой месяц человек внедряет не одна, видит разборы и результаты. Переход на год — естественный шаг.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ЗАПУСК ===================== -->
+<section class="panel" id="launch" hidden>
+  <div class="eyebrow">До запуска</div>
+  <h2>Что сделать по порядку</h2>
+  <p>Отмечайте галочками — отметки сохраняются в этом браузере.</p>
+  <div class="progress" aria-hidden="true"><i id="pbar"></i></div>
+  <div class="ptext" id="ptext">Готово 0 из 8</div>
+  <ul class="todo">
+    <li><label><input type="checkbox" id="l1" data-ck="l1"><div><b>Записать видео по сценарию</b><span>Вкладка «Видео». Разместить в VK Видео или Rutube с доступом по ссылке.</span></div></label></li>
+    <li><label><input type="checkbox" id="l2" data-ck="l2"><div><b>Разместить гайд скрытой страницей на Tilda</b><span>Файл <code>5-gajd-sistema-organicheskogo-trafika.html</code> — уже обновлён и готов.</span></div></label></li>
+    <li><label><input type="checkbox" id="l3" data-ck="l3"><div><b>Сделать две ссылки на оплату: 890 ₽ и 2 490 ₽</b><span>После оплаты 890 ₽ — ссылка на гайд. После 2 490 ₽ — гайд + доступ в Клуб.</span></div></label></li>
+    <li><label><input type="checkbox" id="l4" data-ck="l4"><div><b>Вставить ссылки в статью и опубликовать её</b><span>Ссылки на видео и оплату. Telegraph, Teletype или отдельная страница.</span></div></label></li>
+    <li><label><input type="checkbox" id="l5" data-ck="l5"><div><b>Настроить бота на слово КЛИЕНТЫ</b><span>4 сообщения из вкладки «Сообщения бота» + таймер 24 часа для бонусной цены. Поначалу можно отправлять статью вручную.</span></div></label></li>
+    <li><label><input type="checkbox" id="l6" data-ck="l6"><div><b>Пройти воронку самой от начала до конца</b><span>Написать КЛИЕНТЫ, получить статью, оплатить оба тарифа тестово, проверить доступы.</span></div></label></li>
+    <li><label><input type="checkbox" id="l7" data-ck="l7"><div><b>Шапка и закреп во всех соцсетях</b><span>«Напишите КЛИЕНТЫ — пришлю 5 приёмов, как блог из 120 подписчиков начал продавать».</span></div></label></li>
+    <li><label><input type="checkbox" id="l8" data-ck="l8"><div><b>Спросить согласие учениц</b><span>Светлана, Анна Зарицкая, Людмила, участница Клуба, Ольга Катриора, Илья Пугачёв — их истории в статье.</span></div></label></li>
+  </ul>
+  <button class="mini" id="reset" type="button">Сбросить отметки</button>
+
+  <div class="sec">
+    <div class="eyebrow">После запуска</div>
+    <h2>Какие цифры смотреть раз в неделю</h2>
+    <div class="tw"><table>
+      <thead><tr><th>Шаг</th><th>Цифра</th><th>Если мало — что чинить</th></tr></thead>
+      <tbody>
+        <tr><td>Блог → статья</td><td>Сколько написали КЛИЕНТЫ</td><td>Призывы в блоге, заход через результат, частота призыва</td></tr>
+        <tr><td>Статья → «Сама»</td><td>Сколько купили за 890 ₽</td><td>Самопроверка и блок тарифов, напоминание через 3–4 часа</td></tr>
+        <tr><td>Статья → «С поддержкой»</td><td>Сколько купили за 2 490 ₽</td><td>Описание Клуба, напоминание за 3 часа до конца цены</td></tr>
+        <tr><td>Гостевой месяц → год</td><td>Сколько перешли на годовой тариф</td><td>Разборы, результаты участниц, предложение в конце месяца</td></tr>
+      </tbody>
+    </table></div>
+    <p>Сравнивайте себя с собой прошлой недели. Чините один шаг за раз — тот, где обрыв больше всего.</p>
+  </div>
+</section>
+
+<!-- ===================== СТАТЬЯ ===================== -->
+<section class="panel" id="article" hidden>
+  <div class="eyebrow">Лидмагнит</div>
+  <h2>Статья</h2>
+  <div class="howto doc"><b>Перед публикацией</b><blockquote>
+<p><strong>Перед публикацией:</strong>
+- заполните [квадратные скобки]: личную историю, число мест, ссылки;
+- кейсы взяты из ваших опубликованных отзывов — всё равно коротко спросите учениц, можно ли упомянуть их в статье;
+- кодовое слово <strong>КЛИЕНТЫ</strong> — получить статью и видео; <strong>БЛОГ</strong> — записаться на «Личную навигацию» (только для тех, кто рассматривает «Систему устойчивых продаж»);
+- бонусная цена 2 490 ₽ — 24 часа с момента получения статьи, только в этой статье и в боте; на сайте Клуба цена остаётся 7 100 ₽. Через 24 часа бот убирает ссылку на 2 490 ₽ (таймер в боте);</p>
+<p><strong>Место статьи в воронке:</strong> блог → <strong>статья и видео</strong> (утепляют) → <strong>самопроверка</strong> в статье (человек видит своё слабое звено) → <strong>два тарифа</strong>: 890 ₽ гайд / 2 490 ₽ гайд + гостевой месяц Клуба → годовой Клуб или «Система устойчивых продаж».</p>
+</blockquote></div>
+  <div class="bar"><button class="btn" type="button" data-copy="art">Копировать статью целиком</button></div>
+  <div class="article doc" id="art"><h2>У моей ученицы было 120 подписчиков — и она продавала. 5 приёмов, которые превращают маленький блог в источник клиентов</h2>
+<p><em>Для психологов, коучей, энергопрактиков и наставников. Без рекламы и без навязчивых продаж.</em></p>
+<p>Светлана — дизайнер состояний. Работала в найме, вела блог, в котором было <strong>120 подписчиков</strong>.</p>
+<p>Мы чуть скорректировали её нишу и сделали контент тёплым, цепляющим, искренним. Подписчики сами начали писать: <em>«Где ты так круто упаковалась?»</em></p>
+<p>Через <strong>7 дней</strong> у Светланы случилась первая продажа. И она ушла с работы.</p>
+<p>Не 10 000 подписчиков. Не реклама. Не вирусные Reels. <strong>120 человек — и продажи.</strong></p>
+<p>И я знаю это по себе: <strong>свой первый миллион я заработала, когда в моём Telegram-канале было 230 подписчиков.</strong></p>
+<p>А теперь честно: сколько подписчиков у вас? 500? 1 000? 3 000? И сколько из них написали вам за последний месяц?</p>
+<p>Вы час пишете пост — и получаете пять лайков: два от коллег, один от мамы. Проводите эфиры, на которые приходят трое. Клиенты, которые у вас есть, пришли по сарафанному радио. Вам неловко продавать: кажется, что навязываетесь. Вы прошли не одно обучение, а внедрить так и не получилось.</p>
+<p>И в голове звучит: <em>«Может, моя ниша не для блога? Может, нужно больше подписчиков? Может, я просто не умею продавать?»</em></p>
+<p>Дело не в количестве подписчиков. И не в вас. Дело в том, что у вашего блога пока нет <strong>дороги к покупке</strong>. Её можно проложить — и я покажу как.</p>
+<blockquote>
+<p><strong>Что вы получите из этой статьи (15 минут):</strong>
+- <strong>5 конкретных приёмов</strong> — каждый можно начать сегодня, за 10–20 минут;
+- <strong>примеры «было → стало»</strong>, которые можно взять и переделать под себя;
+- <strong>истории учениц</strong> с маленькими блогами, которые начали продавать;
+- <strong>самопроверку на 2 минуты</strong> — где именно ваш блог теряет клиентов.</p>
+<p>🎥 <strong>Удобнее смотреть, чем читать?</strong> Я записала для вас видео на 20 минут: [ссылка на видео]
+В нём то же самое, что в статье, плюс я показываю на живых примерах, как выглядит блог глазами клиента.</p>
+</blockquote>
+<h3>Кто я и почему могу об этом говорить</h3>
+<p>Меня зовут Зульфия Ментор. Я архитектор системных продаж: помогаю психологам, коучам, энергопрактикам и наставникам перейти от хаоса в действиях к системе дохода.</p>
+<ul>
+<li><strong>10 лет</strong> в онлайн-бизнесе, из них <strong>5 лет</strong> — в маркетинге</li>
+<li><strong>24 года</strong> в образовании, кандидат наук, доцент — объяснять сложное просто и по шагам моя профессия</li>
+<li><strong>500+</strong> экспертов прошли через работу со мной, <strong>1000+</strong> консультаций</li>
+<li><strong>40+ млн ₽</strong> заработали мои ученики, <strong>13</strong> из них стали миллионерами</li>
+<li>мой скрипт продаж в переписке даёт конверсию <strong>70%</strong></li>
+</ul>
+<p>Я продаю с любовью и заботой — и учу этому. Без давления, без «осталось 2 места» каждый день и без стыда за то, что вы берёте деньги за свою работу.</p>
+<h3>Почему больше контента не помогает</h3>
+<p>Когда клиентов нет, эксперты обычно делают одно из трёх: пишут ещё больше постов, покупают ещё одно обучение или решают, что дело в них. Не помогает ни то, ни другое, ни третье.</p>
+<p>Представьте ведро с дырой в дне. Можно лить в него всё больше воды — больше постов, охватов, курсов, — но ведро не наполнится. Сначала нужно найти дыру.</p>
+<p>У одного эксперта отличные посты, но человек заходит в профиль и не понимает, что делать дальше. У другого прекрасный профиль, но нет первого лёгкого шага. У третьего люди пишут в личку — и пропадают после прайса.</p>
+<p>Я сама прошла этот путь. Свой первый миллион я заработала, когда в моём Telegram-канале было 230 подписчиков. Не охваты принесли эти деньги, а дорога от поста к покупке: человек читал — узнавал себя — получал подарок — писал мне — покупал.</p>
+<p>24 года в образовании научили меня простой вещи: человек проходит путь, только когда у пути есть ступеньки. Клиент не прыгает от «впервые увидел ваш пост» к «купил консультацию за 15 000 ₽». Ему нужны ступеньки. Вот они — 5 приёмов, по одному на каждую ступеньку.</p>
+<h3>5 приёмов, которые прокладывают дорогу от блога к покупке</h3>
+<h4>🔑 Приём 1. «Слова клиента» — чтобы человек с первой строки узнавал себя</h4>
+<p><strong>Суть.</strong> Клиент не ищет «проработку денежных блоков». Он ночью думает: <em>«Почему я опять согласилась работать за копейки?»</em> Пока вы пишете словами эксперта, человек не узнаёт себя — и листает дальше.</p>
+<p><strong>Сделайте сегодня (15 минут).</strong> Вспомните 3 последних клиентов. Как они описали свою проблему на первой встрече — дословно? Запишите их фразы. Это ваши новые заголовки.</p>
+<p><strong>Было → стало:</strong>
+- «Работа с самооценкой» → «Почему я опять промолчала, когда начальник повысил голос»
+- «Проработка денежных блоков» → «Почему я снова согласилась работать за копейки»
+- «Сепарация от родителей» → «Почему после звонка маме у меня испорчен весь вечер»</p>
+<blockquote>
+<p>Анна Зарицкая, энергопрактик, называла это <em>«перевести с энергетического на русский»</em>. Её блог вырос с 43 до 1 500 подписчиков.</p>
+</blockquote>
+<h4>🔑 Приём 2. «Сцена вместо темы» — чтобы пост останавливал в ленте</h4>
+<p><strong>Суть.</strong> У вас 1–3 секунды. Тема («Сегодня поговорим о границах») не останавливает. Останавливает сцена из жизни, в которой человек узнаёт себя.</p>
+<p><strong>Сделайте сегодня (10 минут).</strong> Возьмите свой последний пост и перепишите только первую строку: вместо темы — сцена.</p>
+<p><strong>Было → стало:</strong>
+- «Важность личных границ» → «Сказала "нет" маме — и впервые за год выспалась»
+- «Почему важно вести блог» → «Веду блог каждый день, а в личку никто не пишет. Знакомо?»
+- «5 советов, как перестать уставать» → «Если устаёте к обеду, проверьте, что вы делаете первые 15 минут утра»</p>
+<blockquote>
+<p>Людмила, нутрициолог, опубликовала пост, написанный по формуле, — и получила заявку через 2 часа.</p>
+</blockquote>
+<h4>🔑 Приём 3. «Подарок за слово» — чтобы между «интересно» и «купить» появился лёгкий шаг</h4>
+<p><strong>Суть.</strong> Сейчас у вашего читателя выбор: ничего не делать или сразу купить консультацию у человека, которого он видит второй раз в жизни. Конечно, он выбирает «ничего». Нужен маленький бесплатный шаг: подарок по кодовому слову.</p>
+<p><strong>Сделайте сегодня (20 минут).</strong> Придумайте подарок на 10–15 минут, который решает одну узкую задачу: чек-лист, короткую практику, мини-тест. Не «гайд обо всём», а «7 вопросов, чтобы понять, какой у вас тип выгорания». Добавьте в конец следующего поста: «Напишите СЛОВО — пришлю».</p>
+<p><strong>Было → стало:</strong>
+- «Если интересно — пишите» → «Напишите ТИШИНА — пришлю практику на 7 минут для тех, кто не может уснуть от мыслей»</p>
+<blockquote>
+<p>Участница моего Клуба поменяла закреп и сделала цепочку постов с подарком — через 2 недели заявки шли почти с каждого поста.</p>
+</blockquote>
+<h4>🔑 Приём 4. «Вопрос раньше цены» — чтобы переписка превращалась в продажу</h4>
+<p><strong>Суть.</strong> Три способа потерять клиента в личке: сразу прайс, бесплатная консультация на три экрана и «если что — пишите». Последнее — не приглашение, а прощание.</p>
+<p><strong>Сделайте сегодня (5 минут).</strong> В следующей переписке задайте один вопрос раньше, чем дадите совет или назовёте цену: <em>«А что для вас сейчас самое сложное в этом?»</em> И просто выслушайте.</p>
+<p><strong>Скелет переписки:</strong> подарок → один вопрос о ситуации → уточнение → пересказ сути словами человека → приглашение на следующий шаг.</p>
+<blockquote>
+<p>По этому скелету построен мой скрипт продаж в переписке — с конверсией 70%.</p>
+</blockquote>
+<h4>🔑 Приём 5. «3 публикации и 1 цифра» — чтобы блог работал от системы, а не от вдохновения</h4>
+<p><strong>Суть.</strong> Неделя вдохновения — пост каждый день. Потом тишина. Подписчики не успевают к вам привыкнуть, а вы не понимаете, что работает.</p>
+<p><strong>Сделайте сегодня (10 минут).</strong> Выберите ритм, который выдержите даже в плохую неделю, — например, 3 публикации. Запишите 3 темы на следующую неделю. И заведите одну цифру: сколько человек написали вам за неделю. Каждую пятницу записывайте её.</p>
+<p><strong>Было → стало:</strong> «пишу, когда есть вдохновение» → «3 поста в неделю и одна цифра, которая показывает, растёт ли поток».</p>
+<blockquote>
+<p><em>«В потоке прикольно всё делать, но когда есть план — это вообще круто»</em>, — написала мне ученица после того, как перешла на свой ритм.</p>
+<p>💡 Начните с одного приёма — того, который отозвался сильнее. Не знаете, с какого? В конце статьи — самопроверка на 2 минуты: она покажет, где ваш блог теряет больше всего клиентов.</p>
+</blockquote>
+<h3>Кейсы</h3>
+<h4>Анна Зарицкая, энергопрактик</h4>
+<p><strong>Было:</strong> блог из пары постов и 43 подписчиков. Первый в жизни опыт личного продвижения — волнительно и страшно. Ниша мягкая, «энергетический» язык, понятный только своим.
+<strong>Что внедрили:</strong> выстроили систему и продуктовую линейку, научились говорить о сложном простыми словами, выстроили контент творчески и структурно.
+<strong>Результат:</strong> 1 500 подписчиков, два марафона, запуск курсов. Вложения в работу со мной окупились примерно в 6 раз.</p>
+<blockquote>
+<p><em>«Мне очень тяжело было переводить многие вещи с "энергетического" на "русский". Я стала буквально мыслить по-другому, так, чтобы было понятно каждому»</em></p>
+</blockquote>
+<h4>Участница Клуба, 2 недели работы</h4>
+<p><strong>Было:</strong> размытое позиционирование «про проявленность», заявки редко.
+<strong>Что внедрили:</strong> новое позиционирование «Твой код успеха», продуктовая линейка от бесплатного продукта до флагмана, новый закреп, цепочка постов, новый стиль.
+<strong>Результат:</strong> заявки почти с каждого поста, записи на диагностику на неделю вперёд, +300 подписчиков и предзапись в её собственный клуб, который ещё не стартовал.</p>
+<blockquote>
+<p><em>«И теперь с почти каждого поста идут заявки!»</em></p>
+</blockquote>
+<p><strong>И ещё несколько результатов коротко:</strong></p>
+<ul>
+<li><strong>Ольга Катриора</strong> зашла в Клуб по гостевому тарифу, окупила его в 16 раз и стала одной из моих миллионеров. Сейчас она пишет: <em>«Заявки летят каждый час. Хоть посты не пиши в канале»</em>.</li>
+<li>Ученица продала личное сопровождение на <strong>1 500 000 ₽</strong> за 3 месяца работы: <em>«Увидела, что один и тот же продукт можно упаковать по-разному и продать по разной стоимости»</em>.</li>
+<li><em>«2 диагностики и 2 продажи»</em> — так выглядит переписка, когда звенья системы соединены.</li>
+</ul>
+<h3>Почему самому обычно получается долго</h3>
+<p>Собрать систему самостоятельно можно. Но вот где застревают почти все.</p>
+<p><strong>Чинят не то звено.</strong> Не видя свою воронку со стороны, эксперт решает, что проблема в охватах, — и месяц снимает видео. А дыра была в профиле или в переписке.</p>
+<p><strong>Делают всё сразу.</strong> Профиль, видео, карусели, эфиры — одновременно. Через три недели сил нет, и блог снова «на паузе».</p>
+<p><strong>Копируют чужое.</strong> Берут шаблоны из ниш, где продают в лоб, и чувствуют, что это «не про них». В мягких нишах давление отталкивает: нужен свой язык.</p>
+<p><strong>Остаются один на один с сопротивлением.</strong> Это самое честное, что я могу вам сказать. Мне пишут: <em>«Внутри сильный страх перед программами, с которыми нужно работать»</em>, <em>«Виню себя, что не хочу понимать и действовать»</em>, <em>«Мне стыдно, но я не смогла влиться»</em>. Это не лень и не «со мной что-то не так». Это нормальная реакция на новое. Но в одиночку сопротивление почти всегда побеждает.</p>
+<p>Поэтому важен комплексный подход: звенья связаны. Сильный контент без профиля ведёт в пустоту. Хороший профиль без подарка — тупик. Подарок без переписки — просто бесплатная раздача. И всё это держится, только когда рядом есть человек, который видит вас со стороны и не даёт остановиться.</p>
+<p>А цена самостоятельных проб — время. Ещё полгода «веду блог, а клиентов нет», ещё одно обучение, которое не внедрено, и ещё одно «может, это не моё».</p>
+<h3>Если вы дочитали до этого места</h3>
+<p>Значит, вам это действительно важно. Вы не хотите бросать блог — вы хотите, чтобы он наконец работал.</p>
+<p>А что, если первый шаг проще, чем кажется? Не переделывать всё, не покупать ещё один курс и не снимать по три видео в день. А просто увидеть, <strong>где именно у вас теряются клиенты</strong>. Когда есть карта — дорога становится понятной.</p>
+<h3>Самопроверка: где ваш блог теряет клиентов</h3>
+<p>Ответьте честно «да» или «нет» на 5 вопросов. Каждый вопрос — это один из 5 приёмов.</p>
+<ol>
+<li><strong>Человек, который никогда не был у психолога или коуча, с первой строки поймёт, что ваш пост про него?</strong>
+   «Нет» — слабое звено в <strong>приёме 1</strong>: вы говорите языком эксперта, а не клиента.</li>
+<li><strong>Вы бы сами остановились на первой строке пяти своих последних публикаций, если бы листали ленту?</strong>
+   «Нет» — слабое звено в <strong>приёме 2</strong>: контент не останавливает.</li>
+<li><strong>Подруга за 10 секунд в вашем профиле поймёт, кому вы помогаете и что ей сделать, чтобы получить от вас подарок?</strong>
+   «Нет» — слабое звено в <strong>приёме 3</strong>: у читателя нет лёгкого первого шага.</li>
+<li><strong>В последних 10 переписках вы задали вопрос о ситуации человека раньше, чем назвали цену или начали советовать?</strong>
+   «Нет» — слабое звено в <strong>приёме 4</strong>: переписка не доходит до продажи.</li>
+<li><strong>Вы знаете, сколько человек написали вам за прошлую неделю, и публикуете по плану, а не по вдохновению?</strong>
+   «Нет» — слабое звено в <strong>приёме 5</strong>: нет ритма и цифр.</li>
+</ol>
+<p><strong>Сколько «нет»?</strong>
+- <strong>0–1</strong> — система почти работает, нужна точечная настройка одного шага.
+- <strong>2–3</strong> — клиенты есть, но большая часть теряется по дороге.
+- <strong>4–5</strong> — блог сейчас работает как дневник. Это не приговор: это значит, что потенциал ещё не тронут.</p>
+<h3>Как закрыть свои «нет»: выберите свой путь</h3>
+<p>Я собрала всю систему в гайд <strong>«Система органического трафика»</strong>. Каждое ваше «нет» закрывается в нём отдельным разделом:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Ваше «нет»</th>
+<th>Раздел гайда, где этот приём расписан полностью</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Приём 1 — слова клиента</td>
+<td>«Старт»: паспорт эксперта</td>
+</tr>
+<tr>
+<td>Приём 2 — сцена вместо темы</td>
+<td>«Хуки», «Видео», «Карусели», «Тексты»</td>
+</tr>
+<tr>
+<td>Приём 3 — подарок за слово</td>
+<td>«Профиль и воронка»</td>
+</tr>
+<tr>
+<td>Приём 4 — вопрос раньше цены</td>
+<td>«Профиль и воронка»: скелет переписки</td>
+</tr>
+<tr>
+<td>Приём 5 — ритм и цифры</td>
+<td>«Маршрут», «Контент», «Чек-лист и цифры»</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Тариф «Сама» — 890 ₽</strong>
+- гайд «Система органического трафика»: 9 разделов, маршрут на 4 недели, 15 готовых промптов для нейросети.</p>
+<p>Для тех, кто любит разбираться сам и готов внедрять в своём темпе.</p>
+<p><strong>Тариф «С поддержкой» — 2 490 ₽</strong> ⭐ ~~7 990 ₽~~
+- гайд «Система органического трафика»;
+- <strong>гостевой месяц в моём Клубе «Магия продаж»</strong> по бонусной цене (обычно 7 100 ₽):
+  - живые разборы каждый вторник в 10:00 мск — заполняете анкету и получаете разбор своей ситуации;
+  - база знаний: 300+ материалов;
+  - живые встречи с практиками: трафик ВКонтакте, реклама в Telegram, продажи на созвонах.</p>
+<p>Для тех, кто знает за собой: «прочитаю и отложу». В Клубе вы внедряете не одна — каждую неделю я смотрю именно на вашу ситуацию.</p>
+<p>Бонусная цена действует <strong>24 часа</strong> с момента, как вы получили статью, и только для читателей этой статьи.</p>
+<p>👉 <strong>[Кнопка «Тариф "Сама" — 890 ₽»]   [Кнопка «Тариф "С поддержкой" — 2 490 ₽»]</strong></p>
+<h3>Хотите идти быстро и лично со мной?</h3>
+<p>Если вам нужен результат за ближайшие 2 месяца и вы готовы к интенсивной работе, у меня есть программа <strong>«Система устойчивых продаж»</strong> — 8 недель лично со мной.</p>
+<p>Начинаем с бесплатной <strong>«Личной навигации»</strong> — 45 минут в Zoom. Посмотрим ваш блог глазами клиента, найдём главное слабое звено, составим 3 первых шага и честно решим, подходит ли вам программа.</p>
+<blockquote>
+<p><em>«Запрос — понять стратегию продвижения продукта. Минут за 40 уложились! Всё очень чётко и структурно. Результат — пошаговый план!»</em> — Илья Пугачёв</p>
+<p><em>«Ты не предлагала свои продукты, зная, что мне сейчас нужно совсем другое. Ты искренне хотела помочь, а не что-то продать, лишь бы продать»</em></p>
+</blockquote>
+<p>Мест [N] в неделю. 👉 <strong>Напишите мне слово БЛОГ</strong> [ссылка на личные сообщения] — пришлю 3 коротких вопроса и варианты времени.</p>
+<h3>Вместо подписи</h3>
+<p>Я знаю, каково это — вкладывать душу в блог и не видеть отклика. Знаю, как обидно, когда вы точно можете помочь, а люди проходят мимо. И знаю, как стыдно бывает признаться себе, что очередное обучение так и не внедрено.</p>
+<p>С вами всё в порядке. Вас учили быть хорошим специалистом — и вы им стали. А продавать не учили. Это просто навык, и его можно освоить так же, как когда-то вы освоили свою профессию: по шагам, в системе, рядом с тем, кто уже прошёл этот путь.</p>
+<p>Начните с самопроверки — и вы будете точно знать, с какого приёма начинать. А если захотите идти вместе — я рядом.</p>
+<p>С любовью и заботой,
+<strong>Зульфия Ментор</strong>
+архитектор системных продаж</p>
+<p>[Instagram* / VK / Telegram — ссылки]</p>
+<hr />
+<p><strong>P.S.</strong> Бонусная цена 2 490 ₽ за гайд и гостевой месяц Клуба действует 24 часа с момента, как вы получили статью. Потом гостевой месяц — по обычной цене, 7 100 ₽. 👉 [Выбрать тариф]</p>
+<p><em>* Instagram — продукт компании Meta Platforms Inc., которая признана экстремистской организацией, её деятельность на территории РФ запрещена.</em></p></div>
+</section>
+
+<!-- ===================== ВИДЕО ===================== -->
+<section class="panel" id="video" hidden>
+  <div class="eyebrow">Лидмагнит</div>
+  <h2>Сценарий видео</h2>
+  <div class="doc"><p><strong>Что это:</strong> видео-версия статьи «У моей ученицы было 120 подписчиков — и она продавала. 5 приёмов, которые превращают маленький блог в источник клиентов». Ссылка на него стоит в начале статьи и в первом сообщении.</p>
+<p><strong>Как пользоваться:</strong> не читайте дословно. Держите перед глазами структуру и ключевые фразы, остальное говорите своими словами — живая речь прогревает лучше выученного текста.</p>
+<p><strong>Где разместить:</strong> VK Видео или Rutube — открываются у всех без VPN. Ссылку закрытую («доступ по ссылке»).</p>
+<p><strong>[ ]</strong> — вставьте своё.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Блок</th>
+<th>Время</th>
+<th>Что внутри</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Результат ученицы + боль</td>
+<td>0:00–2:00</td>
+<td>Светлана: 120 подписчиков и продажа, обещание 5 приёмов</td>
+</tr>
+<tr>
+<td>2. Кто я</td>
+<td>2:00–3:30</td>
+<td>Цифры и «продаю с любовью»</td>
+</tr>
+<tr>
+<td>3. Как все решают и почему не работает</td>
+<td>3:30–6:00</td>
+<td>Ведро с дырой</td>
+</tr>
+<tr>
+<td>4. Откуда методика</td>
+<td>6:00–7:30</td>
+<td>Ваша история, ступеньки</td>
+</tr>
+<tr>
+<td>5. Пять приёмов + живые примеры</td>
+<td>7:30–14:30</td>
+<td>Главная польза: каждый приём можно сделать сегодня</td>
+</tr>
+<tr>
+<td>6. Кейсы</td>
+<td>14:30–16:00</td>
+<td>Анна, Светлана, участница Клуба</td>
+</tr>
+<tr>
+<td>7. Почему самой трудно</td>
+<td>16:00–17:30</td>
+<td>Сопротивление, «вы не виноваты»</td>
+</tr>
+<tr>
+<td>8. Самопроверка и два тарифа</td>
+<td>17:30–20:00</td>
+<td>Призыв</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>1. Результат ученицы + боль (0:00–2:00)</h3>
+<p>Сразу в кадр, без заставки. Начинаете с истории.</p>
+<blockquote>
+<p>«У моей ученицы Светланы было 120 подписчиков. Сто двадцать. Она работала в найме и вела маленький блог.
+Через 7 дней после того, как мы поменяли её блог, у неё случилась первая продажа. И она ушла с работы.
+Не 10 тысяч подписчиков. Не реклама. Не вирусные Reels. 120 человек — и продажи.
+И я знаю это по себе: свой первый миллион я заработала, когда в моём Telegram-канале было 230 подписчиков.</p>
+<p>А теперь честно: сколько подписчиков у вас? И сколько из них написали вам за последний месяц?
+Вы час пишете пост — пять лайков: два от коллег, один от мамы. Клиенты приходят по сарафану. Продавать неловко.</p>
+<p>Дело не в количестве подписчиков. И не в вас. В этом видео я дам 5 конкретных приёмов — каждый можно сделать сегодня, за 10–20 минут. Покажу примеры "было → стало" и истории учениц. А в конце — самопроверка на 2 минуты: вы поймёте, с какого приёма начать именно вам».</p>
+</blockquote>
+<h3>2. Кто я (2:00–3:30)</h3>
+<p>Слайд: фото + цифры.</p>
+<blockquote>
+<p>«Меня зовут Зульфия Ментор, я архитектор системных продаж. 24 года в образовании, кандидат наук, доцент. 10 лет в онлайн-бизнесе, из них 5 — в маркетинге.
+Через мою работу прошли больше 500 экспертов, больше 1000 консультаций. Мои ученики заработали больше 40 миллионов рублей, 13 из них стали миллионерами.
+И я продаю с любовью и заботой — без давления. Одна ученица сказала: "Не могу продавать через страх — это не моё". Вот и я не могу. Поэтому в этом видео давления не будет».</p>
+</blockquote>
+<h3>3. Как все решают — и почему не работает (3:30–6:00)</h3>
+<blockquote>
+<p>«Когда клиентов нет, эксперты делают одно из трёх.
+Первое — больше контента. Пост каждый день, эфиры, видео. Через два месяца — выгорание, а заявок столько же.
+Второе — ещё одно обучение. Курс по Reels, по Telegram, по таргету. Знаний всё больше, а внедрять страшно и некогда.
+Третье — решают, что дело в них. "Не умею продавать", "моя ниша не для соцсетей".</p>
+<p>А теперь представьте ведро с дырой в дне [жест руками / слайд с ведром]. Можно лить в него всё больше воды — контента, охватов, курсов. Ведро не наполнится. Сначала нужно найти дыру.
+У одного эксперта отличный контент, но профиль — тупик. У другого прекрасный профиль, но нет первого лёгкого шага. У третьего пишут в личку — и пропадают после прайса. Каждый чинит не то, что сломано».</p>
+</blockquote>
+<h3>4. Откуда методика (6:00–7:30)</h3>
+<blockquote>
+<p>«Я сама прошла этот путь. Свой первый миллион я заработала, когда в моём Telegram-канале было 230 подписчиков. Не охваты принесли эти деньги, а дорога от поста к покупке: человек читал, узнавал себя, получал подарок, писал мне — и покупал.</p>
+<p>Двадцать четыре года в образовании научили меня простой вещи: человек проходит путь, только когда у пути есть ступеньки. Студент не прыгает с первого курса на защиту диплома. И клиент не прыгает от "впервые увидел ваше видео" к "купил консультацию за 15 тысяч".
+Поэтому я собрала систему-конвейер: контент останавливает → профиль объясняет → подарок даёт первый результат → переписка превращает интерес в разговор → разговор становится продажей. Я называю её "Система органического трафика"».</p>
+</blockquote>
+<p>Слайд: цепочка из 5 звеньев.</p>
+<h3>5. Пять приёмов + живые примеры (7:30–14:30)</h3>
+<p>Около 1,5 минуты на приём. В каждом: суть → <strong>«сделайте сегодня»</strong> (конкретное действие на 10–20 минут) → пример «было → стало». На каждом приёме — <strong>показ экрана</strong>: свой старый блог, обезличенный пример или блог ученицы с её согласия. Это и есть «блог глазами клиента», обещанный в статье.</p>
+<p><strong>Приём 1. «Слова клиента» (7:30–9:00)</strong>
+Сделайте сегодня: выпишите дословные фразы трёх последних клиентов — это ваши новые заголовки.</p>
+<blockquote>
+<p>«Клиент не ищет "проработку денежных блоков". Он ночью думает: "Почему я опять согласилась работать за копейки?"»
+Показ: пост на языке эксперта → тот же пост на языке клиента. Рассказ про Анну Зарицкую: «перевести с энергетического на русский».</p>
+</blockquote>
+<p><strong>Приём 2. «Сцена вместо темы» (9:00–10:30)</strong>
+Сделайте сегодня: перепишите первую строку последнего поста — вместо темы сцена.</p>
+<blockquote>
+<p>«У вас 1–3 секунды. "Важность личных границ" пролистают. "Сказала маме нет — и впервые за год выспалась" — остановятся».
+Показ: 2–3 пары «было → стало» на слайде.</p>
+</blockquote>
+<p><strong>Приём 3. «Подарок за слово» (10:30–12:00)</strong>
+Сделайте сегодня: придумайте подарок на 10–15 минут и добавьте в пост «Напишите СЛОВО — пришлю».</p>
+<blockquote>
+<p>«Человек зашёл к вам в профиль. За 10 секунд он должен понять: кому вы помогаете и что ему сделать прямо сейчас».
+Показ: профиль-тупик → профиль-витрина (шапка, закреп, подарок по кодовому слову).</p>
+</blockquote>
+<p><strong>Приём 4. «Вопрос раньше цены» (12:00–13:15)</strong>
+Сделайте сегодня: в следующей переписке задайте вопрос «Что для вас сейчас самое сложное?» раньше, чем совет или цену.</p>
+<blockquote>
+<p>«Три способа потерять клиента в личке: сразу прайс, бесплатная консультация на три экрана и "если что — пишите". Это не приглашение. Это прощание».
+Показ: скелет из 5 шагов на слайде — подарок → вопрос → уточнение → пересказ → приглашение.</p>
+</blockquote>
+<p><strong>Приём 5. «3 публикации и 1 цифра» (13:15–14:30)</strong>
+Сделайте сегодня: запишите 3 темы на неделю и заведите одну цифру — сколько человек написали вам за неделю.</p>
+<blockquote>
+<p>«Сегодня вдохновение — три поста, потом неделя тишины. Система держится не на вдохновении, а на ритме и пяти цифрах раз в неделю».
+Слайд: 5 цифр воронки. Цитата ученицы: «В потоке прикольно, но когда есть план — это вообще круто».</p>
+</blockquote>
+<h3>6. Кейсы (14:30–16:00)</h3>
+<p>Слайды со скриншотами отзывов (с согласия).
+- <strong>Анна Зарицкая, энергопрактик:</strong> 43 подписчика → 1 500, два марафона, вложения окупились примерно в 6 раз.
+- Вернуться к <strong>Светлане</strong>: «Помните, 120 подписчиков? Количество подписчиков — не показатель дохода».
+- <strong>Участница Клуба:</strong> за 2 недели поменяла позиционирование и закреп — заявки почти с каждого поста.
+- Коротко: <strong>Ольга Катриора</strong> — «заявки летят каждый час, хоть посты не пиши».</p>
+<h3>7. Почему самой трудно (16:00–17:30)</h3>
+<blockquote>
+<p>«Собрать систему самой можно. Но почти все застревают: чинят не то звено, делают всё сразу, копируют чужое.
+И самое честное: остаются одни с сопротивлением. Мне пишут: "Страшно открывать программы", "Виню себя, что не могу начать", "Стыдно, что не смогла влиться". Это не лень и не "со мной что-то не так". Это нормальная реакция на новое. Но в одиночку сопротивление почти всегда побеждает.
+Вас учили быть хорошим специалистом — и вы им стали. А продавать не учили. Это просто навык. Его можно освоить по шагам».</p>
+</blockquote>
+<h3>8. Самопроверка и два тарифа (17:30–20:00)</h3>
+<p>Слайд: 5 вопросов. Читайте медленно, с паузами.</p>
+<blockquote>
+<p>«Ответьте себе честно "да" или "нет":
+1. Человек, который никогда не был у психолога или коуча, с первой строки поймёт, что ваш пост про него?
+2. Вы бы сами остановились на первой строке своих последних постов?
+3. Подруга за 10 секунд в вашем профиле поймёт, кому вы помогаете и как получить от вас подарок?
+4. В последних переписках вы задали вопрос раньше, чем назвали цену?
+5. Вы знаете, сколько человек написали вам на прошлой неделе?</p>
+<p>Каждое "нет" — это приём, с которого стоит начать именно вам».</p>
+</blockquote>
+<p>Слайд: два тарифа.</p>
+<blockquote>
+<p>«Чтобы закрыть эти "нет", я сделала два варианта.
+Первый — "Сама", 890 рублей. Гайд "Система органического трафика": 9 разделов, маршрут на 4 недели и 15 готовых промптов для нейросети. Для тех, кто любит разбираться сам.
+Второй — "С поддержкой", 2 490 рублей. Тот же гайд плюс гостевой месяц в моём Клубе "Магия продаж": живые разборы каждый вторник, где я смотрю именно на вашу ситуацию, база знаний и встречи с практиками. Обычно гостевой месяц стоит 7 100 рублей — для вас бонусная цена, она действует 24 часа после того, как вы получили это видео.
+Если вы знаете за собой "прочитаю и отложу" — берите второй. Внедрять не одной гораздо легче.
+Ссылки — под видео и в конце статьи.</p>
+<p>А если хотите идти быстро и лично со мной — напишите мне слово БЛОГ, расскажу про "Систему устойчивых продаж".</p>
+<p>Продажи — это система. И блог тоже. До встречи в Клубе!»</p>
+</blockquote>
+<hr />
+<h3>Техника</h3>
+<ul>
+<li>Свет лицом к окну или кольцевая лампа перед лицом, камера на уровне глаз, взгляд в объектив.</li>
+<li>Петличный микрофон: чистый голос важнее картинки.</li>
+<li>Снимайте блоками по 2–3 минуты — проще переснять один блок, чем всё видео.</li>
+<li>Меняйте план каждые 20–40 секунд: слайд, показ экрана, другой ракурс.</li>
+<li>В описании видео — тайм-коды по блокам и обе ссылки на тарифы.</li>
+</ul></div>
+</section>
+
+<!-- ===================== СООБЩЕНИЯ ===================== -->
+<section class="panel" id="messages" hidden>
+  <div class="eyebrow">Бот</div>
+  <h2>Сообщения бота</h2>
+  <div class="howto"><b>Как пользоваться</b><p>Под каждым сообщением — кнопка «Копировать». Вставьте текст в бота, замените [Имя] и [ссылка].</p></div>
+  <div class="doc msgs"><h3>1. Сразу после слова КЛИЕНТЫ</h3>
+<blockquote>
+<p>[Имя], держите! 🎁
+📖 Статья: [ссылка]
+🎥 Или видео на 20 минут — внутри то же самое: [ссылка]</p>
+<p>Внутри — 5 приёмов, каждый можно сделать сегодня за 10–20 минут, и истории учениц с маленькими блогами. А в конце — самопроверка на 2 минуты: сразу увидите, с какого приёма начать.</p>
+</blockquote>
+<h3>2. Через 3–4 часа, если не купил</h3>
+<blockquote>
+<p>[Имя], успели прочитать? Сколько у вас получилось «нет» в самопроверке?
+Напишите цифру — подскажу, с какого приёма начать 🤍</p>
+</blockquote>
+<p>Если человек ответил — это живой диалог, отвечаете сами.</p>
+<h3>3. За 3 часа до конца бонусной цены (через 21 час), если не купил</h3>
+<blockquote>
+<p>[Имя], через 3 часа заканчивается бонусная цена: гайд вместе с гостевым месяцем Клуба — 2 490 ₽. Потом гостевой месяц — по обычной цене, 7 100 ₽.</p>
+<p>«Сама» — 890 ₽: [ссылка]
+«С поддержкой» — 2 490 ₽: [ссылка]</p>
+</blockquote>
+<h3>3а. На следующий день, если не купил</h3>
+<blockquote>
+<p>[Имя], бонусная цена на Клуб закончилась. А гайд «Система органического трафика» по-прежнему 890 ₽ — все 5 приёмов пошагово, с готовыми промптами: [ссылка]</p>
+</blockquote>
+<p>После этого — без напоминаний. Человек остаётся в рассылке.</p>
+<p><strong>Технически:</strong> в боте нужен таймер на 24 часа от выдачи статьи. После него кнопка «2 490 ₽» исчезает, остаётся «890 ₽».</p>
+<h3>4. После оплаты</h3>
+<p><strong>Тариф «Сама»:</strong></p>
+<blockquote>
+<p>[Имя], спасибо! Ваш гайд: [ссылка]
+Начните с раздела «Старт» — паспорт эксперта, 20 минут. Пришлите, что получилось, — посмотрю 🤍</p>
+</blockquote>
+<p><strong>Тариф «С поддержкой»:</strong></p>
+<blockquote>
+<p>[Имя], добро пожаловать в Клуб! 🎉
+Гайд: [ссылка]
+Клуб: [ссылка]
+Разборы — каждый вторник в 10:00 мск. Заполните анкету на ближайший разбор: [ссылка]</p>
+</blockquote></div>
+</section>
+
+<!-- ===================== ПРОДУКТЫ ===================== -->
+<section class="panel" id="products" hidden>
+  <div class="eyebrow">Что продаём</div>
+  <h2>Продукты в воронке</h2>
+  <p>От бесплатного к главному. Каждая ступень чуть дороже и чуть теплее предыдущей.</p>
+  <div class="cards">
+    <article class="card">
+      <div class="tag">Шаг 1 · бесплатно</div>
+      <h3>Статья + видео</h3>
+      <div class="p">0 ₽</div>
+      <ul><li>История Светланы (120 подписчиков) и ваша (230 подписчиков)</li><li>5 приёмов с заданием «сделайте сегодня»</li><li>Кейсы учениц, самопроверка</li></ul>
+      <div class="how">Выдаёт бот по слову <b>КЛИЕНТЫ</b></div>
+    </article>
+    <article class="card">
+      <div class="tag">Шаг 2 · тариф «Сама»</div>
+      <h3>Гайд «Система органического трафика»</h3>
+      <div class="p">890 ₽</div>
+      <ul><li>9 разделов, маршрут на 4 недели</li><li>15 готовых промптов для нейросети</li><li>Блок «5 приёмов из статьи — где они в гайде»</li><li>Адаптация под Telegram, MAX и VK</li></ul>
+      <div class="how">После оплаты бот присылает ссылку на страницу гайда (Tilda)</div>
+    </article>
+    <article class="card star">
+      <div class="tag">Шаг 2 · тариф «С поддержкой» ⭐</div>
+      <h3>Гайд + гостевой месяц Клуба</h3>
+      <div class="p">2 490 ₽ <small>вместо 7 990 ₽ · 24 часа</small></div>
+      <ul><li>Всё из тарифа «Сама»</li><li>Разборы каждый вторник в 10:00 мск</li><li>База знаний: 300+ материалов</li><li>Встречи с практиками: трафик ВК, реклама в Telegram, продажи на созвонах</li></ul>
+      <div class="how">Только через статью и бота. На сайте Клуба цена остаётся 7 100 ₽</div>
+    </article>
+    <article class="card">
+      <div class="tag">Шаг 3 · главный продукт</div>
+      <h3>Клуб «Магия продаж» на год</h3>
+      <div class="p">78 000 ₽ <small>или 7 100 ₽ в месяц</small></div>
+      <ul><li>Всё из гостевого месяца</li><li>Нейрометодолог 24/7</li><li>Модуль «Сила трафика»</li><li>Закрытое сообщество экспертов</li></ul>
+      <div class="how">Предложение в конце гостевого месяца · слово <b>КЛУБ</b></div>
+    </article>
+    <article class="card wide">
+      <div class="tag">Боковой вход · лично с вами</div>
+      <h3>«Личная навигация» → «Система устойчивых продаж»</h3>
+      <p>Бесплатная встреча 45 минут в Zoom: блог глазами клиента, главное слабое место, 3 шага на неделю и честное решение, подходит ли программа. Дальше — 8 недель интенсивной работы лично с вами.</p>
+      <div class="how">Слово <b>БЛОГ</b> — из статьи или из Клуба</div>
+    </article>
+  </div>
+</section>
+
+<!-- ===================== ОТЗЫВЫ ===================== -->
+<section class="panel" id="reviews" hidden>
+  <div class="eyebrow">Для статьи, блога и прогрева</div>
+  <h2>Отзывы и кейсы</h2>
+  <div class="howto"><b>Важно</b><p>Перед публикацией с именем — коротко спросите согласие ученицы. Признания о сопротивлении и страхах — только без имён.</p></div>
+  <div class="doc"><p>Собрано из выгрузки канала «Отзывы💸Зульфии MENTOR» и скриншотов. Перед публикацией с именем — коротко спросить согласие у ученицы.</p>
+<h3>Боли словами клиенток (для вступления)</h3>
+<ul>
+<li>«Серой мышкой с огромным масштабом внутри, о котором никто не знает»</li>
+<li>«Как слепой котёнок: куда идти, как всё работает?»</li>
+<li>«Не могу продавать через запугивание, страх — это вообще не моё»</li>
+<li>«Как в магазине не хочу больше»</li>
+<li>«Думала, что у меня совсем всё плохо, ведь я многого не понимаю и не умею»</li>
+<li>«Когда познакомилась — ненавидела телеграм»</li>
+<li>«Синдром самозванца, нет энергии»</li>
+<li>«Довольствование малым было в крови»</li>
+<li>«Играла во фриланс, но никак не строила бизнес»</li>
+<li>«Когда инстаграм заблокировали, я так в него и не заходила… в контакте уже забыла, как им пользоваться… с техникой как маугли»</li>
+<li>«Тема целительства прям не идёт для соцсетей»</li>
+<li>«Тело протестовало: накопилась усталость из-за постоянных обучений» (Ольга Сапунова)</li>
+<li>«Уже 3 недели тяну создание продукта… загоны, отмазки»</li>
+<li>«Слышу, вижу, но делаю не совсем так — как одинокий муравей без команды»</li>
+<li>«В онлайне с 2019, и только сейчас ощутила свет в конце туннеля»</li>
+</ul>
+<h3>Кейсы «клиенты из блога»</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Кто</th>
+<th>Было</th>
+<th>Что сделали</th>
+<th>Стало</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Анна Зарицкая, энергопрактик</td>
+<td>Канал: пара постов, 43 подписчика</td>
+<td>Система, продуктовая линейка, «перевод с энергетического на русский»</td>
+<td>1 500 подписчиков, 2 марафона, наставничество окупила ×6</td>
+</tr>
+<tr>
+<td>Светлана, дизайнер состояний</td>
+<td>120 подписчиков, работа в найме</td>
+<td>Скорректировали нишу, «тёплый» контент</td>
+<td>Первая продажа за 7 дней, ушла с работы</td>
+</tr>
+<tr>
+<td>Участница Клуба (2 недели)</td>
+<td>Позиционирование «про проявленность»</td>
+<td>Новое позиционирование, линейка, закреп, цепочка постов</td>
+<td>Заявки почти с каждого поста, диагностики на неделю вперёд, +300 подписчиков</td>
+</tr>
+<tr>
+<td>Людмила, нутрициолог</td>
+<td>—</td>
+<td>Пост по формуле + скрипт</td>
+<td>Заявка через 2 часа, продажа на холодную аудиторию</td>
+</tr>
+<tr>
+<td>Ученица наставничества</td>
+<td>—</td>
+<td>Один клип (домашнее задание)</td>
+<td>5 записей на консультацию, 3 платные</td>
+</tr>
+<tr>
+<td>Евгения Мисс (Реалити)</td>
+<td>Сопротивление, злость</td>
+<td>Позиция ученика, работа с состоянием</td>
+<td>Отключила трафик — заявки продолжают идти</td>
+</tr>
+<tr>
+<td>Участница Реалити (беременна, 2 детей)</td>
+<td>3,5 года не решалась</td>
+<td>Контент-завод</td>
+<td>Заявки без трафика, 195 000 ₽</td>
+</tr>
+<tr>
+<td>Выпускница наставничества</td>
+<td>—</td>
+<td>Система продвижения и продаж</td>
+<td>15–20 целевых заявок в неделю, доход +400 тыс. ₽</td>
+</tr>
+<tr>
+<td>Ольга Катриора</td>
+<td>Гостевой тариф Клуба</td>
+<td>Клуб → наставничество</td>
+<td>Окупила Клуб ×16, 12-й миллионер</td>
+</tr>
+<tr>
+<td>Участница Клуба</td>
+<td>Гостевой тариф 6 000 ₽</td>
+<td>Шаги в доверии наставнику</td>
+<td>100 тыс. с первой недели, почти 300 тыс. за месяц</td>
+</tr>
+<tr>
+<td>Наталья Ярыгина, врач/психолог (Германия)</td>
+<td>100–300 € в месяц, канала нет</td>
+<td>Канал с нуля</td>
+<td>570 000 ₽ за 5 месяцев</td>
+</tr>
+<tr>
+<td>Ученица (Telegram)</td>
+<td>Доход 1 000–4 000 ₽/мес</td>
+<td>Канал, линейка, команда</td>
+<td>Стабильно 100 000+ ₽</td>
+</tr>
+<tr>
+<td>Ольга Сапунова</td>
+<td>Первые 2 мес. без продаж, «убегала от себя»</td>
+<td>Распаковка, канал, эфиры, линейка, чек</td>
+<td>545 650 ₽ за 1,5 месяца — больше, чем за весь прошлый год</td>
+</tr>
+<tr>
+<td>Наталья МРС</td>
+<td>Не было YouTube</td>
+<td>Освоила Shorts с проверками</td>
+<td>За полчаса 9 подписчиков и 450 просмотров</td>
+</tr>
+<tr>
+<td>Наталья («Радикальное продвижение»)</td>
+<td>Только Telegram</td>
+<td>Создала YouTube, Дзен, Reels/Shorts, офферы, лид-магниты, контент-план</td>
+<td>«Проявление себя как мастера в привлечении новых клиентов»</td>
+</tr>
+<tr>
+<td>Ученица на сопровождении</td>
+<td>Сжатые сроки набора на ретрит</td>
+<td>2 недели, алгоритм действий и подачи</td>
+<td>Перевыполнила план приглашений</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Боли сопротивления и самообвинения (использовать БЕЗ имён — это не отзывы, а признания)</h3>
+<ul>
+<li>«Ничего не хочет восприниматься, и внутри сильный страх перед программами, с которыми нужно работать»</li>
+<li>«Постоянно возникают события, которые отвлекают, — невозможно сосредоточиться»</li>
+<li>«Внутри неудовлетворённость собой. Виню себя, что не хочу понимать и действовать»</li>
+<li>«Мне очень стыдно, но я не смогла влиться в работу. Третью неделю жутчайший расколбас»</li>
+<li>«Жутчайшее сопротивление: я как ребёнок, мозг встал на дыбы»</li>
+</ul>
+<p>Куда в статье: блок «Почему самому обычно не получается» и «Вы не виноваты». Мысль: сопротивление и страх техники — нормальная реакция, а не «со мной что-то не так»; поэтому нужны маленькие шаги и человек рядом.</p>
+<h3>Ещё цитаты-результаты</h3>
+<ul>
+<li>Наталья МРС: «С твоей поддержкой я наконец-то смогла понять, а что я вообще делаю. В потоке прикольно всё делать, но когда есть план — это вообще круто»</li>
+<li>«Самое главное теперь — действовать… Было здорово и классно»</li>
+<li>Марина Т: «Лёгкость в обучении и общении, волшебное поле, которое создаётся в группе»</li>
+</ul>
+<h3>Что ценят в Зульфии (для блока доверия)</h3>
+<ul>
+<li>«Включается в работу, живёт вместе с вами вашим проектом»</li>
+<li>«Буквально за ручку каждого ведёт», «пошагово объясняет каждый пункт»</li>
+<li>«Даже тем, кто с компьютером на "Вы", будет полезно»</li>
+<li>«Подсветила сильные стороны», «видит человека глубже его сомнений»</li>
+<li>«Ушла с пошаговым планом», «чётко, по полочкам, без воды»</li>
+<li>«Умение подсветить "боль" мягко — это прям талант»</li>
+<li>«Маркетолог с тонкими настройками: не упаковывает в шаблонные офферы, а бережно распаковывает смыслы»</li>
+<li>«Поддержка 24/7»</li>
+<li>Сочетает продвижение и матрицу / сильные стороны личности — уникальность</li>
+</ul>
+<h3>Факты о Зульфии (сверено)</h3>
+<ul>
+<li>24 года в образовании, кандидат наук, доцент</li>
+<li>10 лет в онлайн-бизнесе, 5 лет — маркетолог</li>
+<li>13 учеников-миллионеров, 500+ экспертов, 1000+ консультаций, 40+ млн ₽ заработали ученики</li>
+<li>Клуб «Магия продаж»: гостевой месяц 7 100 ₽, годовой 78 000 ₽ (zulfiyamentor.ru/klub)</li>
+</ul>
+<p><strong>Исправить у себя:</strong> на странице Клуба написано «25 лет в образовании» и «5 лет в онлайне»; в шапке YouTube — «23 года». В гайде за 890 ₽ карточка Клуба показывает 2 990 ₽ вместо 7 100 ₽.</p>
+<h3>Отзывы о созвонах / консультациях (для блока «Личная навигация»)</h3>
+<ul>
+<li>Илья Пугачёв: «Запрос — понять стратегию продвижения продукта. Минут за 40 уложились! Всё очень чётко и структурно… Результат — пошаговый план!»</li>
+<li>«Ты не предлагала свои продукты, зная, что мне сейчас нужно совсем другое… искренне хотела помочь, а не что-то продать, лишь бы продать»</li>
+<li>«Как созвон с тобой реально помог мне! После созвона… наконец нарисовалась точка С»</li>
+<li>Татьяна: «Подсветила, как дальше себя позиционировать в Телеграм и соцсетях. Рекомендация написать пост "Я кейс своего продукта". Много идей для первых продаж. Пишу план на неделю»</li>
+<li>Танзиля Фатикова: «Огромная благодарность за созвон. Очень ценно. Многим поделились, что меня волновало»</li>
+<li>Диана Гладнева, коуч ICF: «В тебе очень много мудрости. И какая-то невероятная сила»</li>
+<li>Флиза: «Куча заданий, куча идей… Вдохновение открылось. А ещё консультацию провела»</li>
+</ul>
+<h3>Боль «агрессивные продажи» (дифференциация)</h3>
+<ul>
+<li>«Я радуюсь, когда эксперт очень экспертный и при этом продаёт нативно, не заставляя людей. У меня есть примеры: эксперт классный, я бы пошла учиться, но настолько давит, настолько агрессивные продажи — я заходила на вебинары и не могу досматривать до конца, меня выбивает. У вас же совсем наоборот»</li>
+</ul>
+<h3>Кейс: 1 500 000 ₽</h3>
+<ul>
+<li>Ученица продала личное сопровождение на 1 500 000 ₽ (3 месяца, оплата частями; первый взнос получен). «Благодаря вам увидела, что один и тот же продукт можно упаковать по-разному, сделав разные форматы, и продать по разной стоимости». Имя не указано — уточнить, можно ли назвать.</li>
+</ul>
+<h3>Новые результаты (скриншоты)</h3>
+<ul>
+<li>«Ураа, после разговора с тобой продажа прошла на VIP!» + оплата 100 800 ₽ (имя скрыто)</li>
+<li>Ольга Катриора: «Заявки летят каждый час. Хоть посты не пиши в канале» (скрин уведомлений: «Запишите меня на диагностику»)</li>
+<li>Ученица: «Моя оплатила… И сегодня оплата с диагностики. 2 диагностики и 2 продажи»</li>
+<li>Продажа в переписке: КП → «мне подходит тариф за 60, обговорим оплату» (упаковка под ключ за 60 000 ₽, тёплая база)</li>
+<li>Татьяна Сиво: «Ты тот самый тихий океан, в котором не нужно доказывать глубину… Ты знаешь так много, но при этом остаёшься ученицей жизни» — для блока о личности, не о результатах</li>
+</ul></div>
+</section>
+
+<!-- ===================== НА ПОТОМ ===================== -->
+<section class="panel" id="later" hidden>
+  <div class="eyebrow">Не сейчас</div>
+  <h2>Идеи на потом</h2>
+  <p>Всё это уже придумано и лежит в папке <code>idei-na-potom</code>. Добавляйте по одному, когда пойдут первые продажи и появятся цифры.</p>
+  <div class="cards">
+    <article class="card"><div class="tag">Вау-подарок</div><h3>«Карта смыслов блога»</h3><p>Промпт: нейросеть читает блог глазами клиента за 10 минут и показывает, почему читают, но не покупают. Демо-версия нейрометодолога из годового Клуба.</p></article>
+    <article class="card"><div class="tag">Для гайда</div><h3>5 связок трафика</h3><p>Подарок за слово, «Реши задачку», свой канал в MAX, оживление аудитории за 3 дня, одно видео — четыре площадки.</p></article>
+    <article class="card"><div class="tag">Второй вход</div><h3>Тест «Где ваш блог теряет клиентов?»</h3><p>7 вопросов, 5 типов: Невидимка, Витрина без двери, Щедрый консультант, Тихий эксперт, Вдохновенный марафонец.</p></article>
+    <article class="card"><div class="tag">Для базы</div><h3>Ежемесячный открытый эфир-разбор</h3><p>3–4 блога в прямом эфире, в конце — гайд и Клуб. Повторный повод купить для тех, кто не купил сразу.</p></article>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">© Зульфия Ментор · @zulfiyamentor. * Instagram и Threads — продукты компании Meta Platforms Inc., которая признана экстремистской организацией, её деятельность на территории РФ запрещена.</div></footer>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('nav.tabs a')),ids=tabs.map(function(a){return a.dataset.tab});
+  function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+  var toastEl=document.getElementById('toast'),tt;
+  function toast(m){toastEl.textContent=m;toastEl.hidden=false;clearTimeout(tt);tt=setTimeout(function(){toastEl.hidden=true},2200)}
+  function show(id,scroll){
+    if(ids.indexOf(id)<0)id='scheme';
+    ids.forEach(function(x){document.getElementById(x).hidden=(x!==id)});
+    tabs.forEach(function(a){var on=a.dataset.tab===id;a.setAttribute('aria-selected',on);if(on&&a.scrollIntoView)a.scrollIntoView({block:'nearest',inline:'center'})});
+    store('vi-tab',id);
+    if(scroll){var top=document.querySelector('nav.tabs').offsetTop;if(window.scrollY>top)window.scrollTo(0,top)}
+  }
+  tabs.forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();show(a.dataset.tab,true)})});
+  var h=(location.hash||'').slice(1);show(ids.indexOf(h)>=0?h:(store('vi-tab')||'scheme'));
+
+  function copyText(text,label){
+    function ok(){toast(label||'Скопировано')}
+    function fb(){var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();var d=false;try{d=document.execCommand('copy')}catch(_){}document.body.removeChild(ta);d?ok():toast('Не получилось — выделите текст вручную')}
+    try{navigator.clipboard.writeText(text).then(ok,fb)}catch(_){fb()}
+  }
+  [].forEach.call(document.querySelectorAll('[data-copy]'),function(b){b.addEventListener('click',function(){copyText(document.getElementById(b.dataset.copy).innerText,'Статья скопирована')})});
+  // copy buttons under every bot message
+  [].forEach.call(document.querySelectorAll('.msgs blockquote'),function(q){
+    var b=document.createElement('button');b.type='button';b.className='mini';b.textContent='Копировать сообщение';
+    b.addEventListener('click',function(){copyText(q.innerText.trim(),'Сообщение скопировано')});
+    q.appendChild(b);
+  });
+  // launch checklist
+  var cks=[].slice.call(document.querySelectorAll('[data-ck]'));
+  function prog(){var n=cks.filter(function(c){return c.checked}).length;document.getElementById('pbar').style.width=(n/cks.length*100)+'%';document.getElementById('ptext').textContent='Готово '+n+' из '+cks.length}
+  cks.forEach(function(c){c.checked=store('vi-'+c.dataset.ck)==='1';c.addEventListener('change',function(){store('vi-'+c.dataset.ck,c.checked?'1':'0');prog()})});
+  document.getElementById('reset').addEventListener('click',function(){cks.forEach(function(c){c.checked=false;store('vi-'+c.dataset.ck,'0')});prog();toast('Отметки сброшены')});
+  prog();
+})();
+</script>
